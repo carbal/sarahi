@@ -181,7 +181,7 @@ class Ventageneral_model extends CI_Model {
 	 	$this->db->join('producto','detalle_venta.sku = producto.sku','inner');
 	 	$this->db->join('ventas','detalle_venta.id_venta = ventas.id_venta','inner');
 	 	$this->db->join('clientes','ventas.rfc = clientes.rfc','inner');	
-	 	$this->db->where('usuario.id_zona',$idZona);
+	 	$this->db->where('clientes.id_cadena',$idCadena);
 	 	$this->db->where('ventas.fecha >=',$fecha);
 	 	$this->db->where('ventas.fecha <=',$fecha);	 	
 	 	$this->db->group_by('detalle_venta.sku');
@@ -203,7 +203,7 @@ class Ventageneral_model extends CI_Model {
 	 	$this->db->join('producto','detalle_venta.sku = producto.sku','inner');
 	 	$this->db->join('ventas','detalle_venta.id_venta = ventas.id_venta','inner');
 	 	$this->db->join('clientes','ventas.rfc = clientes.rfc','inner');	
-	 	$this->db->where('usuario.id_zona',$idZona);
+	 	$this->db->where('clientes.id_cadena',$idCadena);
 	 	$this->db->where('ventas.fecha >=',$fecha);
 	 	$this->db->where('ventas.fecha <=',$intervalo);	 	
 	 	$this->db->group_by('detalle_venta.sku');
@@ -212,7 +212,3 @@ class Ventageneral_model extends CI_Model {
 	}
 
 }
-
-/* End of file buscador_model.php */
-/* Location: ./application/models/buscador_model.php */
-?>

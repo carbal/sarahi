@@ -1,3 +1,7 @@
+
+<div class="row">
+  
+
 <div class="col-md-8 col-md-offset-2" >
   <div class="alert alert-danger" style="display:none;" id="container-errores">
     <p><strong>AVISO : </strong> Verifique los siguientes errores.</p>
@@ -7,8 +11,8 @@
     </div>
     
   </div>
-	<div class="alert alert-success">
-	<form class="form-inline" role="form" id="search">		
+  <div class="alert alert-success">
+  <form class="form-inline" role="form" id="search">    
   <div class="form-group">  
      <input class="form-control" placeholder="busqueda..." name="parametro" id="auto">
      <div id="caja"></div>   
@@ -27,7 +31,11 @@
 </form>
   </div>
 
+</div><!--class row-->
   
+
+
+  <div class="row">    
   </div>
     <div class="alert alert-info col-md-8 col-md-offset-2" id="info">
       <p>&#8226;escriba en el primer campo para comenzar una busqueda.</p>
@@ -41,6 +49,11 @@
   </div>
 
   </div>
+
+  </div>
+
+
+  <!--SECCIÓN VENTANA MODAL-->
 
   <div class="modal fade" id="info_venta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

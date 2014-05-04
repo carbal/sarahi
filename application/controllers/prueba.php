@@ -17,6 +17,11 @@ class Prueba extends CI_Controller {
 		$datos=$this->ventageneral_model->zonaIntervalo(2,$fecha,$intervalo);
 		echo var_dump($datos);
 	}
+
+	public function prueba()
+	{
+		echo "Esto es una pruenba desde codeigniter";
+	}
 }
 
 /* End of file prueba */

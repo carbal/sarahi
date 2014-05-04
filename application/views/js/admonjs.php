@@ -412,24 +412,26 @@
                        dataType: 'json',
                        data:$("form#search").serialize(),
                        beforeSend:function(){
-                        $("#resultados").html(espera);
+                        $('#fondo').fadeIn('slow');
+                        $('#wait').fadeIn('slow');
                        }
                    })
-                   .done(function(data) {
+                   .done(function(data){
+                        $('#fondo').fadeOut('slow');
+                        $('#wait').fadeOut('slow');
                        if(data.exito==true){
-
                             $("#resultados").load("<?=base_url()?>index.php/buscarventa/edoGeneral/");
                             $("#resultados").slideDown("slow");
                             $("#info").slideUp('slow');
                             $("#container-errores").slideUp('slow');
                        }else{
-                        $("#errores").html(data.html);
-                        $("#container-errores").slideDown("slow");
-                        $("#resultados").hide();
+                            $("#errores").html(data.html);
+                            $("#container-errores").slideDown("slow");
+                            $("#resultados").hide();
                        }
                    })
                    .fail(function(data) {
-                        console.log("error, al realizar peticion ajax");
+                        console.log(data);
                    });
            
                 });

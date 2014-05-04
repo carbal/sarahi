@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script type="text/javascript" src="<?=base_url()?>js/jquery-2.0.2.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>js/bootstrap.js"></script>
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/bootstrap.css">	
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>css/bootstrap.css">	
 	<style type="text/css">
 	  body{
 	  	background: rgba(0,0,0,1);

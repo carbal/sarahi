@@ -158,11 +158,10 @@ class Abono extends CI_Controller {
 	//método para mostrar cuentas por pagar por cliente
 	public function cppCliente($apartir=0)
 	{
-		//llamamos a los modelos necesarios
-		$this->load->model('cpp/cliente_model');
-		//llamamos a las sesiones necesarias
-		$idCliente=$this->session->userdata('idabono');
-
+			//llamamos a los modelos necesarios
+			$this->load->model('cpp/cliente_model');
+			//llamamos a las sesiones necesarias
+			$idCliente=$this->session->userdata('idabono');
 			//configuramos la url de la paginacion
             $config['base_url'] =base_url()."index.php/abono/cppCliente/";            
             $config['div'] = 'div#resultados';            
