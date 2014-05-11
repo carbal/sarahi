@@ -27,6 +27,18 @@ class Productos_enalmacen_model extends CI_Model {
 		$this->db->insert('productos_enalmacen',$data);
 	}
 
+	//obtener un producto pro id
+	public function getProducto($idProducto){	
+		$producto = $this->db->get_where('productos_enalmacen',array('id_proalmacen'=>$idProducto));
+		return $producto->row_array();
+	}
+
+	//actualizar producto
+	public function updateProducto($id,$data){
+		$this->db->where('id_proalmacen',$id);
+		$this->db->update('productos_enalmacen',$data);		
+	}
+
 
 	//actualizar el campo existencia, de la tabla 
 	public function sumarProductoAlmacen($producto,$zona,$cantidad)
@@ -70,7 +82,6 @@ class Productos_enalmacen_model extends CI_Model {
 	}
 
 	//metodo para actualizar la existencias en almacen
-
 	public function updateExistencia($idZona,$sku,$cantidad)
 	{
 		$where=array(

@@ -27,8 +27,7 @@
         var randon_id;
         var valor;
         
-        //aplicamos datepicker al input correspondiente
-        
+        //aplicamos datepicker al input correspondiente        
 
         var panel={  
             autocompletar_cadena:function(){
@@ -566,7 +565,45 @@
                     
                 });  
             }
-        }   
+        }
+        var almacen={
+            modalZona:function(idProducto){
+               $.ajax({
+                   url: '<?=base_url()?>index.php/almacen/modalEditar',
+                   type: 'POST',
+                   dataType: 'html',
+                   data: {id:idProducto},
+               })
+               .done(function(data){  
+                   $('#modalEditar').html(data);
+                   $('#modalEditar').modal();
+               })
+               .fail(function() {
+                   console.log("fatal error: controller:almacen, action:modalZona");
+               });
+               
+            },
+            updateProducto:function(){
+               $.ajax({
+                    url: '<?=base_url()?>index.php/almacen/updateProducto',
+                    type: 'POST',
+                    dataType:'json',                    
+                    data: $('form#formProducto').serialize()+'&id='+$('input:hidden').prop('value')
+                })
+                .done(function(data) {
+                    if(data.success){
+                        $('#modalEditar').modal('hide');
+                        $('#success').show(500).delay(2000).hide(500);
+                    }else{                        
+                        $('form#formProducto').find('input').parent().parent().addClass('has-error');
+                    }
+                })
+                .fail(function() {
+                    console.log("error fatal: controller:almacen, action:updateProducto");
+                });
+                
+            }//termina evento updateProducto
+        }  
 
 
     $(document).on('ready',function(){

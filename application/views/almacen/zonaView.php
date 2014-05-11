@@ -1,26 +1,35 @@
 <div class="col-md-8 col-md-offset-2">
 	<legend>Almacen General</legend>
+	<div class="alert alert-success" id="success" style="display:none;">
+		<h5>Se actualizó con éxito</h5>
+	</div>
 <div class="panel panel-primary">
 <div class="panel-heading">
-<h4 class="panel-tittle">Productos en existencias : <?=strtoupper($nombre)?></h4>
+<h4 class="panel-tittle"><?=strtoupper($nombre)?></h4>
 </div>	
 
 <div class="panel-body">
 <div class="table-responsive">
 	<table class="table table-hover">
 		<tr>
-			<th>Descripción</th>
+			<th>DESCRIPCIÓN</th>
 			<th>SKU</th>
-			<th>Categoría</th>
-			<th>Precio Costo</th>
-			<th>Precio Venta</th>
-			<th>Existencia</th>
+			<th>CATEGORÍA</th>
+			<th>P. COSTO</th>
+			<th>P. VENTA</th>
+			<th>EXISTENCIA</th>
+			<th>EDITAR</th>
 		</tr>
+		
 	<?foreach ($cuerpo as $fila):?>
 	<tr>
-		<?foreach ($fila as $registro):?>
-			<td><?=$registro?></td>
-		<?endforeach;?>
+		<td><?=$fila['descripcion']?></td>
+		<td><?=$fila['sku']?></td>
+		<td><?=$fila['categoria']?></td>
+		<td class="text-center"><?=$fila['costo']?></td>
+		<td class="text-center"><?=$fila['venta']?></td>		
+		<td class="text-center"><?=$fila['existencia']?></td>
+		<td class="text-center"><span class="glyphicon glyphicon-pencil" title="Editar" style="cursor:pointer;" onclick="almacen.modalZona(<?=$fila['id']?>);"></span></td>
 	</tr>
 	<?endforeach;?>
 
@@ -72,4 +81,5 @@
 	<?endif;?>
 </div>
 
-
+<div class="modal fade" id="modalEditar">	
+</div>

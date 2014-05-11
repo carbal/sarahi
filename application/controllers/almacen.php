@@ -8,12 +8,13 @@ class Almacen extends CI_Controller {
 		$this->removeCache();
 		$this->load->library('session');
 		$this->load->database();
+		$this->load->library('form_validation');
 		if(!$this->session->userdata('usuario')){
 			redirect(base_url());
 		}	
 
 	}
-
+	//evitar que se almacene cache en el controlador
 	public function removeCache()
 	{
 		$this->output->set_header('Last-Modified:gmdate("D, d MYH: i: s"..)GMT');
@@ -22,7 +23,7 @@ class Almacen extends CI_Controller {
 		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");
 	}
 
-
+	//mostrar almacenes por zona: yucatan, campeche, q roo
 	public function zona($almacen)
 	{
 		
@@ -82,13 +83,55 @@ class Almacen extends CI_Controller {
             $cuerpo=$query;        
             
             $data=array(
+            	'id_almacen'=>$id_almacen,
             	'cuerpo'=>$cuerpo,            	
             	'nombre'=>$almacen,
             	'subalmacenes'=>$subalmacenes            	
             	);
            $this->load->view('template/encabezado');
-           $this->load->view('almacen/show_almacen', $data);
+           $this->load->view('almacen/zonaView', $data);
            $this->load->view('template/piepagina');
+	}
+
+	//mostrar modal para editar 
+	public function modalEditar()
+	{
+
+		$idProducto= $this->input->post('id');
+
+		//llamamos al modelo requerido		
+		$this->load->model('orm/productos_enalmacen_model');
+		//obtemos los datos del producto por zona
+		$data['producto'] = $this->productos_enalmacen_model->getProducto($idProducto);
+		$this->load->view('almacen/modalEditarView',$data);
+	}
+
+	public function updateProducto()
+	{
+		if($this->input->is_ajax_request()){
+
+
+			$this->form_validation->set_rules('stock_min', 'stock_min', 'required|integer|xss_clean');
+			$this->form_validation->set_rules('stock_max', 'stock_max', 'required|integer|xss_clean');
+			
+			if($this->form_validation->run()==TRUE){
+				//capturamos los datos enviados por POST
+				$id = $this->input->post('id');
+				$data = array(
+					'stock_max'=>$this->input->post('stock_max'),
+					'stock_min'=>$this->input->post('stock_min')
+				);
+				//llamamos al modelo donde vamos a inserta
+				$this->load->model('orm/productos_enalmacen_model');
+				$this->productos_enalmacen_model->updateProducto($id,$data);
+				echo json_encode(array('success'=>true));				
+			}else{
+				echo json_encode(array('success'=>false));
+			}
+
+		}else{
+			show_404();
+		}
 	}
 
 

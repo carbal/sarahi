@@ -177,7 +177,6 @@ class Panel extends CI_Controller {
 		$this->load->model('orm/usuario_model');		
 
 		if($this->input->is_ajax_request()){
-
 			$idventa=$id;
 			//obtenemos los detalles de la venta
 			$venta=$this->ventas_model->getVenta($idventa);

@@ -294,7 +294,6 @@ class Abono extends CI_Controller {
 			return FALSE;
 		}
 	}
-
 }
 
 /* End of file abono.php */
