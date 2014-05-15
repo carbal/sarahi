@@ -12,7 +12,6 @@ class Almacen extends CI_Controller {
 		if(!$this->session->userdata('usuario')){
 			redirect(base_url());
 		}	
-
 	}
 	//evitar que se almacene cache en el controlador
 	public function removeCache()
@@ -105,7 +104,7 @@ class Almacen extends CI_Controller {
 		$data['producto'] = $this->productos_enalmacen_model->getProducto($idProducto);
 		$this->load->view('almacen/modalEditarView',$data);
 	}
-
+	//actualizar stock minimo y stock maximo de un producto
 	public function updateProducto()
 	{
 		if($this->input->is_ajax_request()){

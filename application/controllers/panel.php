@@ -108,44 +108,6 @@ class Panel extends CI_Controller {
 	}
 
 
-	//metodo para paginar la tabla almacen por zona
-	public function almacen($id_almacen,$pagina=0)
-	{
-							
-			$this->load->library('pagination');
-			
-			$nombrezona=$this->zona_model->get_zona($id_almacen);
-			$query=$this->crud_model->filas_almacen($id_almacen);
-			$config['base_url']=base_url()."index.php/panel/almacen/$id_almacen/";
-			//obtener el numero de filas correspondiente al vendedor
-			$config['total_rows']=$query->num_rows();
-			$query->next_result();
-			$query->free_result();
-			//datos de configuracion
-			$config['per_page']=5;
-			$config['num_links']=5;
-			$config['prev_link']="anterior";
-			$config['next_link']="siguiente";
-			$config['uri_segment'] = "4";  //segmentos que va a tener nuestra URL
-			$config['first_link'] = "<<";  //texto del enlace que nos lleva a la primer página
-			$config['last_link'] = ">>";
-             //cargamos la librería con nuestra configuracion
-            $this->pagination->initialize($config);
-            $call=$this->crud_model->selectAlmacen($id_almacen,$pagina,$config['per_page']);
-            $cuerpo=$call->result_array();
-            $call->next_result();
-            $call->free_result();
-            $paginas=$this->pagination->create_links();
-            $data=array(
-            	'cuerpo'=>$cuerpo,
-            	'paginas'=>$paginas,
-            	'nombre'=>$nombrezona['zona']
-            	);
-           $this->load->view('template/encabezado');
-           $this->load->view('show_almacen', $data);
-           $this->load->view('template/piepagina');
-	}	
-
 /*
 * 	bloque de metodo ajax, los siguientes métodos funcionan con peticiones
 *	ajax
