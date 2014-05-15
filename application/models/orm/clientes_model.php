@@ -12,6 +12,14 @@ class Clientes_model extends CI_Model {
 		//Do your magic here
 	}
 
+
+	//obtener todos los clientes
+	public function all()
+	{
+		$query = $this->db->get('clientes');
+		return $query->result_array();
+	}
+
 	//metodo para buscar el nombre del cliente ::autocompletar->jquery
 	public function likeNombre($cadena)
 	{
@@ -72,8 +80,6 @@ class Clientes_model extends CI_Model {
 		$this->db->where('estado',$zona);
 		return $this->db->get('clientes')->result_array();
 	}
-
-
 
 	//insertamos un nuevo registro a la tabla
 	public function insert($insert)
