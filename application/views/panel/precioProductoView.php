@@ -1,5 +1,5 @@
-<div class="col-md-12">
-	<legend>Agregar productos a una cadena</legend>
+<div class="col-md-10 col-md-offset-1">
+	<legend>Precio Producto</legend>
 	<div class="alert alert-danger" id="error" style="display:none;">
 		<p><strong>ADVERTENCIA : </strong>Este producto ya ha sido agregado.</p>
 	</div>
@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-md-5 control-label pull-left">Producto :</label>
+		<label class="col-md-5 control-label">Producto :</label>
 		<div class="col-md-7">
 
 		<select name="producto" class="form-control">
@@ -34,7 +34,9 @@
 		</div>
 	</div>	
 	<div class="form-group text-center">
-		<button type="button" class="btn btn-success" id="agregar">Agregar</button>		
+    <div class="col-md-12">
+      <button type="button" class="btn-lg btn-success pull-right" id="agregar">Agregar</button>    
+    </div>
 	</div>
 
 </form>

@@ -181,12 +181,12 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?=base_url()?>index.php/clientes">Clientes</a></li>                    
                     <li class="divider"></li>
-                    <li><a href="<?=base_url()?>index.php/panel/formularioUsuarioNuevo">Usuario nuevo</a></li>                    
-                    <li><a href="<?=base_url()?>index.php/panel/formularioProductoNuevo">Producto nuevo</a></li> 
-                    <li><a href="<?=base_url()?>index.php/panel/formularioClienteNuevo">Cliente nuevo</a></li>                   
-                    <li><a href="<?=base_url()?>index.php/panel/formularioCadenaNueva">Nueva Cadena</a></li> 
-                    <li><a href="<?=base_url()?>index.php/panel/formularioAgregarExistencias">Agregar Existencias</a></li>
-                    <li><a href="<?=base_url()?>index.php/panel/formularioPrecioProductoCadena">Agregar Producto a Cadena</a></li> 
+                    <li><a href="<?=base_url()?>index.php/panel/usuarioNuevo">Usuario Nuevo</a></li>                    
+                    <li><a href="<?=base_url()?>index.php/panel/productoNuevo">Producto Nuevo</a></li> 
+                    <li><a href="<?=base_url()?>index.php/panel/clienteNuevo">Cliente Nuevo</a></li>                   
+                    <li><a href="<?=base_url()?>index.php/panel/cadenaNueva">Nueva Cadena</a></li> 
+                    <li><a href="<?=base_url()?>index.php/panel/agregarProductos">Agregar Productos</a></li>
+                    <li><a href="<?=base_url()?>index.php/panel/precioProducto">Agregar Producto a Cadena</a></li> 
                 </ul>
             </li>
         <?php else:?>

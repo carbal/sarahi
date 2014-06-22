@@ -1,5 +1,5 @@
 <div class="col-md-10 col-md-offset-1">
-	<legend>Agregar Cliente Nuevo</legend>
+	<legend>Cliente Nuevo</legend>
 	<div class="alert alert-info" id="info" style="display:none;">		
 	</div>
 
@@ -83,8 +83,8 @@
 			<label for="" class="col-md-3 control-label">Representante :</label>
 			<div class="col-md-6"><input type="text" class="form-control" name="representante"></div>
 		</div>
-		<div class="col-md-3 col-md-offset-5">
-			<button type="button" class="btn btn-success btn-lg" id="add_cliente">Agregar</button>
+		<div class="col-md-9">
+			<button type="button" class="btn btn-success btn-lg pull-right" id="add_cliente">Agregar</button>
 		</div>
 		</form>
 		

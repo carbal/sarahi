@@ -53,54 +53,56 @@ class Panel extends CI_Controller {
 		redirect(base_url());			
 	}
 	//formulario agregar nuevo usuario
-	public function formularioUsuarioNuevo()
+	public function usuarioNuevo()
 	{
 		$data['zonas']=$this->zona_model->select();		
 		$this->load->view('template/encabezado');
-		$this->load->view('panel/formUsuario_view',$data);
+		$this->load->view('panel/usuarioNuevoView',$data);
 		$this->load->view('template/piepagina');
 	}
 	//formulario agregar producto
-	public function formularioProductoNuevo()
+	public function productoNuevo()
 	{
 		$this->load->view('template/encabezado');
-		$this->load->view('panel/formProducto_view');
+		$this->load->view('panel/productoNuevoView');
 		$this->load->view('template/piepagina');
 	}
 	//formulario cliente nuevo
-	public function formularioClienteNuevo()
+	public function clienteNuevo()
 	{
 		$data['cadenas']=$this->cadena_model->select();
 		$data['zonas']=$this->zona_model->select();
 		$this->load->view('template/encabezado');
-		$this->load->view('panel/formCliente_view',$data);		
+		$this->load->view('panel/clienteNuevoView',$data);		
 		$this->load->view('template/piepagina');
 	}
 	//formulario agregar cadena
-	public function formularioCadenaNueva()
+	public function cadenaNueva()
 	{
 		$data['zonas']=$this->zona_model->select();		
 		$this->load->view('template/encabezado');
-		$this->load->view('panel/formCadena_view',$data);
+		$this->load->view('panel/cadenaNuevaView',$data);
 		$this->load->view('template/piepagina');
 	}
 	//mostrar formulario existencias
-	public function formularioAgregarExistencias()
+	public function agregarProductos()
 	{
 		$data['productos']=$this->producto_model->select();
 		$data['zonas']=$this->zona_model->select();
 		$this->load->view('template/encabezado');
-		$this->load->view('panel/formAlmacenExistencia_view',$data);
+		$this->load->view('panel/agregarProductosView',$data);
 		$this->load->view('template/piepagina');
 	}
+
 	//mostrar formulario precio del producto por cadena
-	public function formularioPrecioProductoCadena()
+	public function precioProducto()
 	{
 		$data['productos']=$this->producto_model->select();
 		$this->load->view('template/encabezado');
-		$this->load->view('panel/formPrecioProducto_view',$data);
+		$this->load->view('panel/precioProductoView',$data);
 		$this->load->view('template/piepagina');
 	}
+
 	//cargar formulario abonar cuenta
 	public function formularioCuentas()
 	{
