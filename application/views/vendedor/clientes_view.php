@@ -1,10 +1,10 @@
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-primary">
 		<div class="panel-heading">			
 			<h1 class="panel-title">CLIENTES EN MI ZONA</h1>
 		</div>
 		<div class="panel-body">
-			<table class="table table-hover">
+			<table class="table table-hover" style="font-size:0.9em;">
 				<tr>
 					<th>CLIENTE</th>
 					<th>RFC</th>

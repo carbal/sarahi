@@ -8,7 +8,7 @@
 		    <div class="thumbnail text-center">
 		      <img src="<?=base_url()?>img/vender.png">
 		      <div class="caption">		        		        
-		        <p><a href="<?=base_url()?>index.php/procesoventa/nuevaventa/" class="btn btn-info btn-lg" role="button">Vender</a></p>
+		        <p><a href="<?=base_url()?>index.php/ventas/index" class="btn btn-info btn-lg" role="button">Vender</a></p>
 		      </div>
 		    </div>
 		</div>

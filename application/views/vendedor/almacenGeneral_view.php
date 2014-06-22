@@ -18,9 +18,12 @@
 		</tr>
 	<?foreach ($cuerpo as $fila):?>
 	<tr>
-		<?foreach ($fila as $registro):?>
-			<td><?=$registro?></td>
-		<?endforeach;?>
+		<td><?=$fila['descripcion']?></td>
+		<td><?=$fila['sku']?></td>
+		<td><?=$fila['categoria']?></td>
+		<td><?=$fila['costo']?></td>
+		<td><?=$fila['venta']?></td>
+		<td><?=$fila['existencia']?></td>
 	</tr>
 	<?endforeach;?>
 

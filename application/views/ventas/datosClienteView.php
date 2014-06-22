@@ -36,9 +36,9 @@
 						<label class="col-md-3 control-label">Producto:</label>
 						<div class="col-md-8">
 							<select id="id_producto" class="form-control input-sm">
-								<option selected>Elegir producto</option>
+								<option value="" selected>Elegir producto</option>
 								<?foreach($productos as $producto):?>
-								<option id="<?=$producto['sku']?>" precio="<?=$producto['precio']?>"><?=$producto['descripcion']?></option>
+								<option value="<?=$producto['sku']?>" precio="<?=$producto['precio']?>"><?=$producto['descripcion']?></option>
 								<?endforeach;?>
 							</select>
 						</div>
@@ -47,7 +47,7 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label">Precio:</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control input-sm" id="precio" value="00.0" readonly>
+							<input type="text" class="form-control input-sm" id="precio" value="" readonly>
 						</div>
 					</div>
 					<div class="form-group">

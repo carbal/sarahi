@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Procesoventa extends CI_Controller {
+class Ventas extends CI_Controller {
 	
 	public function __construct()
 	{
@@ -29,34 +29,31 @@ class Procesoventa extends CI_Controller {
 		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");
 	}
 	
-	public function nuevaventa()
+	//método principal del constructor
+	public function index()
 	{
-		//CARGAMOS LAS VISTAS PARA PODER GENERAR LA VISSTA
+		//generamos template
 		$this->load->view('template/encabezado');
-		$this->load->view('procesoventa/ventaNueva_view');
+		$this->load->view('ventas/indexView');
 		$this->load->view('template/piepagina');
-		/*
-			IMPORTANTE¡¡¡
-			SE CREAN LAS SESSIONES PARA PODER ALMACENAR 
-			LAS VARIABLES QUE NECESITAMOS PARA FINALIZAR 
-			LA VENTA
-		*/			
-			$this->session->set_userdata('rfc_cliente',NULL);	
-			$this->session->set_userdata('pila_productos',array());			
+		//creamos sessiones importantes para el proceso de venta
+		$this->session->set_userdata('rfc_cliente',NULL);	
+		$this->session->set_userdata('pila_productos',array());	
 	}
-	//METODO PARA OBTENER LAS SUGERENCIAS DE CLIENTE PETICION AJAX
-	public function sugerencias_clientes()
-	{
 
+	//METODO PARA OBTENER LAS SUGERENCIAS DE CLIENTE PETICION AJAX
+	public function getClientes()
+	{
 		$cadena=$this->input->post('string');
 		//SESSION DEL USUARIO
 		$idZona=$this->session->userdata('idzona');
 		$query=$this->clientes_model->likeNombreZona($cadena,$idZona);
 		$data['sugerencias']=$query;			
-		$this->load->view('procesoventa/html_sugerencias', $data);		
+		$this->load->view('ventas/getClientesView', $data);		
 	}
 
-	public function datos_cliente()
+	//método para devolver los datos del cliente
+	public function datosCliente()
 	{
 		if($this->input->is_ajax_request()){
 			//obtenemos el rfc del cliente PK para obtener sus datos
@@ -74,7 +71,7 @@ class Procesoventa extends CI_Controller {
 		}
 		//cargamos los productos que tiene permiso el cliente
 		$data['productos']=$this->preciocadena_model->productoCadena($data['cliente']['id_cadena']);
-		$json['html']=$this->load->view('procesoventa/detalles_cliente', $data,TRUE);
+		$json['html']=$this->load->view('ventas/datosClienteView', $data,TRUE);
 		$json['deuda']=$deuda;
 		echo json_encode($json);		
 		}else{
@@ -84,15 +81,14 @@ class Procesoventa extends CI_Controller {
 	//método para agregar productos a la venta
 	public function addproductos()
 	{
-		$this->form_validation->set_rules('sku', 'Producto','trim|required|xss_clean');
-		$this->form_validation->set_rules('precio', 'Precio', 'trim|callback_precio_positivo|numeric||required|xss_clean');
-		$this->form_validation->set_rules('cantidad','Cantidad','trim|callback_cantidad_positivo|callback_comprobarExistenciaProducto|integer|required|xss_clean');
+		$this->form_validation->set_rules('sku', 'Producto','trim|required|callback_existeProducto|xss_clean');
+		$this->form_validation->set_rules('precio', 'Precio', 'trim|is_natural_no_zero|required|xss_clean');
+		$this->form_validation->set_rules('cantidad','Cantidad','trim|required|is_natural_no_zero|callback_productosinsuficientes|xss_clean');
+		$this->form_validation->set_message('is_natural_no_zero','El campo %s debe ser mayor a cero');
 		$this->form_validation->set_message('required','El campo %s es requerido');
-		$this->form_validation->set_message('integer','El campo %s debe ser entero');
-		$this->form_validation->set_message('numeric','El campor %s debe ser un numero');
-		$this->form_validation->set_message('precio_positivo','El campo %s debe ser un numero positivo');
-		$this->form_validation->set_message('cantidad_positivo','El campo %s debe ser un numero positivo');
-		$this->form_validation->set_message('comprobarExistenciaProducto','<strong>ADVERTENCIA:</strong> No existen productos suficientes en el almacen para poder realizar esta operacion. <br> <strong>verifique existencias en su Almacen</strong>');
+		$this->form_validation->set_message('productosinsuficientes','No existen productos suficiente para realizar la operacion.');
+		$this->form_validation->set_message('existeProducto','<strong>ADVERTENCIA:</strong>El producto :'.$this->input->post('describe').' no esta agregado a su <br> <strong>Subalmacen</strong>');
+		
 		if($this->form_validation->run()==TRUE){
 			$sku=$this->input->post('sku');
 			$precio=$this->input->post('precio');
@@ -115,14 +111,15 @@ class Procesoventa extends CI_Controller {
 		$pila_actual=$this->session->userdata('pila_productos');		
 		if(array_key_exists($sku,$pila_actual)){
 			if($pila_actual[$sku]['precio']==$precio){
-			$pila_actual[$sku]['cantidad']+=$cantidad;
-			$pila_actual[$sku]['total']=$pila_actual[$sku]['cantidad']*$pila_actual[$sku]['precio'];
-			$this->session->set_userdata('pila_productos',$pila_actual);	
+
+				$pila_actual[$sku]['cantidad']+=$cantidad;
+				$pila_actual[$sku]['total']=$pila_actual[$sku]['cantidad']*$pila_actual[$sku]['precio'];
+				$this->session->set_userdata('pila_productos',$pila_actual);	
 				return TRUE;			
-			}else
-			{
+			}else{
 				return FALSE;
 			}
+
 		}else{
 			$total=$precio*$cantidad;
 			$pila_actual[$sku]=array(
@@ -133,19 +130,20 @@ class Procesoventa extends CI_Controller {
 					'total'=>$total
 					);			
 			$this->session->set_userdata('pila_productos',$pila_actual);
-				return TRUE;
+			return TRUE;
 		}		
 	}
 	//MÉTODO PARA MOSTRAR LOS PRODUCTO RELACIONADO CON VISTA
-	public function tabla_productos()
+	public function tablaProductos()
 	{
 
 		$data['detalles']=$this->session->userdata('pila_productos');
 		//obtenemos la columna total de la pila de productos
 		$productos_total=$this->get_column($data['detalles'],'total');
 		$data['importe']=$this->venta_total($productos_total);
-		$this->load->view('procesoventa/tabla_detalles', $data);
+		$this->load->view('ventas/tablaProductosView', $data);
 	}
+
 	//MÉTODO PARA PREGUNTAR SI EXISTEN PRODUCTOS EN LA PILA
 	public function existen_productos()
 	{
@@ -227,7 +225,7 @@ class Procesoventa extends CI_Controller {
 			$id_venta=$this->ventas_model->insert($insert);
 			//almacenamos el detalle de ventas
 			$this->agregar_productos($id_venta,$pila_productos);
-			$this->restarProductoAlmacen();
+			$this->restarSubalmacen();
 		}
 		elseif($this->input->post('tipo_venta')=='credito'){
 			$tipo_venta=0;
@@ -259,8 +257,7 @@ class Procesoventa extends CI_Controller {
 			$id_venta=$this->ventas_model->insert($insert);
 			//almacenamos el detalle de ventas
 			$this->agregar_productos($id_venta,$pila_productos);
-			$this->restarProductoAlmacen();
-
+			$this->restarSubalmacen();
 			//guardamos lo que se debe en cuentasporcobrar
 			$this->load->model('orm/cuentasporpagar_model');
 			$this->cuentasporpagar_model->insert($id_venta,0,$importe);
@@ -301,17 +298,18 @@ class Procesoventa extends CI_Controller {
 		}
 	}
 	//METODO PARA ELIMINAR EXISTENCIAS DE PRODUCTOS_ENALMACEN
-	public function restarProductoAlmacen()
+	public function restarSubalmacen()
 	{
 		//OBTENEMOS LA ZONA DEL VENDEDOR ALMACENADA EN LA COKKIE
-		$idZona=$this->session->userdata('idzona');
-		$pilaProductos=$this->session->userdata('pila_productos');
-
+		$this->load->model('subalmacen_model');
+		$idusuario = $this->session->userdata('idusuario');
+		$productos=$this->session->userdata('pila_productos');
+		
 		//ITERAMOS LA PILA DE PRODUCTOS->
-		foreach ($pilaProductos as $producto) {
+		foreach ($productos as $producto) {
 			//LLAMAMOS ALA FUNCION DEL MODELO ENCARGADA DE RESTAR LA CANTIDAD VENDIDA
 			//ENVIAMOS LOS PARAMETROS 
-			$this->productos_enalmacen_model->updateExistencia($idZona,$producto['sku'],$producto['cantidad']);
+			$this->subalmacen_model->updateExistencia($idusuario,$producto['sku'],$producto['cantidad']);
 		}
 	}
 	//MENSAJE PARA DAR AVISO DE EXITO AL FINALIZAR LA VENTA
@@ -319,69 +317,64 @@ class Procesoventa extends CI_Controller {
 	{
 		$data['titulo']="La venta a finalizado con exito";
 		$data['sub']="Por favor verifique en Mis venta";
-		$this->load->view('procesoventa/venta_terminada',$data);
+		$this->load->view('ventas/venta_terminada',$data);
 	}
 	//MENSAJE PARA DAR AVISO DE ERROR AL FINALIZAR LA VENTA
 	public function msj_error()
 	{
 		$data['titulo']="Se ha encontrado un error al finalizar la venta";
 		$data['sub']="Por favor notifique al administrador";
-		$this->load->view('procesoventa/venta_terminada',$data);
+		$this->load->view('ventas/venta_terminada',$data);
 	}
 /*
 *SECCION DE MÉTODO PERSONALIZADOS CALLBACK DE
 * LAS LIBRERIA FORM_VALIDATION
-*
-*
-*
 */
-	//MÉTODO CALLBACK PARA COMPROBAR SI ES POSITIVO
-	public function precio_positivo()
-	{
-		$numero=$this->input->post('precio');
-		if($numero>0){
-			return TRUE;
-		}else{
-			return FALSE;
-		}
-	}
-	//MÉTODO CALLBACK PARA COMPROBAR SI ES POSITIVO
-	public function cantidad_positivo()
-	{
-		$numero=$this->input->post('cantidad');
-		if($numero>0){
-			return TRUE;
-		}else{
-			return FALSE;
-		}
-	}
+	
 //METODO CALLBACK PARA COMPROBAR SI EXISTEN PRODUCTOS SUFICIENTES PARA PODER VENDER
-	public function comprobarExistenciaProducto()
+	public function existeProducto()
 	{
-		$cantidad=$this->input->post('cantidad');
-		$sku=$this->input->post('sku');
-		$idZona=$this->session->userdata('idzona');//data optenida de la session
-
-		$existenciaAlmacen=$this->productos_enalmacen_model->obtenerExistenciaProducto($idZona,$sku);
-		$pilaProductos=$this->session->userdata('pila_productos');
-		if(array_key_exists($sku,$pilaProductos)){
-			$existencia=$pilaProductos[$sku]['cantidad']+$cantidad;
-			if($existencia>$existenciaAlmacen['existencia']){
-				return FALSE;
-			}else{
-				return TRUE;
-			}
-
+		$this->load->model('subalmacen_model');
+		$id = $this->session->userdata('idusuario');
+		$sku = $this->input->post('sku');
+		$productos = $this->subalmacen_model->existeProducto($id,$sku);
+		if(count($productos)>0){
+			return 	TRUE;
 		}else{
-
-		if($cantidad>$existenciaAlmacen['existencia']){
 			return FALSE;
-		}else{
-			return TRUE;
-		}
-			
 		}
 	}
+
+	public function productosinsuficientes()
+	{
+		$id = $this->session->userdata('idusuario');
+		$sku = $this->input->post('sku');
+		$cantidad = $this->input->post('cantidad');
+		$this->load->model('subalmacen_model');
+		$productos = $this->subalmacen_model->existeProducto($id,$sku);
+		$pila=$this->session->userdata('pila_productos');
+
+		if(isset($pila[$sku])){
+
+			if(($pila[$sku]['cantidad']+$cantidad) <= $productos['existencia'])
+				return TRUE;
+			else
+				return FALSE;
+		}else{
+
+			if(count($productos)>0){
+
+				if( $cantidad <= $productos['existencia'])
+					return TRUE;
+				else
+					return FALSE;
+
+			}else{
+				return TRUE;				
+			}
+		}
+	}
+
 	
 }
 

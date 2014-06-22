@@ -31,7 +31,7 @@ class Vendedor extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('template/encabezado');
-		$this->load->view('vendedor/mainvendedor_view');
+		$this->load->view('vendedor/indexView');
 		$this->load->view('template/piepagina');
 	}
 	//método para  salir de sessión
@@ -85,10 +85,13 @@ class Vendedor extends CI_Controller {
            $this->load->view('template/piepagina');
 	}
 
-	public function miSubAlmacen($pagina=0)
+	public function miSubAlmacen()
 	{
+		$this->load->model('subalmacen_model');
+		$id = $this->session->userdata('idusuario');
+		$data['productos'] = $this->subalmacen_model->getWhereUser($id);
 		$this->load->view('template/encabezado');
-		$this->load->view('vendedor/miSubAlmacen_view');
+		$this->load->view('vendedor/miSubAlmacen_view',$data);
 		$this->load->view('template/piepagina');
 	}
 

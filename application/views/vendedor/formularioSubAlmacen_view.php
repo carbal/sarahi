@@ -17,7 +17,7 @@
 				<select class="form-control" name="sku" id="producto">
 					<option value="" selected>Elegir un producto</option>
 					<?foreach($productos as $producto):?>
-					<option value="<?=$producto['SKU']?>"><?=$producto['Descripcion']?></option>
+					<option value="<?=$producto['sku']?>"><?=$producto['descripcion']?></option>
 					<?endforeach;?>
 				</select>
 			</div>

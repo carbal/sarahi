@@ -195,14 +195,14 @@ var buscarventa={
                 });
             }
 }
-var procesoventa={
+var ventas={
         autocompletar:function(){
             $("input#autocompletar").on('keyup', function() {                
                var cadena=$(this).val();
                if(cadena.length>3){
 
                 $.ajax({
-                    url:"<?=base_url()?>index.php/procesoventa/sugerencias_clientes/",
+                    url:"<?=base_url()?>index.php/ventas/getClientes",
                     type:"POST",
                     data:{string:cadena},
                     success:function(data){                
@@ -230,7 +230,7 @@ var procesoventa={
                 $("div#sugerencias").hide('slow');
                 
                 $.ajax({
-                    url:"<?=base_url()?>index.php/procesoventa/datos_cliente/",
+                    url:"<?=base_url()?>index.php/ventas/datosCliente/",
                     type:"POST",
                     dataType:'json',
                     data:{rfc:_rfc},
@@ -249,18 +249,18 @@ var procesoventa={
         },        
         addProducto:function(){
              $("#centro").on('click',"#carrito", function(event) {
-                var _sku=$("#id_producto :selected").attr('id'); 
-                var _describe=$("#id_producto :selected").html();
-                var _precio=$("#precio").val();
-                var _cantidad=$("#cantidad").val();     
+                var _sku=$("#id_producto").prop('value');
+                var _describe = $('#id_producto :selected').html();
+                var _precio=$("#precio").prop('value');
+                var _cantidad=$("#cantidad").prop('value');     
         
                 $.ajax({
-                url:"<?=base_url()?>index.php/procesoventa/addproductos/",
+                url:"<?=base_url()?>index.php/ventas/addProductos/",
                 type:"POST",            
                 data:{
                     sku:_sku,
-                    describe:_describe,
                     precio:_precio,
+                    describe :_describe,
                     cantidad:_cantidad
                 },
                 success:function(data){
@@ -268,7 +268,7 @@ var procesoventa={
                         $("#errores").slideUp('slow');
                         $("#tercero").hide('slow');
                         $("#tercero").show('slow');
-                        $("#3paso").load("<?=base_url()?>index.php/procesoventa/tabla_productos/");
+                        $("#3paso").load("<?=base_url()?>index.php/ventas/tablaProductos/");
                     }else{                    
                         $("#errores").html("<p><strong>AVISO : </strong>Verifique los siguientes errores</p><br>"+data);
                         $("#errores").hide('slow',function(){
@@ -284,7 +284,7 @@ var procesoventa={
         modalVaciar:function(){
             $("#centro").on('click','#cancelar', function() {
                 $.ajax({
-                    url:"<?=base_url()?>index.php/procesoventa/existen_productos/",
+                    url:"<?=base_url()?>index.php/ventas/existen_productos/",
                     type:"POST",
                     success:function(data){
                         if(data==true){
@@ -303,7 +303,7 @@ var procesoventa={
              $("#vaciar").on('click', function() {
 
                 $.ajax({
-                    url:"<?=base_url()?>index.php/procesoventa/vaciar_pila/",
+                    url:"<?=base_url()?>index.php/ventas/vaciar/",
                     type:"POST",
                     success:function(data){
                         $("#modalVenta").modal('hide');
@@ -312,12 +312,12 @@ var procesoventa={
                 });
             });
         },
-        delProducto:function(){
+        eliminarProducto:function(){
             $("#3paso").on('click',"img.delete",function() {
                 var _sku=$(this).attr('id');
 
                 $.ajax({
-                    url:"<?=base_url()?>index.php/procesoventa/eliminar_producto/",
+                    url:"<?=base_url()?>index.php/ventas/eliminarProducto",
                     type:"POST",
                     data:{
                         sku:_sku
@@ -333,7 +333,7 @@ var procesoventa={
 
                 $("#centro").on('click', '#modal_efectivo', function() {
                     $.ajax({
-                    url:"<?=base_url()?>index.php/procesoventa/existen_productos/",
+                    url:"<?=base_url()?>index.php/ventas/existen_productos/",
                     type:"POST",
                     success:function(data){
                         if(data==true){
@@ -352,7 +352,7 @@ var procesoventa={
 
             $("#centro").on('click', '#modal_credito', function() {
                 $.ajax({
-                url:"<?=base_url()?>index.php/procesoventa/existen_productos/",
+                url:"<?=base_url()?>index.php/ventas/existen_productos/",
                 type:"POST",
                 success:function(data){
                     if(data==true){
@@ -373,15 +373,15 @@ var procesoventa={
 
                 $("#venta_efectivo").modal("hide");
                 $.ajax({
-                    url: '<?=base_url()?>index.php/procesoventa/finalizar_venta/',
+                    url: '<?=base_url()?>index.php/ventas/finalizar_venta/',
                     type: 'POST',            
                     data: {tipo_venta:$(this).attr('id')},
                 })
                 .done(function() {            
-                    $("#centro").load("<?=base_url()?>index.php/procesoventa/msj_success/");
+                    $("#centro").load("<?=base_url()?>index.php/ventas/msj_success/");
                 })
                 .fail(function() {            
-                    $("#centro").load("<?=base_url()?>index.php/procesoventa/msj_error/");
+                    $("#centro").load("<?=base_url()?>index.php/ventas/msj_error/");
                 });                
             });
 
@@ -391,15 +391,15 @@ var procesoventa={
             $("#centro").on('click', '#credito', function() {
                 $("#venta_credito").modal("hide");
                 $.ajax({
-                    url: '<?=base_url()?>index.php/procesoventa/finalizar_venta/',
+                    url: '<?=base_url()?>index.php/ventas/finalizar_venta/',
                     type: 'POST',            
                     data: {tipo_venta:$(this).attr('id')},
                 })
                 .done(function() {            
-                  $("#centro").load("<?=base_url()?>index.php/procesoventa/msj_success/");
+                  $("#centro").load("<?=base_url()?>index.php/ventas/msj_success/");
                 })
                 .fail(function() {            
-                    $("#centro").load("<?=base_url()?>index.php/procesoventa/msj_error/");
+                    $("#centro").load("<?=base_url()?>index.php/ventas/msj_error/");
                 });
                 
                 
@@ -568,25 +568,25 @@ $(document).on('ready', function() {
     */
 
     //autocompletar , buscar cliente para venta
-    procesoventa.autocompletar();
+    ventas.autocompletar();
     //clic sobre sugerencia
-    procesoventa.sugerencias();
+    ventas.sugerencias();
     //agregar producto a pila de productos
-    procesoventa.addProducto();
+    ventas.addProducto();
     //mostrar modal , confirmar si desea vaciar la pila de productos
-    procesoventa.modalVaciar();
+    ventas.modalVaciar();
     //vaciar toda la pila de productos
-    procesoventa.vaciar();
+    ventas.vaciar();
     //Eliminar producto de la pila de productos
-    procesoventa.delProducto();
+    ventas.eliminarProducto();
     //mostrar el modal efectivo
-    procesoventa.modalEfectivo();
+    ventas.modalEfectivo();
     //mostrar modal credito
-    procesoventa.modalCredito();
+    ventas.modalCredito();
     //finalizar venta en efectivo
-    procesoventa.ventaEfectivo();
+    ventas.ventaEfectivo();
     //finalizar venta a credito
-    procesoventa.ventaCredito();
+    ventas.ventaCredito();
 
 
 

@@ -13,11 +13,17 @@
 		<tr>
 			<th>Descripción</th>
 			<th>SKU</th>
-			<th>Categoría</th>
-			<th>Precio Costo</th>
-			<th>Precio Venta</th>
+			<th>Categoría</th>			
 			<th>Existencia</th>
 		</tr>
+		<?foreach($productos as $producto):?>
+		<tr>			
+			<td><?=$producto['descripcion']?></td>
+			<td><?=$producto['sku']?></td>
+			<td><?=$producto['categoria']?></td>
+			<td><?=$producto['existencia']?></td>
+		</tr>
+		<?endforeach;?>
 	
 
 	</table>	
