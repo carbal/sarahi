@@ -5,43 +5,42 @@
 	</div>
 	<div class="row">
 
-	<div class="col-md-5">
-<form class="form form-horizontal" id="addProducto">
-	<div class="form-group">
-		<label class="col-md-5 control-label">Cadena :</label>
-		<div class="col-md-7">
-		<input class="form-control" name="cadena" id="auto_cadena" placeholder="Requerido">
-		<div id="caja">
-		</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-md-5 control-label">Producto :</label>
-		<div class="col-md-7">
+	<div class="col-md-6">
+    <form class="form form-horizontal" id="addProducto">
+    	<div class="form-group">
+    		<label class="col-md-4 control-label">Cadena :</label>
+    		<div class="col-md-8">
+    		<input class="form-control" name="cadena" id="auto_cadena" placeholder="Requerido">
+    		<div id="caja">
+    		</div>
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<label class="col-md-4 control-label">Producto :</label>
+    		<div class="col-md-8">
+    		<select name="producto" class="form-control">
+    			<option selected>Elegir producto</option>
+    			<?foreach($productos as $producto):?>
+    			<option value="<?=$producto['sku']?>"><?=$producto['descripcion']?></option>
+    			<?endforeach;?>
+    		</select>		
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<label class="col-md-4 control-label">Precio Venta :</label>
+    		<div class="col-md-8">
+    			<input class="form-control" name="precio" placeholder="requerido">
+    		</div>
+    	</div>	
+    	<div class="form-group text-center">
+        <div class="col-md-12">
+          <button type="button" class="btn-lg btn-success pull-right" id="agregar">Agregar</button>    
+        </div>
+    	</div>
 
-		<select name="producto" class="form-control">
-			<option selected>Elegir producto</option>
-			<?foreach($productos as $producto):?>
-			<option value="<?=$producto['sku']?>"><?=$producto['descripcion']?></option>
-			<?endforeach;?>
-		</select>		
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-md-5 control-label">Precio Venta :</label>
-		<div class="col-md-7">
-			<input class="form-control" name="precio" placeholder="requerido">
-		</div>
-	</div>	
-	<div class="form-group text-center">
-    <div class="col-md-12">
-      <button type="button" class="btn-lg btn-success pull-right" id="agregar">Agregar</button>    
-    </div>
-	</div>
-
-</form>
-</div>
-<div class="col-md-5 col-md-offset-1"><!-- panel derecho-->
+    </form>
+  </div>
+<div class="col-md-6"><!-- panel derecho-->
   <div class="alert alert-danger" id="container-errores" style="display:none;">
     <p><strong>AVISO : </strong>Verifique los siguientes errores</p>
     <div id="errores"></div>

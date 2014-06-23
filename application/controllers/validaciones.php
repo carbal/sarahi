@@ -191,12 +191,12 @@ class Validaciones extends CI_Controller {
 			$cantidad=$this->input->post('cantidad');
 
 			if($this->productos_enalmacen_model->existeProductoAlmacen($producto,$zona)==TRUE){
-
-				$this->productos_enalmacen_model->sumarProductoAlmacen($producto,$zona,$cantidad);
+				$this->productos_enalmacen_model->insertProductoAlmacen($producto,$zona,$cantidad);
 				$json['exito']=TRUE;
 				echo(json_encode($json));
+
 			}else{
-				$this->productos_enalmacen_model->insertProductoAlmacen($producto,$zona,$cantidad);
+				$this->productos_enalmacen_model->sumarProductoAlmacen($producto,$zona,$cantidad);
 				$json['exito']=TRUE;
 				echo(json_encode($json));
 			}
@@ -210,6 +210,10 @@ class Validaciones extends CI_Controller {
 		}else{
 			show_404();
 		}
+	}
+
+	public function prueba(){
+		var_dump($this->productos_enalmacen_model->existeProductoAlmacen('01','01'));
 	}
 
 	/*

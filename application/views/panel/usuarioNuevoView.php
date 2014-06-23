@@ -9,19 +9,19 @@
   <form id="usuarios" class="form-horizontal text-center" role="form">
   <div class="form-group">
     <label  class="col-md-4 control-label">Nombres :</label>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <input name="nombre"  type="text" class="form-control" id="nombre" placeholder="Requerido">      
     </div>
   </div>
   <div class="form-group">
     <label for="input2" class="col-md-4 control-label" >Apellidos :</label>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <input name="apellido" type="text" class="form-control" id="input2" placeholder="Requerido">
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-4 control-label">Zona :</label>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <select class="form-control" name="zonas">
         <option selected>Elegir Zona</option>
         <?foreach($zonas as $zona):?>
@@ -33,25 +33,25 @@
   </div>
   <div class="form-group">
     <label for="inputx" class="col-md-4 control-label" >Domicilio :</label>
-    <div class="col-md-6">
+    <div class="col-md-8">
     <input name="domicilio" type="text" class="form-control" id="inputx" placeholder="Requerido">
     </div>
   </div>
   <div class="form-group">
     <label for="input3" class="col-md-4 control-label">Contraseña :</label>
-    <div class="col-md-6">
+    <div class="col-md-8">
         <input name="pass" type="password" class="form-control" id="input3" placeholder="Requerido">
     </div>
   </div>
    <div class="form-group">
     <label for="input3" class="col-md-4 control-label">Confirmar :</label>
-    <div class="col-md-6">
+    <div class="col-md-8">
         <input name="pass2" type="password" class="form-control" id="input3" placeholder="Requerido">
     </div>
   </div>  
   <br>  
   <div class="form-group">
-  <div class="col-md-10">
+  <div class="col-md-12">
       <button type="button" class="btn btn-lg btn-success pull-right" id="add_user">Agregar</button>   
   </div>      
   </div>

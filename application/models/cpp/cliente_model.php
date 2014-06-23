@@ -19,7 +19,7 @@ class Cliente_model extends CI_Model {
 		usuario.nombres AS vendedor');
 		$this->db->from('ventas');
 		$this->db->join('clientes','ventas.rfc = clientes.rfc','inner');
-		$this->db->join('usuario','ventas.id_usuariio = usuario.id_usuario','inner');
+		$this->db->join('usuario','ventas.id_usuario = usuario.id_usuario','inner');
 		$this->db->where('clientes.rfc',$idCliente);
 		$this->db->where('ventas.estado',0);
 		$this->db->where('ventas.tipo_venta',0);
@@ -40,7 +40,7 @@ class Cliente_model extends CI_Model {
 		usuario.nombres AS vendedor');
 		$this->db->from('ventas');
 		$this->db->join('clientes','ventas.rfc = clientes.rfc','inner');
-		$this->db->join('usuario','ventas.id_usuariio = usuario.id_usuario','inner');
+		$this->db->join('usuario','ventas.id_usuario = usuario.id_usuario','inner');
 		$this->db->where('clientes.rfc',$idCliente);
 		$this->db->where('ventas.estado',0);
 		$this->db->where('ventas.tipo_venta',0);

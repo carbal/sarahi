@@ -100,13 +100,12 @@ class Productos_enalmacen_model extends CI_Model {
 
 	}
 
-	public function obtenerExistenciaProducto($idZona,$sku){
+	public function obtenerExistenciaProducto(){
 		$where=array(
-			'id_zona'=>$idZona,
-			'sku'=>$sku
-			);
-		$this->db->select('existencia')->where($where);
-		$query=$this->db->get('productos_enalmacen');
+			'id_zona'=>$this->session->userdata('idzona'),
+			'sku'=>$this->input->post('sku')
+		);
+		$query=$this->db->get_where('productos_enalmacen',$where);
 		return $query->row_array();
 	}
 	

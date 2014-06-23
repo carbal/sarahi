@@ -1,6 +1,6 @@
-	<table class="table table-condensed table-bordered">
-	<tr class="success">
-		<th colspan="2">INFORMACIÓN DEL VENDEDOR</th>
+<table class="table table-condensed table-bordered">
+	<tr>
+		<th colspan="2">Informacion del Vendedor</th>
 	</tr>
 	<tr>
 		<td>NOMBRE :</td>
@@ -28,8 +28,8 @@
 </table>
 
 <table class="table table-condensed table-bordered">
-	<tr class="success">
-		<th colspan="2">INFORMACIÓN DEL CLIENTE</th>
+	<tr>
+		<th colspan="2">Información del Cliente</th>
 	</tr>
 	<tr>
 		<td>NOMBRES :</td>
@@ -51,8 +51,8 @@
 
 <table class="table table-condensed table-bordered">
 	
-	<tr class="success">
-		<th colspan="5">PRODUCTOS</th>
+	<tr>
+		<th colspan="5">Productos</th>
 	</tr>
 	<tr>
 		<td>SKU</td>

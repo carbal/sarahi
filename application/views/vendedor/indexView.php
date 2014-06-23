@@ -17,7 +17,7 @@
 		    <div class="thumbnail text-center">
 		      <img src="<?=base_url()?>img/abonar.png">
 		      <div class="caption"> 		        
-		        <p><a href="<?=base_url()?>index.php/vendedor/formularioAbono/" class="btn btn-info btn-lg" role="button">Abonar</a></p>
+		        <p><a href="<?=base_url()?>index.php/vendedor/abonar" class="btn btn-info btn-lg" role="button">Abonar</a></p>
 		      </div>
 		    </div>
 		</div>
@@ -26,7 +26,7 @@
 		    <div class="thumbnail text-center">
 		      <img src="<?=base_url()?>img/devolver.png">
 		      <div class="caption">	        
-		        <p><a href="<?=base_url()?>index.php/vendedor/formularioDevolver/" class="btn btn-info btn-lg" role="button">Devolver</a></p>
+		        <p><a href="<?=base_url()?>index.php/vendedor/devolver" class="btn btn-info btn-lg" role="button">Devolver</a></p>
 		      </div>
 		    </div>
 		</div>
@@ -35,7 +35,7 @@
 		    <div class="thumbnail text-center">
 		      <img src="<?=base_url()?>img/visitar.png">
 		      <div class="caption">	        
-		        <p><a href="<?=base_url()?>index.php/vendedor/formularioVisitar/" class="btn btn-info btn-lg" role="button">Visitar</a></p>
+		        <p><a href="<?=base_url()?>index.php/vendedor/visitar" class="btn btn-info btn-lg" role="button">Visitar</a></p>
 		      </div>
 		    </div>
 		</div>

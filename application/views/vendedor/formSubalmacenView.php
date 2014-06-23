@@ -1,4 +1,4 @@
-<div class="col-md-8 col-md-offset-2">
+A<div class="col-md-8 col-md-offset-2">
 	<legend>Agregar productos a subalmacen</legend>
 	<div class="alert alert-danger" id="container-errors" style="display:none;">
 		<p><strong>AVISO : </strong> Verifique los siguientes errrores.</p>

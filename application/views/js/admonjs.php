@@ -161,10 +161,10 @@
             
                 });
             },
-            info_venta:function(){
+            infoVenta:function(){
                 $("#centro").on('click', '.info', function() {   
                     var _id=$(this).attr('id');
-                    $(".modal-body").load("<?=base_url()?>index.php/panel/info_venta/"+_id+"/");
+                    $(".modal-body").load("<?=base_url()?>index.php/panel/infoVenta/"+_id+"/");
                     $("#info_venta").modal('show');                    
                 });
             }
@@ -294,7 +294,7 @@
                 $("#centro").on('click', '#existencia', function() {
                     
                     $.ajax({
-                        url:"<?=base_url()?>index.php/validaciones/agregarExistencia/",
+                        url:"<?=base_url()?>index.php/validaciones/agregarExistencia",
                         type:"POST",
                         dataType:'json',
                         data:$("form").serialize(),
@@ -658,7 +658,7 @@
         //agregar precio al producto por cadena: precio_cadena
         panel.insertPrecioCadena();
         //información sobre la venta
-        panel.info_venta();  
+        panel.infoVenta();  
 
     /*
     * OBJETO CONTROLADOR:ABONO

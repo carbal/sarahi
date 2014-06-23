@@ -3,7 +3,7 @@
 		<div class="panel-heading">			
 			<h1 class="panel-title">CLIENTES EN MI ZONA</h1>
 		</div>
-		<div class="panel-body">
+		<div class="table-responsive">
 			<table class="table table-hover" style="font-size:0.9em;">
 				<tr>
 					<th>CLIENTE</th>
@@ -17,14 +17,14 @@
 				</tr>
 				<?foreach($clientes as $cliente):?>
 					<tr>
-						<td><?=$cliente['nombre']?></td>
-						<td><?=$cliente['rfc']?></td>
-						<td><?=$cliente['regimen']?></td>
-						<td><?=$cliente['representante']?></td>
-						<td><?=$cliente['cp']?></td>
-						<td><?=$cliente['colonia']?></td>
-						<td><?=$cliente['calle']?></td>
-						<td><?=$cliente['estado']?></td>
+						<td><?=strtoupper($cliente['nombre'])?></td>
+						<td><?=strtoupper($cliente['rfc'])?></td>
+						<td><?=strtoupper($cliente['regimen'])?></td>
+						<td><?=strtoupper($cliente['representante'])?></td>
+						<td><?=strtoupper($cliente['cp'])?></td>
+						<td><?=strtoupper($cliente['colonia'])?></td>
+						<td><?=strtoupper($cliente['calle'])?></td>
+						<td><?=strtoupper($cliente['estado'])?></td>
 					</tr>
 				<?endforeach;?>
 			</table>

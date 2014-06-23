@@ -44,26 +44,26 @@ class Vendedor extends CI_Controller {
 		redirect(base_url());		
 	}
 	//formularion de cuentas por cobrar
-	public function formularioAbono()
+	public function abonar()
 	{
 		$this->load->view('template/encabezado');
-		$this->load->view('abono/abonar_view');
+		$this->load->view('abono/abonarView');
 		$this->load->view('template/piepagina');
 	}
 	//método para formulario de devolver
-	public function formularioDevolver()
+	public function devolver()
 	{
 		$this->session->set_userdata('rfc_cliente',NULL);
 		$this->load->view('template/encabezado');
-		$this->load->view('vendedor/formularioDevolver_view');
+		$this->load->view('vendedor/devolverView');
 		$this->load->view('template/piepagina');
 	}
 	//método para formulario de visita
-	public function formularioVisitar()
+	public function visitar()
 	{
 		$this->session->set_userdata('rfc_cliente',NULL);
 		$this->load->view('template/encabezado');
-		$this->load->view('vendedor/formularioVisitar_view');
+		$this->load->view('vendedor/visitarView');
 		$this->load->view('template/piepagina');
 	}
 
@@ -81,7 +81,7 @@ class Vendedor extends CI_Controller {
             	'nombre'=>$nombrezona['zona']
             	);           
            $this->load->view('template/encabezado');
-           $this->load->view('vendedor/almacenGeneral_view',$data);
+           $this->load->view('vendedor/miAlmacenView',$data);
            $this->load->view('template/piepagina');
 	}
 
@@ -91,19 +91,19 @@ class Vendedor extends CI_Controller {
 		$id = $this->session->userdata('idusuario');
 		$data['productos'] = $this->subalmacen_model->getWhereUser($id);
 		$this->load->view('template/encabezado');
-		$this->load->view('vendedor/miSubAlmacen_view',$data);
+		$this->load->view('vendedor/miSubalmacenView',$data);
 		$this->load->view('template/piepagina');
 	}
 
 	//agregar nuevos productos al subalmacen
-	public function formularioSubAlmacen()
+	public function formSubalmacen()
 	{	
 		$this->load->model('crud_model');
 		//obtenemos la zona del vendedor con las sessiones
 		$idzona=$this->session->userdata('idzona');
 		$this->load->view('template/encabezado');
 		$data['productos']=$this->crud_model->almacenZona($idzona);
-		$this->load->view('vendedor/formularioSubAlmacen_view',$data);
+		$this->load->view('vendedor/formSubalmacenView',$data);
 		$this->load->view('template/piepagina');		
 	}
 
@@ -115,15 +115,18 @@ class Vendedor extends CI_Controller {
 		$zona=$this->session->userdata('idzona');
 		$data['clientes']=$this->clientes_model->WhereZona($zona);		
 		$this->load->view('template/encabezado');
-		$this->load->view('vendedor/clientes_view',$data);
+		$this->load->view('vendedor/clientesView',$data);
 		$this->load->view('template/piepagina');
 	}
+
+
 	public function validarSubAlmacen()
 	{
 		if($this->input->is_ajax_request()){
-			$this->form_validation->set_rules('sku', 'Producto', 'trim|required|xss_clean|val_almacen');
-			$this->form_validation->set_rules('cantidad', 'Cantidad', 'trim|required|xss_clean|val_almacen');			
+			$this->form_validation->set_rules('sku', 'Producto', 'trim|required|xss_clean|callbakc_val_almacen');
+			$this->form_validation->set_rules('cantidad', 'Cantidad', 'trim|required|xss_clean|callback_val_almacen');			
 			$this->form_validation->set_message('required','El campo %s es obligatorio');
+			$this->form_validation->set_message('val_almacen','<strong>ADVERTENCIA :</strong>El almacen no cuenta con los productos necesarios para realizar esta acción');
 			$this->form_validation->set_error_delimiters('<div>','</div>');
 			if($this->form_validation->run()==TRUE){
 				$json['exito']=TRUE;
@@ -138,10 +141,10 @@ class Vendedor extends CI_Controller {
 					'id_almacen'=>$id_almacen,
 					'id_usuario'=>$id,
 					'sku'=>$this->input->post('sku'),
-					'cantidad'=>$this->input->post('cantidad')
+					'existencia'=>$this->input->post('cantidad')
 				);
 				//debemos restar los producto del almacen correspondientes y  agregados al subalmacen
-
+				$this->restaAlmacen();
 				//insertamos en la base de datos
 				$this->subalmacen_model->insert($insert);
 				echo json_encode($json);
@@ -290,7 +293,7 @@ class Vendedor extends CI_Controller {
 		//cargamos la plantilla
 
 		$this->load->view('template/encabezado');
-		$this->load->view('vendedor/misventas_view',$data);
+		$this->load->view('vendedor/misVentasView',$data);
 		$this->load->view('template/piepagina');
 	}
 	//formulario visita
@@ -341,7 +344,14 @@ class Vendedor extends CI_Controller {
 		$this->load->view('template/piepagina');		
 	}
 
-
+public function restaAlmacen()
+{
+	$this->load->model('orm/productos_enalmacen_model');
+	$zona = $this->session->userdata('idzona');
+	$sku  = $this->input->post('sku');
+	$cantidad = $this->input->post('cantidad');
+	$this->productos_enalmacen_model->updateExistencia($zona,$sku,$cantidad);
+}
 /*
 * SECCION DE MÉTODOS CALLBACK FORM_VALIDATION
 *
@@ -363,7 +373,10 @@ class Vendedor extends CI_Controller {
 	// el usuario no podrá arregar productos a su subalmacen si en el almacen no hay suficientes
 	public function val_almacen()
 	{
-		$validar= ($cantidad <= $this->input->post('cantidad')) ? TRUE:FALSE;
+		$this->load->model('orm/productos_enalmacen_model');
+		$cantidad = $this->productos_enalmacen_model->obtenerExistenciaProducto();
+		$cantidad = $cantidad['existencia'];
+		$validar  = ($cantidad >= $this->input->post('cantidad')) ? TRUE:FALSE;
 		return $validar;
 	}
 }

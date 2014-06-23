@@ -38,10 +38,9 @@ class Panel extends CI_Controller {
 	//cargamos la plantilla principal
 	public function index()
 	{
-		$data['existencias'] = $this->existencias->existExistencias();
 		//cargamos la plantilla principal
 		$this->load->view('template/encabezado');
-		$this->load->view('template/cuerpo',$data);			
+		$this->load->view('template/cuerpo');			
 		$this->load->view('template/piepagina');
 	}
 	//cerrar sesion de usuario
@@ -133,8 +132,10 @@ class Panel extends CI_Controller {
 			show_404();
 		}
 	}
+
+
 	//metodo para mostrar informacion de la venta realizada
-	public function info_venta($id)
+	public function infoVenta($id)
 	{	
 		//cargamos modelos necesarios
 		$this->load->model('orm/ventas_model');
@@ -152,12 +153,14 @@ class Panel extends CI_Controller {
 			$data['productos']=$this->vendedor_model->query_detalleventa($idventa);
 			$data['vendedor']=$this->usuario_model->whereUsuario($venta['id_usuario']);
 			//$data['zona']=$this->zona_model->get_zona($data['vendedor']['id_zona']);
-			$this->load->view('ventas/infoventa_view', $data);
+			$this->load->view('panel/infoVentaView', $data);
 
 		}else{
 			show_404();
 		}
 	}
+
+
 	//metodo para eliminar registro de la tabla precio_cadena	
 	public function delPrecioProducto()
 	{
@@ -172,6 +175,8 @@ class Panel extends CI_Controller {
 			show_404();
 		}
 	}
+
+
 	//metodo para agregar un nuevo registro a la tabla:precio_cadena
 	public function insertPrecioCadena()
 	{
@@ -214,6 +219,7 @@ class Panel extends CI_Controller {
 
 		}
 	}
+
 	//guardar id_cadena, y mostrar los precios de los productos para dicha cadena	
 	public function saveIdCadena()
 	{
@@ -229,6 +235,8 @@ class Panel extends CI_Controller {
 			show_404();
 		}
 	}
+
+
 	//metodo para guardar el id del precio del producto por cadena	
 	public function saveIdPrecioProducto()
 	{
@@ -241,6 +249,8 @@ class Panel extends CI_Controller {
 			show_404();
 		}
 	}
+
+	
 	//update precio producto por cadena tabla: precio_cadena	
 	public function updatePrecioProducto()
 	{

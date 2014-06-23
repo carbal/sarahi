@@ -179,8 +179,8 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="<?=base_url()?>index.php/clientes">Clientes</a></li>                    
-                    <li class="divider"></li>
+                   <!-- <li><a href="<?=base_url()?>index.php/clientes">Clientes</a></li>                    
+                    <li class="divider"></li>-->
                     <li><a href="<?=base_url()?>index.php/panel/usuarioNuevo">Usuario Nuevo</a></li>                    
                     <li><a href="<?=base_url()?>index.php/panel/productoNuevo">Producto Nuevo</a></li> 
                     <li><a href="<?=base_url()?>index.php/panel/clienteNuevo">Cliente Nuevo</a></li>                   
@@ -201,7 +201,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?=base_url()?>index.php/vendedor/miAlmacen/">Almacen General</a></li>    
                     <li><a href="<?=base_url()?>index.php/vendedor/misubAlmacen/">Mi Almacen</a></li>      
-                    <li><a href="<?=base_url()?>index.php/vendedor/formularioSubAlmacen/">Agregar Productos</a></li>                             
+                    <li><a href="<?=base_url()?>index.php/vendedor/formSubalmacen/">Agregar Productos</a></li>                             
                 </ul>
             </li>
             <li><a href="<?=base_url()?>index.php/vendedor/clientes">Clientes</a></li>

@@ -27,7 +27,7 @@ class Devoluciones extends CI_Controller {
 		$this->load->model('devoluciones_model');
 		$devoluciones=$this->devoluciones_model->get();
 		$this->load->view('template/encabezado');
-		$this->load->view('devoluciones/index_view',compact('devoluciones'));
+		$this->load->view('devoluciones/indexView',compact('devoluciones'));
 		$this->load->view('template/piepagina');
 	}
 
