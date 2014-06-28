@@ -49,7 +49,7 @@
 	</div>
 <?else:?>
 <div class="alert alert-danger">
-<h5>No existen resultados para esta busqueda, verifique sus parametros</h5>
+<h5>No existen resultados para esta busqueda, verifique sus parámetros</h5>
 </div>
 
 <?endif;?>

@@ -16,6 +16,13 @@ class Abono extends CI_Controller {
 			redirect(base_url());
 		}
 	}
+
+	public function index()
+	{
+		$this->load->view('template/encabezado');
+		$this->load->view('abono/abonarView');
+		$this->load->view('template/piepagina');
+	}
 	//remover caché
 	public function removeCache()
 	{
@@ -34,11 +41,12 @@ class Abono extends CI_Controller {
 			$cadena=$this->input->post('cadena');			
 			$data['cadenas']=$this->cadena_model->likeAdmon($cadena);
 			$data['clientes']=$this->clientes_model->likeAdmon($cadena);
-			$this->load->view('abono/autocompletar_view',$data);
+			$this->load->view('abono/autocompletarView',$data);
 		}else{
 			show_404();
 		}
 	}
+
 	//mostrar sugerencias de clientes y cadenas minoristas al vendedor
 	public function autocompletarVendedor()
 	{
@@ -50,7 +58,7 @@ class Abono extends CI_Controller {
 			$cadena=$this->input->post('cadena');
 			$data['cadenas']=NULL;
 			$data['clientes']=$this->clientes_model->likeVendedor($cadena,$zonaVendedor);
-			$this->load->view('abono/autocompletar_view',$data);
+			$this->load->view('abono/autocompletarView',$data);
 		}else{
 			show_404();
 		}
@@ -153,7 +161,7 @@ class Abono extends CI_Controller {
             $query->free_result();
             $data['page'] = $this->jquery_pagination->create_links();  
             
-           	$this->load->view('abono/cppCadena_view',$data);     
+           	$this->load->view('abono/cppCadenaView',$data);     
 	}
 	//método para mostrar cuentas por pagar por cliente
 	public function cppCliente($apartir=0)
@@ -169,7 +177,6 @@ class Abono extends CI_Controller {
             $rows=$this->cliente_model->rowscliente($idCliente);
             $config['total_rows'] = $rows->num_rows();
             $rows->next_result();
-            $rows->free_result();           
             $config['per_page'] = 10;            
             $config['num_links'] = 4;             
             $config['first_link'] = 'Primero';
@@ -187,7 +194,7 @@ class Abono extends CI_Controller {
             $query->free_result();
             $data['page'] = $this->jquery_pagination->create_links();  
             
-           	$this->load->view('abono/cppCliente_view',$data);
+           	$this->load->view('abono/cppClienteView',$data);
 	}
 	//método para cargar vista para agregar un nuevo abono
 	public function addabono($idVenta)
@@ -201,7 +208,7 @@ class Abono extends CI_Controller {
 					$data['primero']=$this->cuentasporpagar_model->primerpago($idVenta);					
 					$data['ultimo']=$this->cuentasporpagar_model->ultimopago($idVenta);
 					$this->load->view('template/encabezado');
-					$this->load->view('abono/addabono_view',$data);
+					$this->load->view('abono/addabonoView',$data);
 					$this->load->view('template/piepagina');			
 				
 			}else{
@@ -298,4 +305,3 @@ class Abono extends CI_Controller {
 
 /* End of file abono.php */
 /* Location: ./application/controllers/abono.php */
-?>

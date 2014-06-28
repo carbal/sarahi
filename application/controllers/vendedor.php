@@ -37,7 +37,6 @@ class Vendedor extends CI_Controller {
 	//método para  salir de sessión
 	public function salir()
 	{
-		
 		$this->session->unset_userdata('usuario');
 		$this->session->unset_userdata('activo');		
 		$this->session->sess_destroy();

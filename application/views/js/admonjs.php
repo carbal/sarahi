@@ -30,13 +30,13 @@
         //aplicamos datepicker al input correspondiente        
 
         var panel={  
-            autocompletar_cadena:function(){
+            autocompletarCadena:function(){
                 $("#auto_cadena").on('keyup',function() {
                         var _cadena=$(this).val();
                         
                     if(_cadena.length>3){
                         $.ajax({
-                            url: '<?=base_url()?>index.php/panel/autocompletar_cadena/',
+                            url: '<?=base_url()?>index.php/panel/autocompletarCadena/',
                             type: 'POST',                    
                             data: {cadena: _cadena},
                         })
@@ -646,7 +646,7 @@
     *
     */
         //activar autocompletar para cadenas
-        panel.autocompletar_cadena();
+        panel.autocompletarCadena();
         //guargar idcadena
         panel.saveIdCadena();
         //guarda el id del precio del producto y muestra ventana modal

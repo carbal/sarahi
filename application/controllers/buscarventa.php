@@ -22,17 +22,17 @@ class Buscarventa extends CI_Controller {
 		}		
 	}
 	//metodo para cargar el formulario ventas general
-	public function formularioVentaGeneral()
+	public function general()
 	{		
 		$this->load->view('template/encabezado');
-		$this->load->view('buscarventa/generales_view');
+		$this->load->view('buscarventa/generalesView');
 		$this->load->view('template/piepagina');
 	}
 	//cargar formulario ventadetallada
-	public function formularioVentaDetallada()
+	public function detallada()
 	{
 		$this->load->view('template/encabezado');
-		$this->load->view('buscarventa/detalladas_view');
+		$this->load->view('buscarventa/detalladasView');
 		$this->load->view('template/piepagina');
 	}
 	//remover chaché
@@ -66,7 +66,7 @@ class Buscarventa extends CI_Controller {
 				$data['zonas']=$zona;
 				$data['cadenas']=$cadenas;
 
-				$this->load->view('buscarventa/autocompletarVenta_view', $data);				
+				$this->load->view('buscarventa/autocompletarVentaView', $data);				
 			}				
 		}else{
 			show_404();
@@ -192,7 +192,7 @@ class Buscarventa extends CI_Controller {
 			}
 			
 		}
-		return $this->load->view('buscarventa/ventasbusqueda_view', $data, TRUE);
+		return $this->load->view('buscarventa/busquedaView', $data, TRUE);
 	}
 
 
@@ -219,7 +219,7 @@ class Buscarventa extends CI_Controller {
 			
 				
 		}
-			return $this->load->view('buscarventa/ventasbusqueda_view', $data, TRUE);
+			return $this->load->view('buscarventa/busquedaView', $data, TRUE);
 	}
 
 
@@ -246,7 +246,7 @@ class Buscarventa extends CI_Controller {
 				
 		}
 
-			return $this->load->view('buscarventa/ventasbusqueda_view', $data, TRUE);
+			return $this->load->view('buscarventa/busquedaView', $data, TRUE);
 	}
 
 
@@ -274,7 +274,7 @@ class Buscarventa extends CI_Controller {
 				
 		}
 
-			return $this->load->view('buscarventa/ventasbusqueda_view', $data, TRUE);
+			return $this->load->view('buscarventa/busquedaView', $data, TRUE);
 	}
 
 
@@ -300,7 +300,7 @@ class Buscarventa extends CI_Controller {
 			
 		}
 
-			return $this->load->view('buscarventa/ventasbusqueda_view', $data, TRUE);
+			return $this->load->view('buscarventa/busquedaView', $data, TRUE);
 	}
 
 
@@ -326,7 +326,7 @@ class Buscarventa extends CI_Controller {
 			
 		}
 
-			return $this->load->view('buscarventa/ventasbusqueda_view', $data, TRUE);
+			return $this->load->view('buscarventa/busquedaView', $data, TRUE);
 	}
 
 	public function detallados()
@@ -444,7 +444,7 @@ class Buscarventa extends CI_Controller {
             
             $data['page'] = $this->jquery_pagination->create_links();  
             
-           	$this->load->view('buscarventa/zona_view',$data);      
+           	$this->load->view('buscarventa/zonaView',$data);      
 	}
 
 	public function zonaIntervalo($apartir=0)
@@ -483,7 +483,7 @@ class Buscarventa extends CI_Controller {
             $data['query'] = $query->result_array();            
             $data['page'] = $this->jquery_pagination->create_links();  
                       	
-           	$this->load->view('buscarventa/zona_view',$data);	
+           	$this->load->view('buscarventa/zonaView',$data);	
 	}
 	public function clienteFecha($apartir=0)
 	{
@@ -524,7 +524,7 @@ class Buscarventa extends CI_Controller {
             $query->free_result();
             $data['page'] = $this->jquery_pagination->create_links();  
             
-           	$this->load->view('buscarventa/cliente_view',$data);
+           	$this->load->view('buscarventa/clienteView',$data);
 	}
 
 	public function clienteIntervalo($apartir=0)
@@ -566,7 +566,7 @@ class Buscarventa extends CI_Controller {
             $query->free_result();
             $data['page'] = $this->jquery_pagination->create_links();  
             
-           	$this->load->view('buscarventa/cliente_view',$data);
+           	$this->load->view('buscarventa/clienteView',$data);
 	}
 
 	public function vendedorFecha($apartir=0)
@@ -607,7 +607,7 @@ class Buscarventa extends CI_Controller {
             $query->free_result();
             $data['page'] = $this->jquery_pagination->create_links();  
             
-           	$this->load->view('buscarventa/vendedor_view',$data);
+           	$this->load->view('buscarventa/vendedorView',$data);
     }
 
 
@@ -650,7 +650,7 @@ class Buscarventa extends CI_Controller {
             $query->free_result();
             $data['page'] = $this->jquery_pagination->create_links();  
             
-           	$this->load->view('buscarventa/vendedor_view',$data);
+           	$this->load->view('buscarventa/vendedorView',$data);
 	}	
 
 
@@ -674,7 +674,7 @@ class Buscarventa extends CI_Controller {
 			$data['productos']=$this->vendedor_model->query_detalleventa($idventa);
 			$data['vendedor']=$this->usuario_model->whereUsuario($venta['id_usuario']);
 			//$data['zona']=$this->zona_model->get_zona($data['vendedor']['id_zona']);
-			$this->load->view('buscarventa/infoventa_view', $data);
+			$this->load->view('buscarventa/infoventaView', $data);
 
 		}else{
 			show_404();
@@ -727,4 +727,3 @@ class Buscarventa extends CI_Controller {
 
 /* End of file buscar_venta.php */
 /* Location: ./application/controllers/buscar_venta.php */
-?>

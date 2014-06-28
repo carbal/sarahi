@@ -102,13 +102,6 @@ class Panel extends CI_Controller {
 		$this->load->view('template/piepagina');
 	}
 
-	//cargar formulario abonar cuenta
-	public function formularioCuentas()
-	{
-		$this->load->view('template/encabezado');
-		$this->load->view('abono/abonar_view');
-		$this->load->view('template/piepagina');
-	}
 
 
 /*
@@ -118,12 +111,12 @@ class Panel extends CI_Controller {
 
 
 	//METODO PARA AUTOCOMPLETAR VISTA:panel/precioproductocadena_view	
-	public function autocompletar_cadena()
+	public function autocompletarCadena()
 	{
 		if($this->input->is_ajax_request()){
 			$data['cadenas']=$this->cadena_model->likeCadenas($this->input->post('cadena'));
 			if(count($data['cadenas'])>0){
-			$this->load->view('panel/autocadenas_view', $data);				
+			$this->load->view('panel/autocadenasView', $data);				
 			}else{
 				echo "No existen coincidencias.";
 			}
@@ -170,7 +163,7 @@ class Panel extends CI_Controller {
 			//volvemos a cargar los precios correspondientes a la cadena
 			//cargamos la variable se sesion 
 			$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
-			$this->load->view('panel/ProductosporCadena_view', $data);
+			$this->load->view('panel/productosCadenaView', $data);
 		}else{
 			show_404();
 		}
@@ -205,7 +198,7 @@ class Panel extends CI_Controller {
 		//obtenemos la tabla de precios por cadena
 			$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($idCadena);
 			$json['exito']=TRUE;
-			$json['html']=$this->load->view('panel/ProductosporCadena_view', $data,TRUE);
+			$json['html']=$this->load->view('panel/productosCadenaView', $data,TRUE);
 			echo json_encode($json);
 
 						
@@ -229,7 +222,7 @@ class Panel extends CI_Controller {
 			$this->session->set_userdata('idCadena', $this->input->post('idCadena'));
 		//obtenemo si es que existen los productos asignados a esta cadena
 			$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
-			$this->load->view('panel/ProductosporCadena_view', $data);
+			$this->load->view('panel/productosCadenaView', $data);
 
 		}else{
 			show_404();
@@ -271,7 +264,7 @@ class Panel extends CI_Controller {
 		//cargamos de nuevo la tabla precio_cadena
 		$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
 		$json['exito']=TRUE;
-		$json['html']=$this->load->view('panel/ProductosporCadena_view', $data,TRUE);
+		$json['html']=$this->load->view('panel/productosCadenaView', $data,TRUE);
 		echo json_encode($json);
 
 		}else{
