@@ -231,40 +231,6 @@
                         });
                 });
             },
-            clienteNuevo:function(){
-                $("button#add_cliente").on('click',function() {
-                    $.ajax({
-                        url: '<?=base_url()?>index.php/validaciones/clienteNuevo/',
-                        type: 'POST',
-                        dataType: 'json',
-                        data:$('form#cliente').serialize()
-                    })
-                    .done(function(data) {
-                       if(data.exito==true){
-                            $('div#container-errors').slideUp('slow');
-                            $('div#info').show('slow',function(){
-                                $(this).html(data.html);
-                            });
-                            //vaciamos el formulario
-                             $("form#cliente").each(function(){
-                                this.reset();
-                            });
-                       }else{
-                            $("div#info").hide();
-                            $('div#errors').html(data.html);
-                            $('div#container-errors').hide('slow',function(){
-                                $('div#container-errors').slideDown('slow');
-                            });                       
-                            
-                       }
-                    })
-                    .fail(function() {
-                        console.log("error, comuniquese con el administrador");
-                    });
-                                
-
-                });
-            },
             cadenaNueva:function(){
                     $("#centro").on('click', '#newcadena', function() {
                                    
@@ -603,7 +569,9 @@
                 });
                 
             }//termina evento updateProducto
-        }  
+        }
+
+       
 
 
     $(document).on('ready',function(){
@@ -620,8 +588,6 @@
         validaciones.usuarioNuevo();
         //método para subir a la db un nuevo producto
         validaciones.productoNuevo();
-        //metodo para subir un nuevo cliente ajax
-        validaciones.clienteNuevo();
         //método para subir una nueva cadena
         validaciones.cadenaNueva();   
         //método para agregar existencias por zona en cada almacen

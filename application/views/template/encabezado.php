@@ -6,19 +6,16 @@
     <title>Galletas Sarahi</title>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/jquery.ui.datepicker.css">
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/jquery-ui.css">
-
     <script type="text/javascript" src="<?=base_url()?>js/jquery-2.0.2.js"></script>
     <script type="text/javascript" src="<?=base_url()?>js/bootstrap.js"></script>    
     <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/bootstrap.css">
-    
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>    
     <?if($this->session->userdata('tipo')==1):?>  
-    <?=$this->load->view('js/admonjs')?>
+    <?=$this->load->view('js/admonjs',TRUE)?>
     <?else:?>
-    <?=$this->load->view('js/usuariojs')?>
+    <?=$this->load->view('js/usuariojs',TRUE)?>
     <?endif;?>      
     <style type="text/css">
     body{        
@@ -179,11 +176,11 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                   <!-- <li><a href="<?=base_url()?>index.php/clientes">Clientes</a></li>                    
-                    <li class="divider"></li>-->
+                   <li><a href="<?=base_url()?>index.php/clientes">Clientes</a></li>                    
+                    <li class="divider"></li>
                     <li><a href="<?=base_url()?>index.php/panel/usuarioNuevo">Usuario Nuevo</a></li>                    
                     <li><a href="<?=base_url()?>index.php/panel/productoNuevo">Producto Nuevo</a></li> 
-                    <li><a href="<?=base_url()?>index.php/panel/clienteNuevo">Cliente Nuevo</a></li>                   
+                    <li><a href="<?=base_url()?>index.php/clientes/formCliente">Cliente Nuevo</a></li>                   
                     <li><a href="<?=base_url()?>index.php/panel/cadenaNueva">Nueva Cadena</a></li> 
                     <li><a href="<?=base_url()?>index.php/panel/agregarProductos">Agregar Productos</a></li>
                     <li><a href="<?=base_url()?>index.php/panel/precioProducto">Agregar Producto a Cadena</a></li> 

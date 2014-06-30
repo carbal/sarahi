@@ -19,15 +19,16 @@
 			<th colspan="2">ACCIONES</th>		
 		</tr>
 		<?foreach($clientes as $cliente):?>
-		<tr id="<?=$cliente['rfc']?>">
+		<tr>
 			<td><?=strtoupper($cliente['nombre'])?></td>
 			<td><?=strtoupper($cliente['rfc'])?></td>
 			<td><?=strtoupper($cliente['calle'])?></td>
 			<td><?=strtoupper($cliente['colonia'])?></td>
 			<td><?=strtoupper($cliente['pais'])?></td>
 			<td><?=strtoupper($cliente['correo'])?></td>
-			<td class="text-center"><span class="glyphicon glyphicon-pencil" style="cursor:pointer;"></span></td>
-			<td class="text-center"><span class="glyphicon glyphicon-search" style="cursor:pointer;"></span></td>
+			<td class="text-center">
+			<a href="<?=base_url()?>index.php/clientes/formCliente/<?=$cliente['rfc']?>"><span class="glyphicon glyphicon-pencil" style="cursor:pointer;"></span></td>
+			<td class="text-center"></a></span></td>
 		</tr>
 		<?endforeach;?>
 	</table>

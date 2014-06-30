@@ -2,7 +2,6 @@
 	<legend>Cliente Nuevo</legend>
 	<div class="alert alert-info" id="info" style="display:none;">		
 	</div>
-
 <div class="row">
 	<div class="col-md-6">
 		<form  class="form form-horizontal" id="cliente">
@@ -17,7 +16,7 @@
 		<div class="form-group">
 			<label for="" class="col-md-4 control-label">Cadena : </label>
 			<div class="col-md-8">
-				<select class="form-control" name="cadena">
+				<select class="form-control" name="id_cadena">
 					<option selected value="">Eligir opción</option>
 					<?foreach ($cadenas as $cadena):?>
 					<option value="<?=$cadena['id_cadena']?>"><?=$cadena['cadena']?></option>
@@ -38,7 +37,7 @@
 		<div class="form-group">
 			<label for="" class="col-md-4 control-label">Zona</label>
 			<div class="col-md-8">
-				<select name="zona" class="form-control">
+				<select name="estado" class="form-control">
 					<option selected value="">Elegir opción</option>
 					<?foreach($zonas as $zona):?>
 					<option value="<?=$zona['id_zona']?>"><?=$zona['zona']?></option>
@@ -52,11 +51,11 @@
 		</div>
 		<div class="form-group">
 			<label for="" class="col-md-4 control-label">No. Interior</label>
-			<div class="col-md-8"><input type="text" class="form-control" name="interior" placeholder="Requerido"></div>
+			<div class="col-md-8"><input type="text" class="form-control" name="no_interior" placeholder="Requerido"></div>
 		</div>
 		<div class="form-group">
 			<label for="" class="col-md-4 control-label">No. Exterior</label>
-			<div class="col-md-8"><input type="text" class="form-control" name="exterior" placeholder="Requerido"></div>
+			<div class="col-md-8"><input type="text" class="form-control" name="no_exterior" placeholder="Requerido"></div>
 		</div>
 		<div class="form-group">
 			<label for="" class="col-md-4 control-label">Colonia</label>
@@ -76,26 +75,24 @@
 		</div>
 		<div class="form-group">
 			<label for="" class="col-md-4 control-label">Codigo Postal :</label>
-			<div class="col-md-8"><input type="text" class="form-control" name="codigo" placeholder="Requerido"></div>
+			<div class="col-md-8"><input type="text" class="form-control" name="cp" placeholder="Requerido"></div>
 		</div>
 		<div class="form-group">
 			<label for="" class="col-md-4 control-label">Representante :</label>
 			<div class="col-md-8"><input type="text" class="form-control" name="representante" placeholder="Requerido"></div>
 		</div>
 		<div class="col-md-12">
-			<button type="button" class="btn btn-success btn-lg pull-right" id="add_cliente">Agregar</button>
+			<button type="button" class="btn btn-success btn-lg pull-right" id="add_cliente">Guardar</button>
 		</div>
 		</form>
 		
 	</div>
 	<div class="col-md-6">
 		<div class="alert alert-danger" id="container-errors" style="display:none;">
-		<p><strong>AVISO : </strong>Verifique los siguientes errores</p>		
-		<br>
-		<div id="errors">
-			
+			<p><strong>AVISO : </strong>Verifique los siguientes errores</p>		
+			<br>
+			<div id="errors"></div>
 		</div>
-	</div>
 	</div>
 </div>
 	
@@ -104,3 +101,6 @@
 	<br>
 
 </div>
+<?if(isset($js)):?>
+	<?=$js?>
+<?endif?>

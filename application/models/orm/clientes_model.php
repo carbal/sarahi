@@ -82,9 +82,47 @@ class Clientes_model extends CI_Model {
 	}
 
 	//insertamos un nuevo registro a la tabla
-	public function insert($insert)
+	public function insert()
 	{
+		$insert=array(
+		'rfc'=>$this->input->post('rfc'),
+		'id_cadena'=>$this->input->post('id_cadena'),
+		'nombre'=>$this->input->post('nombre'),
+		'calle'=>$this->input->post('calle'),
+		'no_exterior'=>$this->input->post('no_exterior'),
+		'no_interior'=>$this->input->post('no_interior'),
+		'colonia'=>$this->input->post('colonia'),
+		'municipio'=>$this->input->post('municipio'),
+		'estado'=>$this->input->post('estado'),
+		'pais'=>'MÉXICO',
+		'correo'=>$this->input->post('correo'),
+		'referencia'=>$this->input->post('referencia'),
+		'cp'=>$this->input->post('cp'),
+		'regimen'=>$this->input->post('regimen'),
+		'representante'=>$this->input->post('representante')
+		);
 		$this->db->insert('clientes',$insert);
+	}
+
+	public function update()
+	{
+		$update=array(
+		'id_cadena'=>$this->input->post('id_cadena'),
+		'nombre'=>$this->input->post('nombre'),
+		'calle'=>$this->input->post('calle'),
+		'no_exterior'=>$this->input->post('no_exterior'),
+		'no_interior'=>$this->input->post('no_interior'),
+		'colonia'=>$this->input->post('colonia'),
+		'municipio'=>$this->input->post('municipio'),
+		'estado'=>$this->input->post('estado'),
+		'pais'=>'MÉXICO',
+		'correo'=>$this->input->post('correo'),
+		'referencia'=>$this->input->post('referencia'),
+		'cp'=>$this->input->post('cp'),
+		'regimen'=>$this->input->post('regimen'),
+		'representante'=>$this->input->post('representante')
+		);
+		$this->db->update('clientes',$update,array('rfc'=>$this->input->post('rfc')));
 	}
 
 }

@@ -84,66 +84,6 @@ class Validaciones extends CI_Controller {
 		}
 	}
 
-	//validar cliente nuevo
-	public function clienteNuevo()
-	{
-		if($this->input->is_ajax_request()){
-			
-		$this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean|callback_val_nombre');
-		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|xss_clean|callback_is_rfc|callback_val_rfc');		
-		$this->form_validation->set_rules('cadena', 'Cadena', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('interior', 'No. Interior', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('exterior', 'No. Exterior', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('municipio', 'Municipio', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('correo', 'Correo', 'trim|required|xss_clean|valid_email');
-		$this->form_validation->set_rules('referencia', 'Referencia', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('codigo', 'Codigo Postal', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('regimen', 'Regimen', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('representante', 'Representante', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('zona','Zona', 'trim|required|xss_clean');
-		$this->form_validation->set_error_delimiters('<div>','</div>');
-
-		$this->form_validation->set_message('required','El campo %s es obligatorio');
-		$this->form_validation->set_message('valid_email','El campo %s es incorrecto');
-		$this->form_validation->set_message('is_rfc','<strong>El campo %s es incorrecto</strong>');
-		$this->form_validation->set_message('val_rfc','<strong>El %s ya existe</strong>');
-		$this->form_validation->set_message('val_nombre','<strong>El %s ya esta siendo utilizado</strong>');
-
-		if($this->form_validation->run()==TRUE){
-			$this->load->model('orm/clientes_model');
-			$insert=array(
-				'rfc'=>$this->input->post('rfc'),
-				'id_cadena'=>$this->input->post('cadena'),
-				'nombre'=>$this->input->post('nombre'),
-				'calle'=>$this->input->post('calle'),
-				'no_exterior'=>$this->input->post('exterior'),
-				'no_interior'=>$this->input->post('interior'),
-				'colonia'=>$this->input->post('colonia'),
-				'municipio'=>$this->input->post('municipio'),
-				'estado'=>$this->input->post('zona'),
-				'pais'=>'MÉXICO',
-				'correo'=>$this->input->post('correo'),
-				'referencia'=>$this->input->post('referencia'),
-				'cp'=>$this->input->post('codigo'),
-				'regimen'=>$this->input->post('regimen'),
-				'representante'=>$this->input->post('representante')
-				);
-			$this->clientes_model->insert($insert);
-			$json['exito']=TRUE;
-			$json['html']='<p><strong>AVISO : </strong>Se ha creado un nuevo cliente con exito</p>';
-			echo json_encode($json);
-		}else{
-			$json['exito']=FALSE;
-			$json['html']=validation_errors();
-			echo json_encode($json);
-		}
-		}else{
-			show_404();
-		}
-	}
-
 
 	//validar cadena nueva
 	public function cadenaNueva()
@@ -248,16 +188,7 @@ class Validaciones extends CI_Controller {
 			return FALSE;
 		}
 	}
-	//método para comprobar que el nombre del cliente no se repita
-	public function val_nombre()
-	{
-		$this->load->model('orm/clientes_model');
-		if(count($this->clientes_model->whereNombre($this->input->post('nombre')))==0){
-			return TRUE;
-		}else{
-			return FALSE;
-		}
-	}
+	
 
 	//metodo para comprobar si un SKU del producto existe, para evitar repetir productos
 	public function val_sku($sku)
