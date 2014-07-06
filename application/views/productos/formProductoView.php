@@ -1,10 +1,12 @@
 <div class="col-md-10 col-md-offset-1">
   <legend>Producto Nuevo</legend>
-  <div class="alert alert-info" id="exito" style="display:none;">
-    <P>
-      <strong>AVISO:</strong> Se ha agregado un nuevo producto con exito.
-    </P>
-  </div>
+  <div class="alert alert-info" id="insert" style="display:none;">
+  <p><strong>AVISO :</strong>Se ha agregado un nuevo producto con éxito<span class="pull-right glyphicon glyphicon-ok"></span></p>
+</div> 
+<div class="alert alert-info" id="update" style="display:none;">
+  <p><strong>AVISO :</strong>Se ha actualizado el registro con éxito<span class="pull-right glyphicon glyphicon-ok"></span></p>
+</div>
+
 
   <div class="col-md-6">
     <form class="form-horizontal" role="form" id="producto">
@@ -29,7 +31,7 @@
         <div class="form-group">
           <label for="input4" class="col-md-4 control-label">Unidad de Medida :</label>
           <div class="col-md-8">
-            <input name="um" class="form-control" id="input4" placeholder="Requerido">
+            <input name="unidad_medida" class="form-control" id="input4" placeholder="Requerido">
           </div>      
         </div>
         <div class="form-group">
@@ -41,18 +43,18 @@
         <div class="form-group">
           <label for="input6" class="col-md-4 control-label">Precio Costo :</label>
           <div class="col-md-8">
-            <input name="precioc" class="form-control" id="input6" placeholder="Requerido">
+            <input name="precio_costo" class="form-control" id="input6" placeholder="Requerido">
           </div>
         </div>
         <div class="form-group">
           <label for="input7" class="col-md-4 control-label">Precio Venta :</label>
           <div class="col-md-8">
-            <input name="preciov" class="form-control" id="input7" placeholder="Requerido">
+            <input name="precio_venta" class="form-control" id="input7" placeholder="Requerido">
           </div>
         </div>
         <div class="form-group">
           <div class="col-md-12">
-            <input type="button" class="btn btn-lg btn-success pull-right" id="producto" value="Agregar">
+            <input type="button" class="btn btn-lg btn-success pull-right" id="add_producto" value="Guardar">
           </div>
         </div>
     </form>
@@ -60,11 +62,14 @@
 
 
   <div class="col-md-6">
-    <div class="alert alert-danger" id="container-errores" style="display:none;">
-      <p><strong>AVISO:</strong>Verifique los siguientes errores .</P>
+    <div class="alert alert-danger" id="container-errors" style="display:none;">
+      <p><strong>AVISO:</strong>Verifique los siguientes errores. <span class="pull-right glyphicon glyphicon-remove"></span></P>
         <br>
-      <div id="errores">
+      <div id="errors">
       </div>
     </div>
   </div>
 </div>
+<?if(isset($js)):?>
+  <?=$js?>
+<?endif;?>

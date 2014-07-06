@@ -28,62 +28,6 @@ class Validaciones extends CI_Controller {
 		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");
 	}
 
-	//validar usuario nuevo
-	public function  usuarioNuevo()
-	{
-		
-		$this->form_validation->set_rules('nombre', 'Nombre', 'trim|required');		
-		$this->form_validation->set_rules('apellido', "Apellido", 'trim|required|xss_clean');
-		$this->form_validation->set_rules('domicilio', 'Domicilio', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('zonas', 'Zonas', 'trim|required|integer');
-		$this->form_validation->set_rules('pass', 'Contraseña', 'trim|min_length[8]|required|xss_clean');
-		$this->form_validation->set_rules('pass2', 'Confirmar', 'trim|matches[pass]|required|xss_clean');		
-		$this->form_validation->set_message('required',"El campo %s es obligatorio");
-		$this->form_validation->set_message('min_length','Deben de ser 8 caracteres minimo');
-		$this->form_validation->set_message('matches',"El campo %s y %s no son iguales");
-		$this->form_validation->set_message('integer','El campo zona es obligatorio');
-		$this->form_validation->set_error_delimiters('<div>','</div>');
-		if($this->form_validation->run()==TRUE){
-			$this->usuario_model->insert();
-			echo TRUE;			
-		}else{		
-			
-			echo validation_errors();
-		}
-	}
-
-	//validar producto nuevo
-	public function productoNuevo()
-	{
-		if($this->input->is_ajax_request()){
-			$this->form_validation->set_rules('referencia', 'Referencia', 'required|xss_clean');
-			$this->form_validation->set_rules('sku', 'SKU', 'trim|required|xss_clean|callback_val_sku');
-			$this->form_validation->set_rules('descripcion', 'Descripcion', 'required|xss_clean');
-			$this->form_validation->set_rules('um', 'Unidad de Medida', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('categoria', 'Categoria', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('precioc', 'Precio Costo', 'trim|required|is_natural_no_zero|xss_clean');
-			$this->form_validation->set_rules('preciov', 'Precio Venta', 'trim|required|is_natural_no_zero|xss_clean');
-			$this->form_validation->set_message('required','El campo %s es obligatorio');
-			$this->form_validation->set_message('is_natural_no_zero','debe ser un entero y mayor a 0');	
-			$this->form_validation->set_message('val_sku','El producto ya existe');
-			$this->form_validation->set_error_delimiters('<div class="text-danger">','</div>');
-
-			if($this->form_validation->run()==TRUE){
-
-				$this->producto_model->insert();				
-				echo TRUE;
-
-			}else{
-
-				echo(validation_errors());
-			}
-
-		}else{
-
-			show_404();
-		}
-	}
-
 
 	//validar cadena nueva
 	public function cadenaNueva()

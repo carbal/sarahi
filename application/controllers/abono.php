@@ -37,10 +37,13 @@ class Abono extends CI_Controller {
 		//cargamos los modelos que necesitaremos
 		$this->load->model('orm/cadena_model');
 		$this->load->model('orm/clientes_model');
+
 		if($this->input->is_ajax_request()){
-			$cadena=$this->input->post('cadena');			
-			$data['cadenas']=$this->cadena_model->likeAdmon($cadena);
-			$data['clientes']=$this->clientes_model->likeAdmon($cadena);
+
+			$cadena           = $this->input->post('cadena');			
+			$data['cadenas']  = $this->cadena_model->likeAdmon($cadena);
+			$data['clientes'] = $this->clientes_model->likeAdmon($cadena);
+
 			$this->load->view('abono/autocompletarView',$data);
 		}else{
 			show_404();
@@ -53,11 +56,11 @@ class Abono extends CI_Controller {
 		
 		$this->load->model('orm/clientes_model');
 		//obtenemos la zona del vendedor
-		$zonaVendedor=$this->session->userdata('idzona');
+		$zonaVendedor = $this->session->userdata('idzona');
 		if($this->input->is_ajax_request()){
 			$cadena=$this->input->post('cadena');
-			$data['cadenas']=NULL;
-			$data['clientes']=$this->clientes_model->likeVendedor($cadena,$zonaVendedor);
+			$data['cadenas']  = NULL;
+			$data['clientes'] = $this->clientes_model->likeVendedor($cadena,$zonaVendedor);
 			$this->load->view('abono/autocompletarView',$data);
 		}else{
 			show_404();
@@ -77,8 +80,8 @@ class Abono extends CI_Controller {
 	public function buscarCuenta()
 	{
 		//llamamos las sessiones para realizar busqueda
-		$id=$this->session->userdata('idabono');
-		$tabla=$this->session->userdata('tabla');
+		$id    = $this->session->userdata('idabono');
+		$tabla = $this->session->userdata('tabla');
 
 		if($this->input->is_ajax_request()){
 
@@ -86,19 +89,12 @@ class Abono extends CI_Controller {
 			$this->form_validation->set_message('required','El campo de Busqueda es obligatorio');	
 			$this->form_validation->set_message('idSelected','Debe de elegir una opcion de las sugerencias proporcionadas');		
 			$this->form_validation->set_error_delimiters('<div>','</div>');
-			if($this->form_validation->run()==TRUE){
+			if($this->form_validation->run() == TRUE){
 
-				$json['exito']=TRUE;
-				$json['html']="TODO BIEN";
-
-				echo json_encode($json);
-
+				echo json_encode(array('exito' => TRUE));
 			}else{
 
-				$json['exito']=FALSE;
-				$json['html']=validation_errors();
-
-				echo json_encode($json);			
+				echo json_encode(array('exito' => FALSE ,'html' => validation_errors()));			
 			}
 
 		}else{
@@ -109,8 +105,8 @@ class Abono extends CI_Controller {
 	public function obtenerResultados()
 	{
 		//obtenemos las sessiones necesarias para poder realizar la busqueda
-		$id=$this->session->userdata('idabono');
-		$tabla=$this->session->userdata('tabla');
+		$id    = $this->session->userdata('idabono');
+		$tabla = $this->session->userdata('tabla');
 		switch ($tabla) {
 			case 'cadena':{
 				$this->cppCadena();
@@ -135,31 +131,27 @@ class Abono extends CI_Controller {
 		//llamamos a los modelos necesarios
 		$this->load->model('cpp/cadena_model');
 		//llamamos a las sesiones necesarias
-		$idCadena=$this->session->userdata('idabono');
+		$idCadena = $this->session->userdata('idabono');
 
 			//configuramos la url de la paginacion
-            $config['base_url'] =base_url()."index.php/abono/cppCadena/";            
-            $config['div'] = 'div#resultados';            
-            $rows=$this->cadena_model->rowscadena($idCadena);
+            $config['base_url']   = base_url()."index.php/abono/cppCadena/";            
+            $config['div']        = 'div#resultados';            
+			$rows  = $this->cadena_model->rowscadena($idCadena);
             $config['total_rows'] = $rows->num_rows();
-            $rows->next_result();
-            $rows->free_result();            
-            $config['per_page'] = 10;            
-            $config['num_links'] = 4;             
+            $config['per_page']   = 10;            
+            $config['num_links']  = 4;             
             $config['first_link'] = 'Primero';
-            $config['next_link'] = 'Siguiente';
-            $config['prev_link'] = 'Anterior';
-            $config['last_link'] = 'Último';
+            $config['next_link']  = 'Siguiente';
+            $config['prev_link']  = 'Anterior';
+            $config['last_link']  = 'Último';
              
             //cargamos la librería con nuestra configuracion
             $this->jquery_pagination->initialize($config);
              
             //obtemos los valores
-            $query=$this->cadena_model->cadena($idCadena,$apartir);
+            $query         = $this->cadena_model->cadena($idCadena,$apartir);
             $data['query'] = $query->result_array();
-            $query->next_result();
-            $query->free_result();
-            $data['page'] = $this->jquery_pagination->create_links();  
+            $data['page']  = $this->jquery_pagination->create_links();  
             
            	$this->load->view('abono/cppCadenaView',$data);     
 	}
@@ -169,30 +161,28 @@ class Abono extends CI_Controller {
 			//llamamos a los modelos necesarios
 			$this->load->model('cpp/cliente_model');
 			//llamamos a las sesiones necesarias
-			$idCliente=$this->session->userdata('idabono');
+			$idCliente = $this->session->userdata('idabono');
 			//configuramos la url de la paginacion
-            $config['base_url'] =base_url()."index.php/abono/cppCliente/";            
-            $config['div'] = 'div#resultados';            
+            $config['base_url'] = base_url()."index.php/abono/cppCliente/";            
+            $config['div']      = 'div#resultados';            
             //le decimos cuantas filas en total tiene nuestra tabla noticias
             $rows=$this->cliente_model->rowscliente($idCliente);
             $config['total_rows'] = $rows->num_rows();
             $rows->next_result();
-            $config['per_page'] = 10;            
-            $config['num_links'] = 4;             
+            $config['per_page']   = 10;            
+            $config['num_links']  = 4;             
             $config['first_link'] = 'Primero';
-            $config['next_link'] = 'Siguiente';
-            $config['prev_link'] = 'Anterior';
-            $config['last_link'] = 'Último';
+            $config['next_link']  = 'Siguiente';
+            $config['prev_link']  = 'Anterior';
+            $config['last_link']  = 'Último';
              
             //cargamos la librería con nuestra configuracion
             $this->jquery_pagination->initialize($config);
              
             //obtemos los valores
-            $query=$this->cliente_model->cliente($idCliente,$apartir);
+            $query         = $this->cliente_model->cliente($idCliente,$apartir);
             $data['query'] = $query->result_array();
-            $query->next_result();
-            $query->free_result();
-            $data['page'] = $this->jquery_pagination->create_links();  
+            $data['page']  = $this->jquery_pagination->create_links();  
             
            	$this->load->view('abono/cppClienteView',$data);
 	}
@@ -202,11 +192,11 @@ class Abono extends CI_Controller {
 		//cargamos los modelos necesarios
 		$this->load->model('orm/cuentasporpagar_model');
 		//obtenemos los datos necesarios
-		$data['id_venta']=$idVenta;
-		$data['pagos']=$this->cuentasporpagar_model->pagosporVenta($idVenta);
-			if(count($data['pagos'])>=1){
-					$data['primero']=$this->cuentasporpagar_model->primerpago($idVenta);					
-					$data['ultimo']=$this->cuentasporpagar_model->ultimopago($idVenta);
+		$data['id_venta'] = $idVenta;
+		$data['pagos']    = $this->cuentasporpagar_model->pagosporVenta($idVenta);
+			if(count($data['pagos']) >= 1){
+					$data['primero'] = $this->cuentasporpagar_model->primerpago($idVenta);					
+					$data['ultimo']  = $this->cuentasporpagar_model->ultimopago($idVenta);
 					$this->load->view('template/encabezado');
 					$this->load->view('abono/addabonoView',$data);
 					$this->load->view('template/piepagina');			
@@ -219,20 +209,19 @@ class Abono extends CI_Controller {
 	public function validarAbono()
 	{
 		if($this->input->is_ajax_request()){
+
 			$this->form_validation->set_rules('valor', 'Abono', 'trim|required|greater_than[0]|xss_clean|callback_valAbono');
 			$this->form_validation->set_message('required','El campos %s es obligatorio');
 			$this->form_validation->set_message('greater_than','El campo debe ser un numero mayor a cero');
 			$this->form_validation->set_message('valAbono','No se puede cobrar una cantidad mayor a la que se debe');
 			$this->form_validation->set_error_delimiters('<div>','</div>');
-			if($this->form_validation->run()==TRUE){
-				$json['exito']=TRUE;
-				echo json_encode($json);
 
+			if($this->form_validation->run() == TRUE){
+
+				echo json_encode(array('exito' => TRUE));
 			}else{
-				$json['exito']=FALSE;
-				$json['html']=validation_errors();
-				echo json_encode($json);
 
+				echo json_encode(array('success' => FALSE,'html' => validation_errors()));
 			}
 		}else{
 			show_404();
@@ -242,31 +231,31 @@ class Abono extends CI_Controller {
 	public function insertAbono()
 	{
 		if($this->input->is_ajax_request()){
-		$id_venta=$this->input->post('id_venta');
-		$abono=$this->input->post('valor');
+		$id_venta = $this->input->post('id_venta');
+		$abono    = $this->input->post('valor');
 		$this->load->model('orm/cuentasporpagar_model');
-		$ultimo=$this->cuentasporpagar_model->ultimopago($id_venta);
-		$porpagar=$ultimo['porpagar']-$abono;
+		$ultimo   = $this->cuentasporpagar_model->ultimopago($id_venta);
+		$porpagar = $ultimo['porpagar']-$abono;
 		$this->cuentasporpagar_model->insert($id_venta,$abono,$porpagar);	
 
 		//IMPORTANTE agregamos a ventas la cantidad abonada 
 
 		$this->load->model('orm/ventas_model');
-		$venta=$this->ventas_model->getVenta($id_venta);
-		$importe=$venta['importe']+$abono;
+		$venta   = $this->ventas_model->getVenta($id_venta);
+		$importe = $venta['importe']+$abono;
 		$iva_venta;
 		if($this->session->userdata('idzona')==2){
-			$iva_venta=$importe*IVA_FRONTERA;
-			$total_venta=$importe-$iva_venta;
+			$iva_venta   = $importe * IVA_FRONTERA;
+			$total_venta = $importe - $iva_venta;
 		}
 		elseif ($this->session->userdata('idzona')!=2) {
-			$iva_venta=$importe*IVA_NORMAL;
-			$total_venta=$importe-$iva_venta;
+			$iva_venta   = $importe * IVA_NORMAL;
+			$total_venta = $importe - $iva_venta;
 		}
 		$insert=array(
-			'importe'=>$importe,
-			'iva_venta'=>$iva_venta,
-			'total_venta'=>$total_venta
+			'importe'     => $importe,
+			'iva_venta'   => $iva_venta,
+			'total_venta' => $total_venta
 			);
 		if($porpagar==0){
 			$this->ventas_model->updateEstado($id_venta,$insert);
@@ -281,7 +270,7 @@ class Abono extends CI_Controller {
 	//callback para comprobar si alguna opcion de busqueda fue elegida 
 	public function idSelected()
 	{
-		if($this->session->userdata('idabono')==NULL || $this->session->userdata('idabono')==""){
+		if($this->session->userdata('idabono') == NULL || $this->session->userdata('idabono') == ""){
 			return FALSE;
 		}else{
 			return TRUE;
@@ -291,11 +280,11 @@ class Abono extends CI_Controller {
 	public function valAbono()
 	{
 		$this->load->model('abonar_model');		
-		$id_venta=$this->input->post('id_venta');
-		$abono=$this->input->post('valor');
-		$ultimo=$this->abonar_model->ultimopago($id_venta);
+		$id_venta = $this->input->post('id_venta');
+		$abono    = $this->input->post('valor');
+		$ultimo   = $this->abonar_model->ultimopago($id_venta);
 
-		if($abono<=$ultimo['porpagar']){
+		if($abonoc <= $ultimo['porpagar']){
 			return TRUE;
 		}else{
 			return FALSE;

@@ -51,30 +51,7 @@ class Panel extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect(base_url());			
 	}
-	//formulario agregar nuevo usuario
-	public function usuarioNuevo()
-	{
-		$data['zonas']=$this->zona_model->select();		
-		$this->load->view('template/encabezado');
-		$this->load->view('panel/usuarioNuevoView',$data);
-		$this->load->view('template/piepagina');
-	}
-	//formulario agregar producto
-	public function productoNuevo()
-	{
-		$this->load->view('template/encabezado');
-		$this->load->view('panel/productoNuevoView');
-		$this->load->view('template/piepagina');
-	}
-	//formulario cliente nuevo
-	public function clienteNuevo()
-	{
-		$data['cadenas']=$this->cadena_model->select();
-		$data['zonas']=$this->zona_model->select();
-		$this->load->view('template/encabezado');
-		$this->load->view('panel/clienteNuevoView',$data);		
-		$this->load->view('template/piepagina');
-	}
+	
 	//formulario agregar cadena
 	public function cadenaNueva()
 	{

@@ -25,18 +25,38 @@ class Usuario_model extends CI_Model {
 		$query=$this->db->get('usuario');
 		return $query->row_array();
 	}
+
+	public function all()
+	{
+		$query = $this->db->get('usuario');
+		return $query->result_array();
+	}
 	//metodo para insertar un nuevo registro en la tabla
 	public function insert()
 	{
 		$data=array(
-			'nombres'=>$this->input->post('nombre'),
-			'apellidos'=>$this->input->post('apellido'),
-			'domicilio'=>$this->input->post('domicilio'),
-			'password'=>$this->input->post('pass'),
-			'id_zona'=>$this->input->post('zonas'),
-			'tipo'=>0
+			'nombres'   => $this->input->post('nombres'),
+			'apellidos' => $this->input->post('apellidos'),
+			'domicilio' => $this->input->post('domicilio'),
+			'password'  => $this->input->post('password'),
+			'id_zona'   => $this->input->post('id_zona'),
+			'tipo'      => 0
 			);
 		$this->db->insert('usuario',$data);	
+	}
+
+	//actualizar registro
+	public function update()
+	{
+		$update = array(
+			'nombres'   => $_POST['nombres'],
+			'apellidos' => $_POST['apellidos'],
+			'id_zona'   => $_POST['id_zona'],
+			'domicilio' => $_POST['domicilio'],
+			'password'  => $_POST['password']
+		);
+
+		$this->db->update('usuario',$update,array('id_usuario' => $_POST['id_usuario']));
 	}
 
 	//metodo para comprobar si un usuario es valido o existe
@@ -54,6 +74,7 @@ class Usuario_model extends CI_Model {
 			return FALSE;
 		}
 	}
+	
 	//obtener datos de usuario especifico
 	public function get_usuario(){
 		$data=array(

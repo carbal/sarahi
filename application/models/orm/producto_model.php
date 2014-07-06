@@ -18,19 +18,41 @@ class Producto_model extends CI_Model {
 		return $query->result_array();
 	}
 
+	//método para obtener un producto por su sku
+	public function getProducto($sku)
+	{
+		$query = $this->db->get_where('producto',array('sku' => $sku));
+		return $query->row_array();
+	}
+
 	//metodo para insertar un nuevo registro en la tabla
 	public function insert()
 	{
 		$insert=array(
-			'referencia'=>$this->input->post('referencia'),
-			'sku'=>$this->input->post('sku'),
-			'descripcion'=>$this->input->post('descripcion'),
-			'unidad_medida'=>$this->input->post('um'),
-			'categoria'=>$this->input->post('categoria'),
-			'precio_costo'=>$this->input->post('precioc'),
-			'precio_venta'=>$this->input->post('preciov')
+			'referencia'    => $this->input->post('referencia'),
+			'sku'           => $this->input->post('sku'),
+			'descripcion'   => $this->input->post('descripcion'),
+			'unidad_medida' => $this->input->post('unidad_medida'),
+			'categoria'     => $this->input->post('categoria'),
+			'precio_costo'  => $this->input->post('precio_costo'),
+			'precio_venta'  => $this->input->post('precio_venta')
 			);
 		$this->db->insert('producto',$insert);
+	}
+
+	//método para actualizar un producto
+	public function update()
+	{
+		$update=array(
+			'referencia'    => $this->input->post('referencia'),
+			'sku'           => $this->input->post('sku'),
+			'descripcion'   => $this->input->post('descripcion'),
+			'unidad_medida' => $this->input->post('unidad_medida'),
+			'categoria'     => $this->input->post('categoria'),
+			'precio_costo'  => $this->input->post('precio_costo'),
+			'precio_venta'  => $this->input->post('precio_venta')
+		);
+		$this->db->update('producto',$update,array('sku' => $this->input->post('sku')));
 	}
 
 	//metodo para saber si el sku existen en la base de datos

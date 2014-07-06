@@ -170,67 +170,7 @@
             }
         }
         var validaciones={
-            usuarioNuevo:function(){
-                $('#centro').on('click', '#add_user', function() {                  
-
-                    //alert($("form").serialize());
-                   $.ajax({
-                        url: "<?=base_url();?>index.php/validaciones/usuarioNuevo/",
-                        type: "POST",                                        
-                        data:$("form").serialize(),
-                        success:function(data){                        
-                            if(data==true){ 
-                            //escondemos el div con msj de error
-                            $("#container-errores").slideUp('slow');                        
-                            //vaciamos el formulario
-                            $('form').each(function() {
-                                this.reset();
-                            });
-                            //mostramos msj de exito                            
-                            $("div#exito").slideDown('slow');
-                            }
-                            else{
-                            $("#errores").html(data);
-                            $("div#container-errores").hide('slow',function(){
-                                $(this).slideDown('slow');
-                            });                            
-                              
-                            }
-                        }
-                    });   
-
-                });
-            },
-            productoNuevo:function(){
-                $("#centro").on('click','input#producto',function() { 
-                $("centro").html(espera);
-                        $.ajax({
-                            url:"<?=base_url();?>index.php/validaciones/productoNuevo/",
-                            type:"POST",
-                            data:$("form#producto").serialize(),
-                            success:function(data){
-                                if(data==true){
-                                //ocultar msj de errores
-                                $("#container-errores").slideUp('slow');
-                                //vaciar formulario
-                                $("form").each(function() {
-                                    this.reset();
-                                });
-                                //mostrar msj de exito
-                                $("#exito").slideDown();
-                                }else{
-                                    //mostramos los errores
-                                    $("#errores").html(data);
-
-                                    $("#container-errores").hide('slow',function(){
-                                        $(this).slideDown('slow');
-                                    });
-
-                                }
-                            }
-                        });
-                });
-            },
+            
             cadenaNueva:function(){
                     $("#centro").on('click', '#newcadena', function() {
                                    
@@ -571,8 +511,6 @@
             }//termina evento updateProducto
         }
 
-       
-
 
     $(document).on('ready',function(){
 
@@ -585,9 +523,7 @@
     *OBJETO CONTROLADOR:VALIDACIONES
     */
         //método para subir a la db un nuevo usuario
-        validaciones.usuarioNuevo();
         //método para subir a la db un nuevo producto
-        validaciones.productoNuevo();
         //método para subir una nueva cadena
         validaciones.cadenaNueva();   
         //método para agregar existencias por zona en cada almacen

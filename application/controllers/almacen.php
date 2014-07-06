@@ -51,9 +51,9 @@ class Almacen extends CI_Controller {
 		$this->load->model('orm/subalmacen_model');
 			
 			
-			$query=$this->crud_model->almacenZona($id_almacen);
+			$query    = $this->crud_model->almacenZona($id_almacen);
 			//obtenemos los usuarios que pertenece a esta zona
-			$usuarios=$this->usuario_model->whereZona($id_almacen);
+			$usuarios = $this->usuario_model->whereZona($id_almacen);
 
 			//obtenemos los subalmacenes pertenecientes a cada usuario
 
@@ -62,15 +62,15 @@ class Almacen extends CI_Controller {
 			if(count($usuarios)>0){
 				foreach($usuarios as $usuario){
 
-					$subalmacen=$this->subalmacen_model->whereUsuario($usuario['id_usuario']);
+					$subalmacen = $this->subalmacen_model->whereUsuario($usuario['id_usuario']);
 
 					//guardamos los datos el usuario
 
 					//preguntamos si el usuario tiene productos en su subalmacen
 					//si se cumple almacenamos si no el array subalmacenes no guardar nada
 					if(count($subalmacen)>0){						
-						$subalmacenes[$usuario['id_usuario']]['productos']=$subalmacen;	
-						$subalmacenes[$usuario['id_usuario']]['usuario']=$usuario['nombres']." ".$usuario['apellidos'];
+						$subalmacenes[$usuario['id_usuario']]['productos'] = $subalmacen;	
+						$subalmacenes[$usuario['id_usuario']]['usuario']   = $usuario['nombres']." ".$usuario['apellidos'];
 
 					}
 				}
@@ -82,11 +82,11 @@ class Almacen extends CI_Controller {
             $cuerpo=$query;        
             
             $data=array(
-            	'id_almacen'=>$id_almacen,
-            	'cuerpo'=>$cuerpo,            	
-            	'nombre'=>$almacen,
-            	'subalmacenes'=>$subalmacenes            	
-            	);
+            	'id_almacen'   => $id_almacen,
+            	'cuerpo'       => $cuerpo,            	
+            	'nombre'       => $almacen,
+            	'subalmacenes' => $subalmacenes            	
+            );
            $this->load->view('template/encabezado');
            $this->load->view('almacen/zonaView', $data);
            $this->load->view('template/piepagina');
@@ -96,7 +96,7 @@ class Almacen extends CI_Controller {
 	public function modalEditar()
 	{
 
-		$idProducto= $this->input->post('id');
+		$idProducto = $this->input->post('id');
 
 		//llamamos al modelo requerido		
 		$this->load->model('orm/productos_enalmacen_model');
@@ -113,7 +113,7 @@ class Almacen extends CI_Controller {
 			$this->form_validation->set_rules('stock_min', 'stock_min', 'required|integer|xss_clean');
 			$this->form_validation->set_rules('stock_max', 'stock_max', 'required|integer|xss_clean');
 			
-			if($this->form_validation->run()==TRUE){
+			if($this->form_validation->run() == TRUE){
 				//capturamos los datos enviados por POST
 				$id = $this->input->post('id');
 				$data = array(
@@ -123,9 +123,9 @@ class Almacen extends CI_Controller {
 				//llamamos al modelo donde vamos a inserta
 				$this->load->model('orm/productos_enalmacen_model');
 				$this->productos_enalmacen_model->updateProducto($id,$data);
-				echo json_encode(array('success'=>true));				
+				echo json_encode(array('success'=>TRUE));				
 			}else{
-				echo json_encode(array('success'=>false));
+				echo json_encode(array('success'=>FALSE));
 			}
 
 		}else{

@@ -1,28 +1,30 @@
-
 <div class="col-md-10 col-md-offset-1">
 <legend>Usuario Nuevo</legend>
-<div class="alert alert-info" id="exito" style="display:none;">
-  <p><strong>AVISO :</strong>Se ha agregado un nuevo usuario con exito</p>
+<div class="alert alert-info" id="insert" style="display:none;">
+  <p><strong>AVISO :</strong>Se ha agregado un nuevo usuario con éxito<span class="pull-right glyphicon glyphicon-ok"></span></p>
+</div> 
+<div class="alert alert-info" id="update" style="display:none;">
+  <p><strong>AVISO :</strong>Se ha actualizado el registro con éxito<span class="pull-right glyphicon glyphicon-ok"></span></p>
 </div>
 
 <div class="col-md-6">
-  <form id="usuarios" class="form-horizontal text-center" role="form">
+  <form id="usuario" class="form-horizontal text-center" role="form">
   <div class="form-group">
     <label  class="col-md-4 control-label">Nombres :</label>
     <div class="col-md-8">
-      <input name="nombre"  type="text" class="form-control" id="nombre" placeholder="Requerido">      
+      <input name="nombres"  type="text" class="form-control" id="nombre" placeholder="Requerido">      
     </div>
   </div>
   <div class="form-group">
     <label for="input2" class="col-md-4 control-label" >Apellidos :</label>
     <div class="col-md-8">
-      <input name="apellido" type="text" class="form-control" id="input2" placeholder="Requerido">
+      <input name="apellidos" type="text" class="form-control" id="input2" placeholder="Requerido">
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-4 control-label">Zona :</label>
     <div class="col-md-8">
-      <select class="form-control" name="zonas">
+      <select class="form-control" name="id_zona">
         <option selected>Elegir Zona</option>
         <?foreach($zonas as $zona):?>
         <option value="<?=$zona['id_zona']?>"><?=$zona['zona']?></option>
@@ -40,7 +42,7 @@
   <div class="form-group">
     <label for="input3" class="col-md-4 control-label">Contraseña :</label>
     <div class="col-md-8">
-        <input name="pass" type="password" class="form-control" id="input3" placeholder="Requerido">
+        <input name="password" type="password" class="form-control" id="input3" placeholder="Requerido">
     </div>
   </div>
    <div class="form-group">
@@ -52,7 +54,7 @@
   <br>  
   <div class="form-group">
   <div class="col-md-12">
-      <button type="button" class="btn btn-lg btn-success pull-right" id="add_user">Agregar</button>   
+      <button type="button" class="btn btn-lg btn-success pull-right" id="add_usuario">Guardar</button>   
   </div>      
   </div>
 </form>
@@ -61,13 +63,15 @@
 <div class="col-md-6">
   <div class="alert alert-danger" style="display:none;" id="container-errores">
      
-    <p><strong>AVISO : </strong>Verifique los siguientes errores.</p>
+    <p><strong>AVISO : </strong>Verifique los siguientes errores.<span class="pull-right glyphicon glyphicon-remove"></span></p>
     <br>
     <div id="errores">
     </div>
 
   </div>
 </div>
-
-
 </div>
+
+<?if(isset($js)):?>
+<?=$js?>
+<?endif;?>

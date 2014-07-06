@@ -27,8 +27,8 @@
 			<td><?=strtoupper($cliente['pais'])?></td>
 			<td><?=strtoupper($cliente['correo'])?></td>
 			<td class="text-center">
-			<a href="<?=base_url()?>index.php/clientes/formCliente/<?=$cliente['rfc']?>"><span class="glyphicon glyphicon-pencil" style="cursor:pointer;"></span></td>
-			<td class="text-center"></a></span></td>
+			<a href="<?=base_url()?>index.php/clientes/formCliente/<?=$cliente['rfc']?>"><span class="glyphicon glyphicon-pencil" style="cursor:pointer;"></span></a></td>
+			<td class="text-center"></td>
 		</tr>
 		<?endforeach;?>
 	</table>

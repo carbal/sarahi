@@ -5,9 +5,24 @@ class Clientes extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->removeCache();
 		$this->load->database();	
 		$this->load->library('session');
 		$this->load->library('form_validation');
+
+		if(!$this->session->userdata('usuario')){		
+			redirect(base_url());
+		}elseif ($this->session->userdata('usuario') && $this->session->userdata('tipo')==0) {
+			redirect(base_url().'index.php/vendedor/');
+		}
+	}
+
+	public function removeCache()
+	{
+		$this->output->set_header('Last-Modified:gmdate("D, d MYH: i: s"..)GMT');
+		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0 ");
+		$this->output->set_header("Pragma: no-cache");
+		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");	
 	}
 
 	public function index()
@@ -15,9 +30,11 @@ class Clientes extends CI_Controller {
 		$this->load->model('orm/clientes_model');
 		$data['clientes'] = $this->clientes_model->all();
 		$this->load->view('template/encabezado');
-		$this->load->view('clientes/index',$data);
+		$this->load->view('clientes/indexView',$data);
 		$this->load->view('template/piepagina');
 	}
+
+
 
 	//mostrar vista para insertar o actualizar cliente
 	public function formCliente($rfc = null){
@@ -27,13 +44,14 @@ class Clientes extends CI_Controller {
 		if(!empty($rfc)){
 			$this->load->model('orm/clientes_model');
 			$js['cliente'] = $this->clientes_model->whereCliente($rfc);
-			$data['js'] = $this->load->view('clientes/jsClientes',$js,TRUE);
+			$data['js']    = $this->load->view('clientes/jsClientes',$js,TRUE);
 		}
 		//identificamos 
-		$data['cadenas']=$this->cadena_model->select();
-		$data['zonas']=$this->zona_model->select();
+		$data['js']      = $this->load->view('clientes/jsClientes','',TRUE);
+		$data['cadenas'] = $this->cadena_model->select();
+		$data['zonas']   = $this->zona_model->select();
 		$this->load->view('template/encabezado');
-		$this->load->view('clientes/formCliente', $data);
+		$this->load->view('clientes/formClienteView', $data);
 		$this->load->view('template/piepagina');
 	}
 
@@ -69,13 +87,10 @@ class Clientes extends CI_Controller {
 			$this->load->model('orm/clientes_model');
 			$this->clientes_model->insert();
 
-			$json['success']=TRUE;
-			$json['html']='<p><strong>AVISO : </strong>Se ha creado un nuevo cliente con exito</p>';
-			echo json_encode($json);
+			echo json_encode(array('success'=>TRUE));
 		}else{
-			$json['success']=FALSE;
-			$json['html']=validation_errors();
-			echo json_encode($json);
+			
+			echo json_encode(array('success'=> FALSE , 'html'=>validation_errors()));
 		}
 		}else{
 			show_404();
@@ -108,13 +123,9 @@ class Clientes extends CI_Controller {
 			$this->load->model('orm/clientes_model');
 			$this->clientes_model->update();
 
-			$json['success']=TRUE;
-			$json['html']='<p><strong>AVISO : </strong>Se ha actualizado el nuevo cliente con éxito</p>';
-			echo json_encode($json);
+			echo json_encode(array('success'=>TRUE));
 		}else{
-			$json['success']=FALSE;
-			$json['html']=validation_errors();
-			echo json_encode($json);
+			echo json_encode(array('success'=> FALSE , 'html'=>validation_errors()));
 		}
 
 
