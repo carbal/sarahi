@@ -42,15 +42,15 @@ class Validaciones extends CI_Controller {
 		$this->form_validation->set_message('max_length','El %s no es un telefono valido');		
 		$this->form_validation->set_message('val_cadena','La cadena ya existe, verifique');
 		$this->form_validation->set_error_delimiters('<div>','</div>');
-		if($this->form_validation->run()==TRUE){
+		if($this->form_validation->run() == TRUE){
 			//obtenemos la ultima id_cadena creada en la db y los productos
-			$data['idcadena']=$this->cadena_model->insert();
-			$data['productos']=$this->producto_model->select();			
-			$json['exito']=TRUE;
+			$data['idcadena']  = $this->cadena_model->insert();
+			$data['productos'] = $this->producto_model->select();			
+			$json['exito']     = TRUE;
 			echo json_encode($json);
 		}else{
-			$json['exito']=FALSE;
-			$json['html']=validation_errors();
+			$json['exito'] = FALSE;
+			$json['html']  = validation_errors();
 			echo json_encode($json);
 		}
 	}
@@ -68,38 +68,33 @@ class Validaciones extends CI_Controller {
 		$this->form_validation->set_message('required','El campo %s es obligatorio');
 		$this->form_validation->set_error_delimiters('<div>','</div>');
 
-		if($this->form_validation->run()==TRUE){
+		if($this->form_validation->run() == TRUE){
 
-			$producto=$this->input->post('producto');
-			$zona=$this->input->post('zona');
-			$cantidad=$this->input->post('cantidad');
+			$producto = $this->input->post('producto');
+			$zona     = $this->input->post('zona');
+			$cantidad = $this->input->post('cantidad');
 
-			if($this->productos_enalmacen_model->existeProductoAlmacen($producto,$zona)==TRUE){
+			if($this->productos_enalmacen_model->existeProductoAlmacen($producto,$zona) == TRUE){
 				$this->productos_enalmacen_model->insertProductoAlmacen($producto,$zona,$cantidad);
-				$json['exito']=TRUE;
-				echo(json_encode($json));
-
+				
+				echo json_encode(array('exito' => TRUE));
 			}else{
 				$this->productos_enalmacen_model->sumarProductoAlmacen($producto,$zona,$cantidad);
-				$json['exito']=TRUE;
-				echo(json_encode($json));
+				
+				echo json_encode(array('exito' => TRUE));
 			}
 
 
 		}else{
-			$json['exito']=FALSE;
-			$json['html']=validation_errors();
-			echo json_encode($json);
+
+			echo json_encode( array('exito' => FALSE ,'html' => validation_errors()));
 		}
 		}else{
 			show_404();
 		}
 	}
 
-	public function prueba(){
-		var_dump($this->productos_enalmacen_model->existeProductoAlmacen('01','01'));
-	}
-
+	
 	/*
 	* SECCION DE MÉTODOS CALLBACK DE LA LIBRERIA FORM_VALIDATION	
 	*/
@@ -116,7 +111,7 @@ class Validaciones extends CI_Controller {
 	public function val_rfc()
 	{
 		$this->load->model('orm/clientes_model');
-		if(count($this->clientes_model->whereCliente($this->input->post('rfc')))>0){
+		if(count($this->clientes_model->whereCliente($this->input->post('rfc'))) > 0){
 			return FALSE;
 		}else{
 			return TRUE;
@@ -126,7 +121,7 @@ class Validaciones extends CI_Controller {
 	//método para comprobar su una cadena existe, para evitar repetir cadenas
 	public function val_cadena()
 	{
-		if($this->cadena_model->existeCadena()==0){
+		if($this->cadena_model->existeCadena() == 0){
 			return TRUE;
 		}else{
 			return FALSE;
@@ -137,7 +132,7 @@ class Validaciones extends CI_Controller {
 	//metodo para comprobar si un SKU del producto existe, para evitar repetir productos
 	public function val_sku($sku)
 	{
-		if($this->producto_model->existeProducto()==0){
+		if($this->producto_model->existeProducto() == 0){
 			return TRUE;
 		}else{
 			return FALSE;

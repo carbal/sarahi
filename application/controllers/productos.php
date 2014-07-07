@@ -67,11 +67,11 @@ class Productos extends CI_Controller {
 			$this->form_validation->set_message('val_sku','El producto ya existe');
 			$this->form_validation->set_error_delimiters('<div class="text-danger">','</div>');
 
-			if($this->form_validation->run()==TRUE){
+			if($this->form_validation->run() == TRUE){
 				$this->producto_model->insert();				
-				echo json_encode(array('success'=>TRUE));
+				echo json_encode(array('success' => TRUE));
 			}else{
-				echo json_encode(array('success'=>FALSE,'html'=>validation_errors()));
+				echo json_encode(array('success' => FALSE,'html' => validation_errors()));
 			}
 
 		}else{
@@ -98,11 +98,11 @@ class Productos extends CI_Controller {
 			$this->form_validation->set_message('is_natural_no_zero','debe ser un entero y mayor a 0');	
 			$this->form_validation->set_error_delimiters('<div class="text-danger">','</div>');
 
-			if($this->form_validation->run()==TRUE){
+			if($this->form_validation->run() == TRUE){
 				$this->producto_model->update();				
-				echo json_encode(array('success'=>TRUE));
+				echo json_encode(array('success' => TRUE));
 			}else{
-				echo json_encode(array('success'=>FALSE,'html'=>validation_errors()));
+				echo json_encode(array('success' => FALSE,'html' => validation_errors()));
 			}
 
 		}else{

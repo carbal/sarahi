@@ -16,7 +16,7 @@ class Main extends CI_Controller{
    }elseif ($this->session->userdata('usuario') && $this->session->userdata('tipo')==0) {
      redirect(base_url().'index.php/vendedor/');
    }
-    
+                     
   }
   
 public function index()
@@ -46,11 +46,11 @@ public function validar()
         //IMPORTANTE: Se guardan en sesesiones datos esenciales durante todo
         //el tiempo que el usuario esta logueado
         $data=array(
-          'usuario'=> $datos['nombres'],
-          'apellido'=>$datos['apellidos'],
-          'tipo'=>$datos['tipo'],
-          'idusuario'=>$datos['id_usuario'],
-          'idzona'=>$datos['id_zona']
+          'usuario'  => $datos['nombres'],
+          'apellido' => $datos['apellidos'],
+          'tipo'     => $datos['tipo'],
+          'idusuario'=> $datos['id_usuario'],
+          'idzona'   => $datos['id_zona']
           );      
               
         $this->session->set_userdata( $data );

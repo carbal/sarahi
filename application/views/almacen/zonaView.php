@@ -36,7 +36,7 @@
 	</div>
 <?else:?>
 <div class="alert alert-danger">
-	<p>El almacen no tiene agregados productos</p>
+	<p>El almacen no tiene <strong>productos</strong> agregados.</p>
 </div>
 <?endif;?>	
 
@@ -72,7 +72,7 @@
 
 	<?else:?>
 		<div class="alert alert-danger">
-			<p>No existen <strong>usuarios</strong> para este almacen</p>
+			<p>No existen <strong>usuarios</strong> para este almacen.</p>
 		</div>
 
 	<?endif;?>

@@ -50,7 +50,6 @@ class Buscarventa extends CI_Controller {
 		if($this->input->is_ajax_request()){
 
 			$string     = $this->input->post('cadena');
-
 			$clientes   = $this->clientes_model->likeNombre($string);
 			$vendedores = $this->usuario_model->likeUsuario($string);
 			$zonas      = $this->zona_model->likeZona($string);
@@ -111,7 +110,7 @@ class Buscarventa extends CI_Controller {
 			switch ($tipo) {
 				case 'g':{
 					//si intervalo no existe , la busqueda se realiza con una fecha
-					if($intervalo==NULL){
+					if($intervalo == NULL){
 						$html=$this->ventasGeneralesPorFecha($tabla,$id,$fecha);						
 
 					}else{
@@ -123,7 +122,7 @@ class Buscarventa extends CI_Controller {
 				
 				case 1:{
 
-					if($intervalo==NULL){
+					if($intervalo == NULL){
 						$html=$this->efectivoPorFecha($tabla,$id,$fecha);
 					}else{
 						$html=$this->efectivoPorIntervalo($tabla,$id,$fecha,$intervalo);
@@ -135,7 +134,7 @@ class Buscarventa extends CI_Controller {
 					
 				
 				case 0:{
-					if($intervalo==NULL){
+					if($intervalo == NULL){
 						$html=$this->creditoPorFecha($tabla,$id,$fecha);
 					}else{
 						$html=$this->creditoPorIntervalo($tabla,$id,$fecha,$intervalo);
@@ -156,9 +155,8 @@ class Buscarventa extends CI_Controller {
 			
 			echo json_encode(array('exito' => TRUE, 'html' => $html));
 		}else{
-			$json['exito']=FALSE;
-			$json['html']=str_replace("\n",'', validation_errors());
-			echo json_encode($json); 
+
+			echo json_encode(array('exito' => FALSE, 'html' => validation_errors())); 
 		}
 	}	
 
@@ -405,7 +403,7 @@ class Buscarventa extends CI_Controller {
 			$fecha=$this->session->userdata('fecha');		
 
 			//configuramos la url de la paginacion
-            $config['base_url'] = base_url()."index.php/buscarventa/zonaFecha/";
+            $config['base_url']   = base_url()."index.php/buscarventa/zonaFecha/";
             //configuramos el DIV html
             $config['div']        = '#resultados';
             //en true queremos ver Viendo 1 a 10 de 52
@@ -430,7 +428,6 @@ class Buscarventa extends CI_Controller {
             //obtemos los valores
             $query         = $this->vdzona_model->zona($id,$fecha,$apartir);
             $data['query'] = $query->result_array();
-            
             $data['page']  = $this->jquery_pagination->create_links();  
             
            	$this->load->view('buscarventa/zonaView',$data);      
@@ -598,40 +595,30 @@ class Buscarventa extends CI_Controller {
 	{
 		$this->load->model('detallado/vdvendedor_model');
 
-			$id=$this->session->userdata('id');
-			$fecha=$this->session->userdata('fecha');	
-			$intervalo=$this->session->userdata('intervalo');	
+			$id        = $this->session->userdata('id');
+			$fecha     = $this->session->userdata('fecha');	
+			$intervalo = $this->session->userdata('intervalo');	
 
 			//configuramos la url de la paginacion
-            $config['base_url'] =base_url()."index.php/buscarventa/vendedorIntervalo/";
-            //configuramos el DIV html
-            $config['div'] = '#resultados';
-            //en true queremos ver Viendo 1 a 10 de 52
+            $config['base_url']   = base_url()."index.php/buscarventa/vendedorIntervalo/";
+            $config['div']        = '#resultados';
             $config['show_count'] = true;
-            //le decimos cuantas filas en total tiene nuestra tabla noticias
             $rows=$this->vdvendedor_model->rowsVendedorIntervalo($id,$fecha,$intervalo);
             $config['total_rows'] = $rows->num_rows();
-            $rows->next_result();
-            $rows->free_result();
-            //el numero de filas por pagina
-            $config['per_page'] = 10;
-            //el numero de links visibles
-            $config['num_links'] = 4;
-             
+            $config['per_page']   = 10;
+            $config['num_links']  = 4;
             $config['first_link'] = 'Primero';
-            $config['next_link'] = 'Siguiente';
-            $config['prev_link'] = 'Anterior';
-            $config['last_link'] = 'Último';
+            $config['next_link']  = 'Siguiente';
+            $config['prev_link']  = 'Anterior';
+            $config['last_link']  = 'Último';
              
             //cargamos la librería con nuestra configuracion
             $this->jquery_pagination->initialize($config);
              
             //obtemos los valores
-            $query=$this->vdvendedor_model->vendedorIntervalo($id,$fecha,$intervalo,$apartir);
+            $query         = $this->vdvendedor_model->vendedorIntervalo($id,$fecha,$intervalo,$apartir);
             $data['query'] = $query->result_array();
-            $query->next_result();
-            $query->free_result();
-            $data['page'] = $this->jquery_pagination->create_links();  
+            $data['page']  = $this->jquery_pagination->create_links();  
             
            	$this->load->view('buscarventa/vendedorView',$data);
 	}	
@@ -648,14 +635,14 @@ class Buscarventa extends CI_Controller {
 
 		if($this->input->is_ajax_request()){
 
-			$idventa=$id;
+			$idventa       = $id;
 			//obtenemos los detalles de la venta
-			$venta=$this->ventas_model->getVenta($idventa);
-			$data['venta']=$venta;
+			$venta         = $this->ventas_model->getVenta($idventa);
+			$data['venta'] = $venta;
 			//obtenemos los detalles del vendedor
-			$data['cliente']=$this->clientes_model->whereCliente($venta['rfc']);
-			$data['productos']=$this->vendedor_model->query_detalleventa($idventa);
-			$data['vendedor']=$this->usuario_model->whereUsuario($venta['id_usuario']);
+			$data['cliente']   = $this->clientes_model->whereCliente($venta['rfc']);
+			$data['productos'] = $this->vendedor_model->query_detalleventa($idventa);
+			$data['vendedor']  = $this->usuario_model->whereUsuario($venta['id_usuario']);
 			//$data['zona']=$this->zona_model->get_zona($data['vendedor']['id_zona']);
 			$this->load->view('buscarventa/infoventaView', $data);
 

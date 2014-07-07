@@ -49,7 +49,7 @@ class Usuarios extends CI_Controller {
 			$js['usuario'] = $this->usuario_model->whereUsuario($id);
 			$data['js']    = $this->load->view('usuarios/jsUsuario',$js, TRUE);
 		}else{
-			$data['js'] = $this->load->view('usuarios/jsUsuario','', TRUE);
+			$data['js']    = $this->load->view('usuarios/jsUsuario','', TRUE);
 		}
 
 		$this->load->view('template/encabezado');

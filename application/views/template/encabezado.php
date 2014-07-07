@@ -8,10 +8,10 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/jquery-ui.css">
     <script type="text/javascript" src="<?=base_url()?>js/jquery-2.0.2.js"></script>
     <script type="text/javascript" src="<?=base_url()?>js/bootstrap.js"></script>    
-    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="<?=base_url()?>js/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/bootstrap.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>    
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
     <?if($this->session->userdata('tipo')==1):?>  
     <?=$this->load->view('js/admonjs',TRUE)?>
     <?else:?>
@@ -23,6 +23,10 @@
         padding:0;
         font-size: 13px;                         
     }  
+
+    .pointer{
+        cursor: pointer;
+    }
 
     div#piepagina{
         background: rgba(0,0,0,0.90);
@@ -95,6 +99,7 @@
     }
     div#sugerencias div.opciones{
         color: black;
+        padding: 5px;
         text-decoration: none;
     }
     div#sugerencias div.opciones:hover{
@@ -105,9 +110,11 @@
         z-index: 9000;
         position: absolute;        
         max-height: 120px;
+        min-width: 150px;
         overflow: auto;
         font-size: 12px;    
-        padding: 5px;
+        padding: 0px;
+        margin: 0px;
         color:black;
         border: 1px solid #333;        
         -webkit-box-shadow: #222 5px 5px 5px;
@@ -118,13 +125,14 @@
         cursor: pointer;
     }
 
-    div#caja div{
+    div#caja > div{
         color:black;        
+        padding: 5px;
+        text-transform: uppercase;
     }
     div#caja div:hover{
         text-decoration: underline;
-        background: #BAD3D9;
-        font-weight: bolder;
+        background: #3276b1;
     }
     img{
         cursor: pointer;

@@ -90,7 +90,7 @@ class Clientes extends CI_Controller {
 			echo json_encode(array('success'=>TRUE));
 		}else{
 			
-			echo json_encode(array('success'=> FALSE , 'html'=>validation_errors()));
+			echo json_encode(array('success'=> FALSE ,'html'=>validation_errors()));
 		}
 		}else{
 			show_404();
@@ -118,14 +118,14 @@ class Clientes extends CI_Controller {
 			$this->form_validation->set_message('valid_email','El correo %s no parece ser uno válido');
 			$this->form_validation->set_message('val_nombre','<strong>El %s ya esta siendo utilizado</strong>');
 
-		if($this->form_validation->run()==TRUE){
+		if($this->form_validation->run() == TRUE){
 
 			$this->load->model('orm/clientes_model');
 			$this->clientes_model->update();
 
-			echo json_encode(array('success'=>TRUE));
+			echo json_encode(array('success' => TRUE));
 		}else{
-			echo json_encode(array('success'=> FALSE , 'html'=>validation_errors()));
+			echo json_encode(array('success' => FALSE , 'html'=>validation_errors()));
 		}
 
 

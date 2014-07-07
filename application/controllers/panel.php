@@ -55,7 +55,7 @@ class Panel extends CI_Controller {
 	//formulario agregar cadena
 	public function cadenaNueva()
 	{
-		$data['zonas']=$this->zona_model->select();		
+		$data['zonas'] = $this->zona_model->select();		
 		$this->load->view('template/encabezado');
 		$this->load->view('panel/cadenaNuevaView',$data);
 		$this->load->view('template/piepagina');
@@ -63,8 +63,8 @@ class Panel extends CI_Controller {
 	//mostrar formulario existencias
 	public function agregarProductos()
 	{
-		$data['productos']=$this->producto_model->select();
-		$data['zonas']=$this->zona_model->select();
+		$data['productos'] = $this->producto_model->select();
+		$data['zonas']     = $this->zona_model->select();
 		$this->load->view('template/encabezado');
 		$this->load->view('panel/agregarProductosView',$data);
 		$this->load->view('template/piepagina');
@@ -91,7 +91,7 @@ class Panel extends CI_Controller {
 	public function autocompletarCadena()
 	{
 		if($this->input->is_ajax_request()){
-			$data['cadenas']=$this->cadena_model->likeCadenas($this->input->post('cadena'));
+			$data['cadenas'] = $this->cadena_model->likeCadenas($this->input->post('cadena'));
 			if(count($data['cadenas'])>0){
 			$this->load->view('panel/autocadenasView', $data);				
 			}else{
@@ -114,14 +114,14 @@ class Panel extends CI_Controller {
 		$this->load->model('orm/usuario_model');		
 
 		if($this->input->is_ajax_request()){
-			$idventa=$id;
+			$idventa = $id;
 			//obtenemos los detalles de la venta
-			$venta=$this->ventas_model->getVenta($idventa);
-			$data['venta']=$venta;
+			$venta         = $this->ventas_model->getVenta($idventa);
+			$data['venta'] = $venta;
 			//obtenemos los detalles del vendedor
-			$data['cliente']=$this->clientes_model->whereCliente($venta['rfc']);
-			$data['productos']=$this->vendedor_model->query_detalleventa($idventa);
-			$data['vendedor']=$this->usuario_model->whereUsuario($venta['id_usuario']);
+			$data['cliente']   = $this->clientes_model->whereCliente($venta['rfc']);
+			$data['productos'] = $this->vendedor_model->query_detalleventa($idventa);
+			$data['vendedor']  = $this->usuario_model->whereUsuario($venta['id_usuario']);
 			//$data['zona']=$this->zona_model->get_zona($data['vendedor']['id_zona']);
 			$this->load->view('panel/infoVentaView', $data);
 
@@ -139,7 +139,7 @@ class Panel extends CI_Controller {
 			$this->precio_cadena_model->delete($this->session->userdata('idPrecio'));
 			//volvemos a cargar los precios correspondientes a la cadena
 			//cargamos la variable se sesion 
-			$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
+			$data['productosCadena'] = $this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
 			$this->load->view('panel/productosCadenaView', $data);
 		}else{
 			show_404();
@@ -165,15 +165,15 @@ class Panel extends CI_Controller {
 
 		if($this->form_validation->run()==TRUE){
 			$insert=array(
-				'id_cadena'=>$idCadena,
-				'sku'=>$sku,
-				'precio'=>$this->input->post('precio')
+				'id_cadena' => $idCadena,
+				'sku'       => $sku,
+				'precio'    => $this->input->post('precio')
 				);		
-			
-		//insertamos con el metodo correspondiente
+			                         
+ 		//insertamos con el metodo correspondiente
 			$this->precio_cadena_model->insert($insert);
 		//obtenemos la tabla de precios por cadena
-			$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($idCadena);
+			$data['productosCadena'] = $this->crud_model->selectPrecioProductosCadena($idCadena);
 			$json['exito']=TRUE;
 			$json['html']=$this->load->view('panel/productosCadenaView', $data,TRUE);
 			echo json_encode($json);
@@ -198,7 +198,7 @@ class Panel extends CI_Controller {
 				
 			$this->session->set_userdata('idCadena', $this->input->post('idCadena'));
 		//obtenemo si es que existen los productos asignados a esta cadena
-			$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
+			$data['productosCadena'] = $this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
 			$this->load->view('panel/productosCadenaView', $data);
 
 		}else{
@@ -230,23 +230,23 @@ class Panel extends CI_Controller {
 		$this->form_validation->set_message('required','El campo es obligarotio');
 		$this->form_validation->set_message('mayor','Debe ser un numero mayor a cero');
 
-		if($this->form_validation->run()==TRUE){
-		$precioNuevo=$this->input->post('nuevo');
+		if($this->form_validation->run() == TRUE){
+		$precioNuevo = $this->input->post('nuevo');
 		$where=array(
-			'id_cadena'=>$this->session->userdata('idCadena'),
-			'id_precio'=>$this->session->userdata('idPrecio')
-			);
+			'id_cadena' => $this->session->userdata('idCadena'),
+			'id_precio' => $this->session->userdata('idPrecio')
+		);
 		//actualizamos el precio del producto
 		$this->precio_cadena_model->updatePrecioProducto($where,$precioNuevo);
 		//cargamos de nuevo la tabla precio_cadena
-		$data['productosCadena']=$this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
-		$json['exito']=TRUE;
-		$json['html']=$this->load->view('panel/productosCadenaView', $data,TRUE);
+		$data['productosCadena'] = $this->crud_model->selectPrecioProductosCadena($this->session->userdata('idCadena'));
+		$json['exito']           = TRUE;
+		$json['html']            = $this->load->view('panel/productosCadenaView', $data,TRUE);
 		echo json_encode($json);
 
 		}else{
-			$json['exito']=FALSE;
-			$json['html']=validation_errors();
+			$json['exito'] = FALSE;
+			$json['html']  = validation_errors();
 			echo json_encode($json);
 		}
 
@@ -262,7 +262,7 @@ class Panel extends CI_Controller {
 	//metodo para comprobar si el valor nuevo es mayor a 0
 	public function mayor()
 	{
-		if($this->input->post('nuevo')>0){
+		if($this->input->post('nuevo') > 0){
 			return TRUE;
 		}else{
 			return FALSE;
@@ -272,7 +272,7 @@ class Panel extends CI_Controller {
 	//esta se define si el usuario ya eligio una opcion del autocompletado
 	public function existeCadena()
 	{
-		if($this->session->userdata('idCadena')!=NULL){
+		if($this->session->userdata('idCadena') != NULL){
 			return TRUE;
 		}else{
 			return FALSE;

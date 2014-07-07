@@ -27,7 +27,16 @@
         var randon_id;
         var valor;
         
-        //aplicamos datepicker al input correspondiente        
+        //aplicamos datepicker al input correspondiente 
+     function loading(estado){
+        if(estado){
+            $('#wait').fadeIn('slow');
+            $('#fondo').fadeIn('slow');
+        }else{
+            $('#wait').fadeOut('slow');
+            $('#fondo').fadeOut('slow');
+        }
+    }       
 
         var panel={  
             autocompletarCadena:function(){
@@ -284,6 +293,9 @@
                         url:"<?=base_url()?>index.php/buscarventa/generales/",
                         type:"POST",
                         dataType:"json",
+                        beforeSend:function(){
+                            loading(true);
+                        },
                         data:$("form#search").serialize()
                    })
                    .done(function(data){
@@ -301,9 +313,11 @@
                             $(this).slideDown('slow');
                         });                       
                     }
+                    loading(false);
                    })
                    .fail(function(data){        
-                    $("#centro").html("<h3>Error,comuniquese con el administrador</h3>");
+                        console.log(data);
+                        loading(false);
                    });
 
                 });
@@ -317,13 +331,11 @@
                        dataType: 'json',
                        data:$("form#search").serialize(),
                        beforeSend:function(){
-                        $('#fondo').fadeIn('slow');
-                        $('#wait').fadeIn('slow');
+                            loading(true);
                        }
                    })
                    .done(function(data){
-                        $('#fondo').fadeOut('slow');
-                        $('#wait').fadeOut('slow');
+                       loading(false);
                        if(data.exito==true){
                             $("#resultados").load("<?=base_url()?>index.php/buscarventa/edoGeneral/");
                             $("#resultados").slideDown("slow");
@@ -336,6 +348,7 @@
                        }
                    })
                    .fail(function(data) {
+                        loading(false);
                         console.log(data);
                    });
            
@@ -396,6 +409,7 @@
                         url: '<?=base_url()?>index.php/abono/buscarCuenta/',
                         type: 'POST',   
                         dataType:'json',
+                        beforeSend:function(){loading(true)},
                         data: {
                             parametro:_parametro
                         }
@@ -412,9 +426,11 @@
                             $("#errores").html(data.html);
                             $("#container-errores").slideDown('slow');
                         }
+                        loading(false);
                     })
-                    .fail(function() {
-                        $("#centro").html("<h3>Error, comuniquese con el administrador</h3>");
+                    .fail(function(data){
+                        loading(false);
+                        console.log(data)
                     });            
                 });
             },
@@ -583,6 +599,8 @@
           $("input[id!="+id+"]").removeAttr('checked');
        });
 
+
+      
 
     });  //cierre de evento READY     
 
