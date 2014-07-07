@@ -39,8 +39,7 @@
 		}
 
 		this.describe = function(){
-			document.getElementById('describe').onclick = function(){
-
+			$('#container').on('click','#describe' ,function(){
 				$.ajax({
 					url: '<?=base_url()?>index.php/devoluciones/getdescribe',
 					type: 'POST',
@@ -59,7 +58,7 @@
 					console.log(data);
 					loading(false);
 				});
-			}
+			});
 		}
 	}
 

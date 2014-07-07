@@ -21,7 +21,7 @@
 				<td><?=$devolucion['descripcion']?></td>
 				<td><?=$devolucion['cantidad']?></td>
 				<td><?=$devolucion['fecha']?></td>
-				<td style="text-align:center;"><span class="glyphicon glyphicon-search pointer" id="describe"></span></td>				
+				<td style="text-align:center;"><span class="glyphicon glyphicon-search pointer" id="describe" idx=<?=$devolucion['id_devolucion']?>></span></td>				
 			</tr>
 				<?endforeach;?>
 		</table>

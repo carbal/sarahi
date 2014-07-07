@@ -10,7 +10,6 @@ class Panel extends CI_Controller {
 		parent:: __construct();	
 		$this->removeCache();		
 		$this->load->library('session');
-		$this->load->library('existencias');		
 		$this->load->database();
 		$this->load->model('orm/zona_model');
 		$this->load->model('orm/producto_model');
