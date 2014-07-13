@@ -51,7 +51,7 @@
 </div>
 </div><!-- div.row-->
 <div class="alert alert-info">
-		<p><strong>AVISO :</strong> Agrege los productos que serán permitidos para esta cadena</p>
+		<p><strong>AVISO :</strong> Agrege los productos que serán permitidos para esta cadena.<span class="pull-right glyphicon glyphicon-info-sign"></span></p>
 	</div>
 
 </div>
@@ -66,7 +66,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Actualizar el precio del producto</h4>
+        <h5 class="modal-title">ACTUALIZAR PRECIO DEL PRODUCTO.</h5>
       </div>
       <div class="modal-body">
         <form class="form-horizontal" id="update">        	
@@ -93,7 +93,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Desea eliminar este producto?</h4>
+        <h5 class="modal-title">DESEA ELIMINAR EL PRECIO DEL PRODUCTO?</h5>
       </div>
       <div class="modal-body">        
         <button type="button" class="btn btn-primary" id="delete_producto">Eliminar</button>

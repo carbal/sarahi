@@ -51,14 +51,7 @@ class Panel extends CI_Controller {
 		redirect(base_url());			
 	}
 	
-	//formulario agregar cadena
-	public function cadenaNueva()
-	{
-		$data['zonas'] = $this->zona_model->select();		
-		$this->load->view('template/encabezado');
-		$this->load->view('panel/cadenaNuevaView',$data);
-		$this->load->view('template/piepagina');
-	}
+	
 	//mostrar formulario existencias
 	public function agregarProductos()
 	{

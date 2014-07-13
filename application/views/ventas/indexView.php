@@ -65,7 +65,7 @@
     <div class="modal-content">
       <div class="modal-header" style="background:#428bca;">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Desea Finalizar la venta ?</h4>
+        <h5 class="modal-title">DESEA FINALIZAR LA VENTA?</h5>
       </div>
       <div class="modal-body">
       <h4 class="text-info"><strong>Nota : </strong>La venta se hará en pago en efectivo</h4>              
@@ -82,7 +82,7 @@
     <div class="modal-content">
       <div class="modal-header" style="background:#428bca;">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Desea Finalizar la venta ?</h4>
+        <h5 class="modal-title">DESEA FINALIZAR LA VENTA?</h5>
       </div>
       <div class="modal-body">
       <h4 class="text-info"><strong>Nota : </strong>La venta se hará en pago a crédito</h4>              

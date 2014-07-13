@@ -29,33 +29,6 @@ class Validaciones extends CI_Controller {
 	}
 
 
-	//validar cadena nueva
-	public function cadenaNueva()
-	{
-		$this->form_validation->set_rules('cadena', 'Nombre Cadena', 'trim|required|xss_clean|callback_val_cadena');
-		$this->form_validation->set_rules('zona', 'Zona', 'trim|required|xss_clean|integer');
-		$this->form_validation->set_rules('representante', 'Representante', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('telefono', 'Telefono', 'trim|required|min_length[10]|max_length[13]|xss_clean');
-		$this->form_validation->set_message('required','El campo %s es obligatorio');
-		$this->form_validation->set_message('min_length','El %s no es un telefono valido');
-		$this->form_validation->set_message('integer','El campo Zona es obligatorio');
-		$this->form_validation->set_message('max_length','El %s no es un telefono valido');		
-		$this->form_validation->set_message('val_cadena','La cadena ya existe, verifique');
-		$this->form_validation->set_error_delimiters('<div>','</div>');
-		if($this->form_validation->run() == TRUE){
-			//obtenemos la ultima id_cadena creada en la db y los productos
-			$data['idcadena']  = $this->cadena_model->insert();
-			$data['productos'] = $this->producto_model->select();			
-			$json['exito']     = TRUE;
-			echo json_encode($json);
-		}else{
-			$json['exito'] = FALSE;
-			$json['html']  = validation_errors();
-			echo json_encode($json);
-		}
-	}
-
-
 	//validar agregar existencia
 	public function agregarExistencia()
 	{

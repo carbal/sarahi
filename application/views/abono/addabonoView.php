@@ -103,7 +103,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Desea agregar la cantidad a la cuenta del cliente?</h4>
+        <h5 class="modal-title" id="myModalLabel">DESEA AGREGAR LA CANTIDAD?</h5>
       </div>
       <div class="modal-body">
 
@@ -119,7 +119,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Información sobre la venta</h4>
+        <h5 class="modal-title" id="myModalLabel">INFORMACIÓN SOBRE LA VENTA.</h5>
       </div>
       <div class="modal-body">
                 

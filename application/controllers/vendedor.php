@@ -86,7 +86,7 @@ class Vendedor extends CI_Controller {
 
 	public function miSubAlmacen()
 	{
-		$this->load->model('subalmacen_model');
+		$this->load->model('orm/subalmacen_model');
 		$id                = $this->session->userdata('idusuario');
 		$data['productos'] = $this->subalmacen_model->getWhereUser($id);
 		$this->load->view('template/encabezado');
@@ -338,7 +338,7 @@ class Vendedor extends CI_Controller {
 		$data['paginacion'] = $this->pagination->create_links();		
 		$data['query']      = $this->vendedor_model->query_ventascliente($rfc_cliente,$id_vendedor,$this->uri->segment(4),$config['per_page']);
 		$this->load->view('template/encabezado');		
-		$this->load->view('vendedor/misventas_view', $data);
+		$this->load->view('vendedor/misVentasView', $data);
 		$this->load->view('template/piepagina');		
 	}
 

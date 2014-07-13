@@ -159,7 +159,7 @@ class Ventas extends CI_Controller {
 		
 	}
 	//METODO PARA ELIMINAR UN PRODUCTO ESPECIFICO
-	public function eliminar_producto()
+	public function eliminarProducto()
 	{
 		if($this->input->is_ajax_request()){
 		$sku  = $this->input->post('sku');	
@@ -300,7 +300,7 @@ class Ventas extends CI_Controller {
 	public function restarSubalmacen()
 	{
 		//OBTENEMOS LA ZONA DEL VENDEDOR ALMACENADA EN LA COKKIE
-		$this->load->model('subalmacen_model');
+		$this->load->model('orm/subalmacen_model');
 		$idusuario  = $this->session->userdata('idusuario');
 		$productos  = $this->session->userdata('pila_productos');
 		
@@ -333,7 +333,7 @@ class Ventas extends CI_Controller {
 //METODO CALLBACK PARA COMPROBAR SI EXISTEN PRODUCTOS SUFICIENTES PARA PODER VENDER
 	public function existeProducto()
 	{
-		$this->load->model('subalmacen_model');
+		$this->load->model('orm/subalmacen_model');
 		$id        = $this->session->userdata('idusuario');
 		$sku       = $this->input->post('sku');
 		$productos = $this->subalmacen_model->existeProducto($id,$sku);
@@ -346,7 +346,7 @@ class Ventas extends CI_Controller {
 
 	public function productosinsuficientes()
 	{
-		$this->load->model('subalmacen_model');
+		$this->load->model('orm/subalmacen_model');
 
 		$id        = $this->session->userdata('idusuario');
 		$sku       = $this->input->post('sku');

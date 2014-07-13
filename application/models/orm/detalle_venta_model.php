@@ -13,11 +13,12 @@ class Detalle_venta_model extends CI_Model {
 	public function insert($id_venta,$producto){
 		
 		$insert=array(
-			'id_venta'=>$id_venta,
-			'sku'=>$producto['sku'],
-			'precio_unitario'=>$producto['precio'],
-			'cantidad'=>$producto['cantidad']			
-			);
+			'id_venta'       => $id_venta,
+			'sku'            => $producto['sku'],
+			'precio_unitario'=> $producto['precio'],
+			'cantidad'       => $producto['cantidad'],
+			'total'	         => $producto['precio'] * $producto['cantidad']
+		);
 		$this->db->insert('detalle_venta',$insert);
 	}
 	
