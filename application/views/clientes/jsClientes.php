@@ -80,6 +80,7 @@
                 value:this.data.rfc
             }));
             $('input[name=rfc]').parents('.form-group').remove();
+            $('legend').html('Actualizar Cliente')
             this.insertData();
         }
         this.insertData =  function(){

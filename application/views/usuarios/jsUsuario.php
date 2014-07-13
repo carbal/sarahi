@@ -52,6 +52,7 @@
 				$("[name='"+i+"']").prop('value',this.data[i]);
 			}
 			$("[name='pass2']").prop('value',this.data.password);
+			$('legend').html('Actualizar Usuario')
 			$('form#usuario').append($('<input/>',{
 				type:'hidden',
 				name:'id_usuario',

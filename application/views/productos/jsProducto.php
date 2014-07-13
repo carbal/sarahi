@@ -49,6 +49,7 @@
 		this.update = function(){
 			document.getElementById(this.id).onclick =  this.onUpdate;
 			$("[name='sku']").parents('.form-group').remove(); //eliminamos de la vista
+			$('legend').html('Actualizar Producto');
 			for(i in this.data){
 				$("[name='"+i+"']").prop('value',this.data[i]);
 			}

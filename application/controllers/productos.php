@@ -9,6 +9,7 @@ class Productos extends CI_Controller {
 		$this->load->database();
 		$this->load->library('session');
 		$this->load->library('form_validation');
+		$this->load->library('encrypt');
 
 		if(!$this->session->userdata('usuario')){		
 			redirect(base_url());
@@ -28,8 +29,10 @@ class Productos extends CI_Controller {
 
 	public function index()
 	{
+		$this->load->model('orm/producto_model');
+		$data['productos'] = $this->producto_model->select();
 		$this->load->view('template/encabezado');
-		$this->load->view('productos/indexView');
+		$this->load->view('productos/indexView',$data);
 		$this->load->view('template/piepagina');
 	}
 
@@ -110,7 +113,6 @@ class Productos extends CI_Controller {
 			show_404();
 		}
 	}
-
 
 
 }

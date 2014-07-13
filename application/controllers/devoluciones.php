@@ -10,8 +10,10 @@ class Devoluciones extends CI_Controller {
 		$this->load->library('session');
 		$this->load->database();
 		$this->load->library('form_validation');
-		if(!$this->session->userdata('usuario')){
+		if(!$this->session->userdata('usuario')){		
 			redirect(base_url());
+		}elseif ($this->session->userdata('usuario') && $this->session->userdata('tipo')==0) {
+			redirect(base_url().'index.php/vendedor/');
 		}
 	}
 

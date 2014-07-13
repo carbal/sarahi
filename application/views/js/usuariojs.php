@@ -607,7 +607,22 @@ $(document).on('ready', function() {
         
             var _precio=$("select#id_producto :selected").attr('precio');
             $("input#precio").val(_precio);
-     });   
+     });
+
+     function filterTable(string,obj)
+     {
+        var trs = $(obj).find('tr');
+
+        if(string.length < 4)
+            return;
+        else
+            trs.show();
+
+        trs.each(function(){
+            if($(this).toLowerCase().indexOf(string) < 0)
+                $(this).slideUp();
+        })
+     }  
     
 });
 </script>

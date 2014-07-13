@@ -2,7 +2,7 @@
 <div class="modal-content">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">INFORMACIÓN SOBRE LA DEVOLUCIÓN.</h4>
+    <h5 class="modal-title" >INFORMACIÓN SOBRE LA DEVOLUCIÓN.</h5>
   </div>
   <div class="modal-body">
   	<table class="table tabla-bordered">

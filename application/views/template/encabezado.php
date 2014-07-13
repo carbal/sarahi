@@ -137,6 +137,11 @@
     img{
         cursor: pointer;
     }
+    
+    .table{
+        text-transform: uppercase;
+    }
+
 
 
     </style>
@@ -184,14 +189,15 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                   <li><a href="<?=base_url()?>index.php/clientes">Clientes</a></li>  
                    <li><a href="<?=base_url()?>index.php/usuarios">Usuarios</a></li>
-                   <li><a href="#">Productos</a></li>                  
+                   <li><a href="<?=base_url()?>index.php/clientes">Clientes</a></li>
+                   <li><a href="<?=base_url()?>index.php/cadenas">Cadenas</a></li>  
+                   <li><a href="<?=base_url()?>index.php/productos">Productos</a></li>                  
                     <li class="divider"></li>
                     <li><a href="<?=base_url()?>index.php/usuarios/formUsuario">Usuario Nuevo</a></li>                    
-                    <li><a href="<?=base_url()?>index.php/productos/formProducto">Producto Nuevo</a></li> 
                     <li><a href="<?=base_url()?>index.php/clientes/formCliente">Cliente Nuevo</a></li>                   
-                    <li><a href="<?=base_url()?>index.php/panel/cadenaNueva">Nueva Cadena</a></li> 
+                    <li><a href="<?=base_url()?>index.php/cadenas/formCadena">Cadena Nueva</a></li> 
+                    <li><a href="<?=base_url()?>index.php/productos/formProducto">Producto Nuevo</a></li> 
                     <li><a href="<?=base_url()?>index.php/panel/agregarProductos">Agregar Productos</a></li>
                     <li><a href="<?=base_url()?>index.php/panel/precioProducto">Agregar Producto a Cadena</a></li> 
                 </ul>

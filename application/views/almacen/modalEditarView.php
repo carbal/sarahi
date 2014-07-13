@@ -2,7 +2,7 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h5 class="modal-title"><strong>Editar Producto del Almacen</strong></h5>
+			<h5 class="modal-title">EDITAR STOCK DEL ALMACEN</h5>
 		</div>
 		<div class="modal-body">
 			<form class="form form-horizontal col-md-offset-2" id="formProducto" >

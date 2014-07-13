@@ -1,7 +1,7 @@
 
 	<div class="input-group input-group-sm col-md-4 col-md-offset-4">
 	  <span class="input-group-btn"><button class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span></button></span>
-	  <input type="text" class="form-control" placeholder="buscar...">
+	  <input type="text" class="form-control" placeholder="filtrar cliente" onkeypress="filterTable(this.value,'.table')">
 	</div>
 	<br>
 	<br>
@@ -16,7 +16,7 @@
 			<th>COLONIA</th>
 			<th>PAIS</th>
 			<th>CONTACTO</th>
-			<th colspan="2">ACCIONES</th>		
+			<th>ACCIONES</th>		
 		</tr>
 		<?foreach($clientes as $cliente):?>
 		<tr>
@@ -28,7 +28,6 @@
 			<td><?=strtoupper($cliente['correo'])?></td>
 			<td class="text-center">
 			<a href="<?=base_url()?>index.php/clientes/formCliente/<?=$cliente['rfc']?>"><span class="glyphicon glyphicon-pencil" style="cursor:pointer;"></span></a></td>
-			<td class="text-center"></td>
 		</tr>
 		<?endforeach;?>
 	</table>

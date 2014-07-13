@@ -18,14 +18,15 @@
 </div>
 
 <div class="col-md-8 col-md-offset-2" id="container">
+<legend>Devoluciones</legend>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h4 class="panel-tittle">Ultimas devoluciones</h4>
+			<h4 class="panel-tittle">Ultimas...</h4>
 		</div>
 		<table class="table table-hover">
 			<tr>
 				<th>VENDEDOR</th>
-				<th>VENDEDOR</th>
+				<th>CLIENTE</th>
 				<th>ZONA</th>
 				<th>DESCRIPCION</th>
 				<th>CANTIDAD</th>

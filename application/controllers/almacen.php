@@ -9,9 +9,12 @@ class Almacen extends CI_Controller {
 		$this->load->library('session');
 		$this->load->database();
 		$this->load->library('form_validation');
-		if(!$this->session->userdata('usuario')){
+
+		if(!$this->session->userdata('usuario')){		
 			redirect(base_url());
-		}	
+		}elseif ($this->session->userdata('usuario') && $this->session->userdata('tipo')==0) {
+			redirect(base_url().'index.php/vendedor/');
+		}
 	}
 	//evitar que se almacene cache en el controlador
 	public function removeCache()

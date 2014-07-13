@@ -179,32 +179,6 @@
             }
         }
         var validaciones={
-            
-            cadenaNueva:function(){
-                    $("#centro").on('click', '#newcadena', function() {
-                                   
-                        $.ajax({
-                            url:"<?=base_url()?>index.php/validaciones/cadenaNueva/",
-                            type:"POST",
-                            dataType:'json',
-                            data:$("form").serialize(),
-                            success:function(data){
-                                if(data.exito==true){
-                                    $("#container-errores").slideUp('slow');
-                                    $("form").each(function(){
-                                        this.reset();
-                                    });
-                                   $("#exito").slideDown('slow');
-                                }else{
-                                    $("#errores").html(data.html);
-                                    $("#container-errores").hide('slow',function(){
-                                        $(this).slideDown('slow');
-                                    });
-                                }
-                            }
-                        });
-                    });
-            },
             agregarExistencia:function(){
                 $("#centro").on('click', '#existencia', function() {
                     
@@ -541,7 +515,6 @@
         //método para subir a la db un nuevo usuario
         //método para subir a la db un nuevo producto
         //método para subir una nueva cadena
-        validaciones.cadenaNueva();   
         //método para agregar existencias por zona en cada almacen
         validaciones.agregarExistencia();
         
@@ -600,8 +573,26 @@
        });
 
 
-      
 
     });  //cierre de evento READY     
 
+   function filterTable(string,obj){
+        var trs = $(obj).find('tr');
+        var match = false;
+        if(string.length < 4){
+            trs.show();
+            return;
+        }
+
+        trs.each(function(index,element){
+            if(index < 1)
+                return;
+            
+            if($(this).is(':contains("'+string.toUpperCase()+'")') || $(this).is(':contains("'+string.toLowerCase()+'")'))
+                $(this).show();
+            else
+                $(this).hide();
+
+        })
+    }  
     </script>

@@ -14,11 +14,19 @@ class Cadena_model extends CI_Model {
 		//Do your magic here
 	}
 	//obtener todos los registros de la tabla cadena
-	public function select(){
+	public function select()
+	{
 		$query=$this->db->get('cadena');
 		return $query->result_array();
 	}
 
+	//método para buscar una cadena especifica por id_cadena
+
+	public function getCadena($id)
+	{
+		$query = $this->db->get_where('cadena',array('id_cadena' => $id));
+		return $query->row_array();
+	}
 	//busqueda en el campo cadena mediante like
 	public function likeCadenas($cadena)
 	{
@@ -28,7 +36,8 @@ class Cadena_model extends CI_Model {
 	}
 
 	//obtener cadenas pertinentes al administrador proceso de abonar cuentas por pagar
-	public function likeAdmon($cadena){
+	public function likeAdmon($cadena)
+	{
 		$this->db->where('id_cadena !=',1);
 		$this->db->where('id_cadena !=',2);
 		$this->db->where('id_cadena !=',3);
@@ -40,7 +49,8 @@ class Cadena_model extends CI_Model {
 	
 
 	//comprobar si una cadena ya existe en la tabla, para evitar que se repita
-	public function existeCadena(){
+	public function existeCadena()
+	{
 
 		$data=array(
 			'cadena'=>$this->input->post('cadena')
@@ -51,18 +61,31 @@ class Cadena_model extends CI_Model {
 	}
 
 	//metodo para insertar un nuevo registro
-	public function insert(){
+	public function insert()
+	{
 		$insertar=array(
 			'cadena'=>$this->input->post('cadena'),
-			'id_zona'=>$this->input->post('zona'),
+			'id_zona'=>$this->input->post('id_zona'),
 			'representante'=>$this->input->post('representante'),
 			'telefono'=>$this->input->post('telefono')
 			);
 		$this->db->insert('cadena',$insertar);
-		//IMPORTANTE se  retorna el PK generado al insertar el registro en la tabla
-		return $this->db->insert_id();
+		
 	}
 
+
+	//método para actualizar registro de cadena
+	public function update()
+	{
+		$update=array(
+			'cadena'=>$this->input->post('cadena'),
+			'id_zona'=>$this->input->post('id_zona'),
+			'representante'=>$this->input->post('representante'),
+			'telefono'=>$this->input->post('telefono')
+			);
+		$this->db->update('cadena',$update,array('id_cadena' => $this->input->post('id_cadena')));
+
+	}
 	
 
 }
