@@ -81,7 +81,7 @@ class Ventas extends CI_Controller {
 	public function addproductos()
 	{
 		$this->form_validation->set_rules('sku', 'Producto','trim|required|callback_existeProducto|xss_clean');
-		$this->form_validation->set_rules('precio', 'Precio', 'trim|is_natural_no_zero|required|xss_clean');
+		$this->form_validation->set_rules('precio', 'Precio', 'trim|decimal|required|xss_clean');
 		$this->form_validation->set_rules('cantidad','Cantidad','trim|required|is_natural_no_zero|callback_productosinsuficientes|xss_clean');
 		$this->form_validation->set_message('is_natural_no_zero','El campo %s debe ser mayor a cero');
 		$this->form_validation->set_message('required','El campo %s es requerido');

@@ -30,7 +30,11 @@
 				?>
 			<?endforeach;?>
 			<?
-			$iva=$totales*0.16;
+			if($this->session->userdata('idzona') == 2)
+				$iva = $totales * IVA_FRONTERA;
+			else
+				$iva = $totales * IVA_NORMAL;
+
 			$importe=$iva+$totales;
 
 			?>
