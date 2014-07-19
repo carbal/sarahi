@@ -44,3 +44,4 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 define('IVA_FRONTERA',0.16);
 define('IVA_NORMAL',0.16);
+define('TOLERANCIA',30);

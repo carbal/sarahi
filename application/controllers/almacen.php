@@ -49,50 +49,37 @@ class Almacen extends CI_Controller {
 
 		//cargamos los modelos necesarios
 		$this->load->model('orm/zona_model');
-		$this->load->model('crud_model');
+		$this->load->model('existenciaModel');
 		$this->load->model('orm/usuario_model');
 		$this->load->model('orm/subalmacen_model');
 			
-			
-			$query    = $this->crud_model->almacenZona($id_almacen);
-			//obtenemos los usuarios que pertenece a esta zona
-			$usuarios = $this->usuario_model->whereZona($id_almacen);
+		$nombre    = $this->zona_model->get_zona($id_almacen);
+		$nombre    = $nombre['zona'];
+		$productos = $this->existenciaModel->getExistencias($id_almacen);
+		//obtenemos los usuarios que pertenece a esta zona
+		$usuarios  = $this->usuario_model->whereZona($id_almacen);
 
-			//obtenemos los subalmacenes pertenecientes a cada usuario
+		//arreglo que contrendra todos los subalmacenes
+		$subalmacenes=NULL;
+		if(count($usuarios)>0){
+			foreach($usuarios as $usuario){
 
-			//arreglo que contrendra todos los subalmacenes
-			$subalmacenes=NULL;
-			if(count($usuarios)>0){
-				foreach($usuarios as $usuario){
+				$subalmacen = $this->subalmacen_model->whereUsuario($usuario['id_usuario']);
+				//preguntamos si el usuario tiene productos en su subalmacen
+				//si se cumple almacenamos si no el array subalmacenes no guardar nada
+				if(count($subalmacen)>0){						
+					$subalmacenes[$usuario['id_usuario']]['productos'] = $subalmacen;	
+					$subalmacenes[$usuario['id_usuario']]['usuario']   = $usuario['nombres']." ".$usuario['apellidos'];
 
-					$subalmacen = $this->subalmacen_model->whereUsuario($usuario['id_usuario']);
-
-					//guardamos los datos el usuario
-
-					//preguntamos si el usuario tiene productos en su subalmacen
-					//si se cumple almacenamos si no el array subalmacenes no guardar nada
-					if(count($subalmacen)>0){						
-						$subalmacenes[$usuario['id_usuario']]['productos'] = $subalmacen;	
-						$subalmacenes[$usuario['id_usuario']]['usuario']   = $usuario['nombres']." ".$usuario['apellidos'];
-
-					}
 				}
-				
 			}
+			
+		}
 
-
-					            
-            $cuerpo=$query;        
-            
-            $data=array(
-            	'id_almacen'   => $id_almacen,
-            	'cuerpo'       => $cuerpo,            	
-            	'nombre'       => $almacen,
-            	'subalmacenes' => $subalmacenes            	
-            );
-           $this->load->view('template/encabezado');
-           $this->load->view('almacen/zonaView', $data);
-           $this->load->view('template/piepagina');
+       $data =  compact('nombre','productos','subalmacenes');
+       $this->load->view('template/encabezado');
+       $this->load->view('almacen/zonaView', $data);
+       $this->load->view('template/piepagina');
 	}
 
 	//mostrar modal para editar 

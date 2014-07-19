@@ -1,33 +1,43 @@
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-10 col-md-offset-1">
 	<legend>Almacen General</legend>
 	<div class="alert alert-success" id="success" style="display:none;">
 		<h5>Se actualizó con éxito</h5>
 	</div>
-<?if(sizeof($cuerpo)>0):?>
+<?if(sizeof($productos)>0):?>
 	<div class="panel panel-primary">
-	<div class="panel-heading"><h4 class="panel-tittle"><?=strtoupper($nombre)?></h4></div>	
+	<div class="panel-heading"><h5 class="panel-tittle"><?=$nombre?></h5></div>	
 
 	<div class="table-responsive">
-		<table class="table table-hover">
+		<table class="table table-condensed">
 			<tr>
 				<th>DESCRIPCIÓN</th>
 				<th>SKU</th>
-				<th>CATEGORÍA</th>
-				<th>P. COSTO</th>
-				<th>P. VENTA</th>
-				<th>EXISTENCIA</th>
-				<th>EDITAR</th>
+				<th class="text-center">COSTO</th>
+				<th class="text-center">VENTA</th>
+				<th class="text-center">ALMACEN</th>
+				<th class="text-center">SUBALMACEN</th>
+				<th class="text-center">TOTAL</th>
+				<th class="text-center">MINÍMO</th>
+				<th class="text-center">EDITAR</th>
 			</tr>
 			
-		<?foreach ($cuerpo as $fila):?>
-		<tr>
-			<td><?=$fila['descripcion']?></td>
-			<td><?=$fila['sku']?></td>
-			<td><?=$fila['categoria']?></td>
-			<td class="text-center"><?=$fila['costo']?></td>
-			<td class="text-center"><?=$fila['venta']?></td>		
-			<td class="text-center"><?=$fila['existencia']?></td>
-			<td class="text-center"><span class="glyphicon glyphicon-pencil" title="Editar" style="cursor:pointer;" onclick="almacen.modalZona(<?=$fila['id']?>);"></span></td>
+		<?foreach ($productos as $producto):?>
+		<?if($producto['total']<= $producto['stock_min']):?>
+		<tr class="danger">
+		<?elseif ($producto['total'] <= $producto['stock_min'] + TOLERANCIA):?>
+		<tr class="warning">
+		<?else:?>
+		<tr class="success">
+		<?endif;?>
+			<td><?=$producto['descripcion']?></td>
+			<td><?=$producto['sku']?></td>
+			<td class="text-center"><?=$producto['costo']?></td>
+			<td class="text-center"><?=$producto['venta']?></td>		
+			<td class="text-center"><?=$producto['almacen']?></td>
+			<td class="text-center"><?=$producto['subalmacen']?></td>
+			<td class="text-center"><?=$producto['total']?></td>
+			<td class="text-center"><?=$producto['stock_min']?></td>
+			<td class="text-center"><span class="glyphicon glyphicon-pencil" title="Editar" style="cursor:pointer;" onclick="almacen.modalZona(<?=$producto['id']?>);"></span></td>
 		</tr>
 		<?endforeach;?>
 
@@ -45,14 +55,16 @@
 	<?if(count($subalmacenes)>0):?>	
 	<?foreach($subalmacenes as $subalmacen):?>
 
+<div class="col-md-10 col-md-offset-1">
+	
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-		<h4 class="panel-tittle"><?="USUARIO :"." ".strtoupper($subalmacen['usuario'])?></h4>
+		<h5 class="panel-tittle"><?="USUARIO :"." ".strtoupper($subalmacen['usuario'])?></h5>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<tr>
-					<th>DESCRIPCION</th>
+					<th>DESCRIPCIÓN</th>
 					<th>SKU</th>
 					<th>CATEGORIA</th>
 					<th>EXISTENCIA</th>
@@ -68,6 +80,7 @@
 			</table>
 		</div>
 	</div>
+</div>
 	<?endforeach;?>
 
 	<?else:?>
