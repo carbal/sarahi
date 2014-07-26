@@ -37,7 +37,7 @@
 			<td class="text-center"><?=$producto['subalmacen']?></td>
 			<td class="text-center"><?=$producto['total']?></td>
 			<td class="text-center"><?=$producto['stock_min']?></td>
-			<td class="text-center"><span class="glyphicon glyphicon-pencil" title="Editar" style="cursor:pointer;" onclick="almacen.modalZona(<?=$producto['id']?>);"></span></td>
+			<td class="text-center"><span class="glyphicon glyphicon-pencil" title="Editar" onclick="almacen.modalZona(<?=$producto['id']?>)" ></span></td>
 		</tr>
 		<?endforeach;?>
 
@@ -93,3 +93,4 @@
 
 <div class="modal fade" id="modalEditar">	
 </div>
+

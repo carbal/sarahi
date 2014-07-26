@@ -141,7 +141,9 @@
     .table{
         text-transform: uppercase;
     }
-
+    .glyphicon{
+        cursor: pointer !important;
+    }
 
 
     </style>

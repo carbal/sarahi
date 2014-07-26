@@ -1,7 +1,7 @@
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-primary">
 		<div class="panel-heading">			
-			<h1 class="panel-title">CLIENTES EN MI ZONA</h1>
+			<h5>CLIENTES EN MI ZONA</h5>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-hover" style="font-size:0.9em;">
