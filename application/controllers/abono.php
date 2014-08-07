@@ -284,7 +284,7 @@ class Abono extends CI_Controller {
 		$abono    = $this->input->post('valor');
 		$ultimo   = $this->abonar_model->ultimopago($id_venta);
 
-		if($abonoc <= $ultimo['porpagar']){
+		if($abono <= $ultimo['porpagar']){
 			return TRUE;
 		}else{
 			return FALSE;

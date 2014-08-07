@@ -24,8 +24,8 @@ class Abonar_model extends CI_Model {
 	{
 		$this->db->where('id_venta',$id_venta);
 		$this->db->order_by('id_cpp','desc');
-		$query=$this->db->get('cuentasporpagar');
 		$this->db->limit(1,0);
+		$query=$this->db->get('cuentasporpagar');
 		return $query->row_array();
 	}
 

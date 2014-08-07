@@ -30,7 +30,6 @@
 	    linkInterno.on('click',function(e) {
 	    e.preventDefault();
 	    var href = $(this).attr('href');
-	     console.log($( href ).offset().top);
 	    $('html, body').animate({ scrollTop : $( href ).offset().top -100}, 'slow');
 	    });
 	});
@@ -51,6 +50,7 @@
 		</div>
 		</div>
 			<h1>Galletas Integrales Sarahi</h1>
+			<h3>Desde 1990</h3>
 	</div>
 	<div class="row" id="nosotros">
 		<br>

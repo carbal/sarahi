@@ -47,12 +47,20 @@ a.menu:hover{
 	text-decoration: underline;
 }
 
+#principal h3{
+	color: white;
+	font-size: 25px;
+	text-align: center;
+	letter-spacing: .4em;
+	margin-top: 3%;
+}
 #nosotros{
 	background: #FFFFFA;
 	min-height: 650px;
 	color:#F24C27;
 	font-size: 16px;
 	letter-spacing: .3em;
+	line-height: 1.5em;
 }
 
 h2{
