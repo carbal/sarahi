@@ -49,13 +49,13 @@ class Almacen extends CI_Controller {
 
 		//cargamos los modelos necesarios
 		$this->load->model('orm/zona_model');
-		$this->load->model('existenciaModel');
+		$this->load->model('existenciamodel');
 		$this->load->model('orm/usuario_model');
 		$this->load->model('orm/subalmacen_model');
 			
 		$nombre    = $this->zona_model->get_zona($id_almacen);
 		$nombre    = $nombre['zona'];
-		$productos = $this->existenciaModel->getExistencias($id_almacen);
+		$productos = $this->existenciamodel->getExistencias($id_almacen);
 		//obtenemos los usuarios que pertenece a esta zona
 		$usuarios  = $this->usuario_model->whereZona($id_almacen);
 

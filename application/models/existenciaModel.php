@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ExistenciaModel extends CI_Model {
+class Existenciamodel extends CI_Model {
 
 	public function __construct()
 	{
