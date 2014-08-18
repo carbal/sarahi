@@ -49,13 +49,21 @@ class CI_Controller {
 		$this->load =& load_class('Loader', 'core');
 
 		$this->load->initialize();
-		
+		$this->removerCache();
 		log_message('debug', "Controller Class Initialized");
 	}
 
 	public static function &get_instance()
 	{
 		return self::$instance;
+	}
+
+	public function removerCache()
+	{
+		$this->output->set_header('Last-Modified:gmdate("D, d MYH: i: s"..)GMT');
+		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0 ");
+		$this->output->set_header("Pragma: no-cache");
+		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");		
 	}
 }
 // END Controller class

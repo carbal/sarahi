@@ -26,8 +26,10 @@
 
   &nbsp&nbsp&nbsp
   <div class="form-group">    
-  <button type="button" class="form-control btn btn btn-primary" id="detalle" title="buscar">&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp&nbsp&nbsp</button>
+    <button type="button" class="form-control btn btn btn-primary" id="detalle" title="buscar">&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp&nbsp&nbsp</button>
   </div>
+  <input type="hidden" name="id"    id="clave"    value="">
+  <input type="hidden" name="tabla" id="tabla" value="">
 </form>
   </div>
 

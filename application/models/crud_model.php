@@ -12,7 +12,6 @@ class Crud_model extends CI_Model {
 	 		 	
 	 }
 	
-		
 	public function almacenZona($id_almacen){
 		/*$query=$this->db->query('call almacenzona('.$id_almacen.')');
 		return $query;	*/
@@ -33,6 +32,7 @@ class Crud_model extends CI_Model {
 		return $query->result_array();
 
 	}
+	
 	//METODO PARA OBTENER EL NUMERO DE FILAS EN FUNCION DEL ALMACEN EN INTERVALOS LIMIT 0,10;
 	//LLAMA A PROCEDIMIENTO ALMACENADO
 	public function limitAlmacen($id,$apartir,$porpagina){

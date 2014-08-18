@@ -3,12 +3,10 @@ class Panel extends CI_Controller {
 	
 	/*
 	*controllador correspondiente al usuario administrador
-	*
 	*/
 	public function __construct()
 	{
 		parent:: __construct();	
-		$this->removeCache();		
 		$this->load->library('session');
 		$this->load->database();
 		$this->load->model('orm/zona_model');
@@ -17,23 +15,14 @@ class Panel extends CI_Controller {
 		$this->load->model('orm/precio_cadena_model');
 		$this->load->model('crud_model');						
 		$this->load->library('form_validation');
-
 			
 		if(!$this->session->userdata('usuario')){		
-			redirect(base_url());
+			redirect(base_url().'index.php/main');
 		}elseif ($this->session->userdata('usuario') && $this->session->userdata('tipo')==0) {
 			redirect(base_url().'index.php/vendedor/');
 		}
 	}
 
-	//evitar que el cache se guarde
-	public function removeCache()
-	{
-		$this->output->set_header('Last-Modified:gmdate("D, d MYH: i: s"..)GMT');
-		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0 ");
-		$this->output->set_header("Pragma: no-cache");
-		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");
-	}
 	//cargamos la plantilla principal
 	public function index()
 	{

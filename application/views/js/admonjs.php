@@ -241,24 +241,14 @@
             idBusqueda:function(){
                  $("#caja").on('click','.opciones',function(){
                         //alert($(this).html());
-                        var _id= $(this).attr('id');
+                        var _id= $(this).prop('id');
                         var _campo=$(this).html();
                         var _tabla=$(this).attr('table');                        
-                        
                        //alert(_id+"  "+_campo);
-                    $.ajax({
-                        url:"<?=base_url()?>index.php/buscarventa/idbusqueda/",
-                        type:"POST",
-                        data:{
-                            id:_id,
-                            tabla:_tabla
-                        },
-                        success:function(){
-                            $("#auto").val(_campo);
-                            $("#caja").slideUp('slow');
-                                    
-                        }
-                    });
+                        $("#auto").val(_campo);
+                        $('form#search [name="id"]:hidden').prop('value',_id);
+                        $('form#search [name="tabla"]:hidden').prop('value',_tabla);
+                        $("#caja").slideUp('slow');
                 });
             },
             generales:function(){
@@ -310,8 +300,8 @@
                    })
                    .done(function(data){
                        loading(false);
-                       if(data.exito==true){
-                            $("#resultados").load("<?=base_url()?>index.php/buscarventa/edoGeneral/");
+                       if(data.success == true){
+                            $('#resultados').html(data.html);
                             $("#resultados").slideDown("slow");
                             $("#info").slideUp('slow');
                             $("#container-errores").slideUp('slow');

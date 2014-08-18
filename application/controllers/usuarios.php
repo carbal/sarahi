@@ -5,28 +5,19 @@ class Usuarios extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->removeCache();
 		$this->load->database();
 		$this->load->library('session');
 		$this->load->library('form_validation');
+		$this->load->library('encrypt');
 		$this->load->helper('getZona');
 		//Do your magic here
 
 		if(!$this->session->userdata('usuario')){		
-			redirect(base_url());
+			redirect(base_url().'index.php');
 		}elseif ($this->session->userdata('usuario') && $this->session->userdata('tipo')==0) {
 			redirect(base_url().'index.php/vendedor/');
 		}
 	}
-	//remover caché
-	public function removeCache()
-	{
-		$this->output->set_header('Last-Modified:gmdate("D, d MYH: i: s"..)GMT');
-		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0 ");
-		$this->output->set_header("Pragma: no-cache");
-		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");	
-	}
-
 
 	public function index()
 	{
@@ -47,7 +38,10 @@ class Usuarios extends CI_Controller {
 		$data['zonas']=$this->zona_model->select();
 		if(!empty($id)){
 			$this->load->model('orm/usuario_model');
-			$js['usuario'] = $this->usuario_model->whereUsuario($id);
+			//necesario descencriptar password antes de enviar a la vista
+			$usuario             = $this->usuario_model->whereUsuario($id);
+			$usuario['password'] = $this->encrypt->decode($usuario['password']);
+			$js['usuario'] = $usuario;
 			$data['js']    = $this->load->view('usuarios/jsUsuario',$js, TRUE);
 		}else{
 			$data['js']    = $this->load->view('usuarios/jsUsuario','', TRUE);
@@ -62,12 +56,14 @@ class Usuarios extends CI_Controller {
 	{
 		$this->form_validation->set_rules('nombres', 'Nombre', 'trim|required');		
 		$this->form_validation->set_rules('apellidos', "Apellido", 'trim|required|xss_clean');
+		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('domicilio', 'Domicilio', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('tipo', 'Tipo', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('id_zona', 'Zonas', 'trim|required|integer');
 		$this->form_validation->set_rules('password', 'Contraseña', 'trim|min_length[8]|required|xss_clean');
 		$this->form_validation->set_rules('pass2', 'Confirmar', 'trim|matches[password]|required|xss_clean');		
 		$this->form_validation->set_message('required',"El campo %s es obligatorio");
-		$this->form_validation->set_message('min_length','Deben de ser 8 caracteres minímo');
+		$this->form_validation->set_message('min_length','La %s de ser 8 caracteres minímo');
 		$this->form_validation->set_message('matches',"El campo %s y %s no son iguales");
 		$this->form_validation->set_message('integer','El campo zona es obligatorio');
 		$this->form_validation->set_error_delimiters('<div>','</div>');
@@ -79,14 +75,12 @@ class Usuarios extends CI_Controller {
 			else
 				$this->usuario_model->insert();
 			
-			echo json_encode(array('success'=>TRUE));		
+			echo json_encode(array('success' => TRUE));		
 		}else{		
-			echo json_encode(array('success'=>FALSE,'html'=>validation_errors()));
+			echo json_encode(array('success' => FALSE,'html' => validation_errors()));
 		}
 
 	}
-
-	
 
 }
 

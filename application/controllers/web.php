@@ -4,7 +4,7 @@ class Web extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('web/principalView');
+		$this->load->view('web/indexView');
 	}
 
 }

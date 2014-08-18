@@ -4,7 +4,6 @@ class Ventas extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->removeCache();
 		$this->load->database();
 		$this->load->library('form_validation');		
 		$this->load->model('orm/clientes_model');
@@ -16,18 +15,10 @@ class Ventas extends CI_Controller {
 		$this->load->library('session');
 
 		if(!$this->session->userdata('usuario')){		
-			redirect(base_url());
+			redirect(base_url().'index.php');
 		}		
 	}
 
-	public function removeCache()
-	{
-		$this->output->set_header('Last-Modified:gmdate("D, d MYH: i: s"..)GMT');
-		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0 ");
-		$this->output->set_header("Pragma: no-cache");
-		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");
-	}
-	
 	//método principal del constructor
 	public function index()
 	{

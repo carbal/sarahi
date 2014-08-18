@@ -15,7 +15,7 @@ class Usuario_model extends CI_Model {
 	//metodo para obtener todos los registros de la tabla
 	public function select()
 	{
-		$query=$this->db->get('usuario');
+		$query = $this->db->get('usuario');
 		return $query->result_array();
 	} 
 
@@ -37,23 +37,26 @@ class Usuario_model extends CI_Model {
 		$data=array(
 			'nombres'   => $this->input->post('nombres'),
 			'apellidos' => $this->input->post('apellidos'),
+			'usuario'   => $this->input->post('usuario'),
 			'domicilio' => $this->input->post('domicilio'),
-			'password'  => $this->input->post('password'),
+			'password'  => $this->encrypt->encode($this->input->post('password')),
 			'id_zona'   => $this->input->post('id_zona'),
-			'tipo'      => 0
-			);
+			'tipo'      => $this->input->post('tipo') 
+		);
 		$this->db->insert('usuario',$data);	
 	}
 
 	//actualizar registro
 	public function update()
 	{
-		$update = array(
-			'nombres'   => $_POST['nombres'],
-			'apellidos' => $_POST['apellidos'],
-			'id_zona'   => $_POST['id_zona'],
-			'domicilio' => $_POST['domicilio'],
-			'password'  => $_POST['password']
+		$update=array(
+			'nombres'   => $this->input->post('nombres'),
+			'apellidos' => $this->input->post('apellidos'),
+			'usuario'   => $this->input->post('usuario'),
+			'domicilio' => $this->input->post('domicilio'),
+			'password'  => $this->encrypt->encode($this->input->post('password')),
+			'id_zona'   => $this->input->post('id_zona'),
+			'tipo'      => $this->input->post('tipo') 
 		);
 
 		$this->db->update('usuario',$update,array('id_usuario' => $_POST['id_usuario']));
@@ -62,17 +65,8 @@ class Usuario_model extends CI_Model {
 	//metodo para comprobar si un usuario es valido o existe
 	public function val_usuario()
 	{
-		$data=array(
-				'nombres'=>$this->input->post('user',TRUE),
-				'password'=>$this->input->post('pass',TRUE)
-			);
-		$query=$this->db->get_where('usuario',$data);
-		if($query->num_rows()==1){		
-			return TRUE;
-		}
-		else{
-			return FALSE;
-		}
+		$query=$this->db->get_where('usuario',array('usuario' => $this->input->post('user')));
+		return $query->row_array();
 	}
 	
 	//obtener datos de usuario especifico

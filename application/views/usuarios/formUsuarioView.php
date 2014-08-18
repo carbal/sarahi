@@ -22,6 +22,29 @@
     </div>
   </div>
   <div class="form-group">
+    <label for="" class="control-label col-md-4">Usuario :</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" name="usuario" placeholder="Requerido">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="control-label col-md-4">Tipo :</label>
+    <div class="col-md-8">
+      <div class="radio-inline">
+        <label>
+          <input type="radio" name="tipo" value="1">
+        Administrador
+        </label>
+      </div>
+      <div class="radio-inline">
+        <label>
+          <input type="radio" name="tipo" value="0" checked>
+        Vendedor
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
     <label class="col-md-4 control-label">Zona :</label>
     <div class="col-md-8">
       <select class="form-control" name="id_zona">

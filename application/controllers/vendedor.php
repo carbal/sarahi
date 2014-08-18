@@ -5,7 +5,6 @@ class Vendedor extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->removeCache();
 		$this->load->library('session');
 		$this->load->model('vendedor_model');
 		$this->load->model('orm/clientes_model');
@@ -14,20 +13,12 @@ class Vendedor extends CI_Controller {
 		$this->load->database();		
 		
 		if(!$this->session->userdata('usuario')){		
-			redirect(base_url(),'refresh');
+			redirect(base_url().'index.php/main');
 		}elseif ($this->session->userdata('usuario') && $this->session->userdata('tipo')==1){
 			redirect(base_url().'index.php/panel/');
 		}
 	}
 
-	//evitar que el navegador almacene en la memoria cache las paginas
-	public function removeCache()
-	{
-		$this->output->set_header('Last-Modified:gmdate("D, d MYH: i: s"..)GMT');
-		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0 ");
-		$this->output->set_header("Pragma: no-cache");
-		$this->output->set_header("Expires: Mon, 26 de julio 1997 05:00:00 GMT");
-	}
 	public function index()
 	{
 		$this->load->view('template/encabezado');

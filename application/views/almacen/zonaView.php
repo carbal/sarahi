@@ -40,7 +40,6 @@
 			<td class="text-center"><span class="glyphicon glyphicon-pencil" title="Editar" onclick="almacen.modalZona(<?=$producto['id']?>)" ></span></td>
 		</tr>
 		<?endforeach;?>
-
 		</table>
 	</div>
 	</div>
@@ -50,7 +49,7 @@
 </div>
 <?endif;?>	
 
-<legend>Sub-almacenes</legend>
+<legend>Subalmacenes</legend>
 	
 	<?if(count($subalmacenes)>0):?>	
 	<?foreach($subalmacenes as $subalmacen):?>

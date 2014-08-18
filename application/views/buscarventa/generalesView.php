@@ -39,6 +39,8 @@
   <div class="form-group">    
   <button type="button" class="form-control btn btn-primary" id="buscar" title="buscar">&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp&nbsp&nbsp</button>
   </div>
+    <input type="hidden" value="" name="tabla">
+    <input type="hidden" value="" name="id">
 </form>
   </div>
   </div>
