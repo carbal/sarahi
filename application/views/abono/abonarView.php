@@ -1,17 +1,18 @@
 <form class="form-horizontal" id="form_abonar">
-		<div class="col-md-6 col-md-offset-3">
-			
-		  <div class="input-group">
-			  <input type="text" class="form-control" placeholder="escriba una cadena o nombre de cliente" id="cadena_abono">
-			  <div class="col-md-10" id="caja"></div>
-			  <span class="input-group-btn">
-			  	<button type="button" class="btn btn-primary" id="buscar_abono">			  		
-			  	&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp&nbsp&nbsp
-			  	</button>		  	
-			  </span>
-		  </div>
-		</div>
-	</form>
+	<div class="col-md-6 col-md-offset-3">
+	  <div class="input-group">
+		  <input name="suggestion" type="text" class="form-control" placeholder="escriba una cadena o nombre de cliente" id="cadena_abono">
+		  <div class="col-md-10" id="caja"></div>
+		  <span class="input-group-btn">
+		  	<button type="button" class="btn btn-primary" id="buscar_abono">			  		
+		  		&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp&nbsp&nbsp
+		  	</button>		  	
+		  </span>
+	  </div>
+	</div>
+	<input type="hidden" name="table" value="">
+	<input type="hidden" name="id"    value="">
+</form>
 	<br>
 	<br>
 	<br>
@@ -40,7 +41,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Información sobre la venta</h4>
+        <h5 class="modal-title" id="myModalLabel">INFORMACIÓN SOBRE LA VENTA</h5>
       </div>
       <div class="modal-body">
                 

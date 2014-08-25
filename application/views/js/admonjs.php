@@ -343,46 +343,27 @@
             },
             saveIdAbono:function(){
                 $("div#centro").on('click', 'div.opcion_abono', function(){
-                var _id=$(this).attr('id');
-                var _tabla=$(this).attr('table');
-                var val=$(this).html();
-
-                $.ajax({
-                    url: '<?=base_url()?>index.php/abono/saveIdAbono/',
-                    type: 'POST',                        
-                    data: {
-                        id:_id,
-                        tabla:_tabla
-                     }
-                })
-                .done(function() {
-                    $("input#cadena_abono").val(val);
-                    $("div#caja").slideUp('slow');
-                })
-                .fail(function() {
-                    $("#centro").html("<h3>Error, comuniquese con el administrador</h3>");  
+                    $('[name="table"]').prop('value',$(this).attr('table'));
+                    $('[name="id"]').prop('value',$(this).attr('id'));
+                    $('[name="suggestion"]').prop('value',$(this).text());
+                    $('#caja').slideUp('slow');
                 });
-                        
-            });
             },
             buscarCuenta:function(){
                 $("button#buscar_abono").on('click', function() {
-                    var _parametro=$("input#cadena_abono").val();
                     
                      $.ajax({
                         url: '<?=base_url()?>index.php/abono/buscarCuenta/',
                         type: 'POST',   
                         dataType:'json',
                         beforeSend:function(){loading(true)},
-                        data: {
-                            parametro:_parametro
-                        }
+                        data: $('form').serialize()
                     })
                     .done(function(data) {
-                        if(data.exito==true){
+                        if(data.success == true){
                             $("div#resultados").hide('slow',function(){
-                            $("div#resultados").load("<?=base_url()?>index.php/abono/obtenerResultados/");                        
-                            })
+                                $("div#resultados").html(data.html);                        
+                            });
                             $("div#resultados").slideDown('slow');
                             $("div#container-errores").hide('slow');
                             $("div#info").hide('slow');
@@ -393,8 +374,8 @@
                         loading(false);
                     })
                     .fail(function(data){
-                        loading(false);
                         console.log(data)
+                        loading(false);
                     });            
                 });
             },
@@ -413,7 +394,7 @@
                             }
                         })
                         .done(function(data) {
-                            if(data.exito==true){
+                            if(data.success == true){
                                 $("div#pregunta_abono").modal("show");
                                 $("div#container-errors").hide('slow');
                             }else{

@@ -12,11 +12,6 @@ class Cadena_model extends CI_Model {
 	//metodo para obtener las ventas no termindas pertinentes al administrador
 	public function cadena($idCadena,$apartir)
 	{
-		/*
-		$query=$this->db->query("call cppadmoncadena(".$idCadena.",".$apartir.")");
-		return $query;
-		*/
-		//nueva version sin procedimientos almacenados
 		$this->db->select('ventas.id_venta AS id_venta,
 		ventas.total_venta AS total,
 		ventas.iva_venta AS iva,
@@ -38,8 +33,6 @@ class Cadena_model extends CI_Model {
 	//obtener las filas  de las ventas no terminadas pertinentes al administrador
 	public function  rowscadena($idCadena)
 	{
-		/*$query=$this->db->query("call rowscppcadena(".$idCadena.")");
-				return $query;*/
 		$this->db->select('ventas.id_venta AS id_venta,
 		ventas.total_venta AS total,
 		ventas.iva_venta AS iva,

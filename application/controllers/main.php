@@ -19,35 +19,35 @@ class Main extends CI_Controller{
                      
   }
   
-public function index()
-{	  
-	$this->load->view('main/entrada');
-}
+  public function index()
+  {	  
+  	$this->load->view('main/entrada');
+  }
 
-public function validar()
-{   
-  $this->form_validation->set_rules('user', 'Usuario', 'required');
-  $this->form_validation->set_rules('pass', 'Contraseña', 'required|callback_valuser');
-  $this->form_validation->set_message('required','Requerido');
-  $this->form_validation->set_message('valuser','Datos incorrectos');
+  public function validar()
+  {   
+    $this->form_validation->set_rules('user', 'Usuario', 'required');
+    $this->form_validation->set_rules('pass', 'Contraseña', 'required|callback_valuser');
+    $this->form_validation->set_message('required','Requerido');
+    $this->form_validation->set_message('valuser','Datos incorrectos');
 
-    if($this->form_validation->run() == TRUE){
-        
-        if($this->session->userdata('tipo')==1){
-        redirect(base_url()."index.php/panel/");        
-        }
-        elseif ($this->session->userdata('tipo')==0) {
-          redirect(base_url()."index.php/vendedor/");
-        }
-        else{
-          redirect(base_url().'index.php/main');
-        }
-    }
-    else{    
-      $this->load->view('main/entrada');
-    }
- 	 
-} 
+      if($this->form_validation->run() == TRUE){
+          
+          if($this->session->userdata('tipo')==1){
+          redirect(base_url()."index.php/panel/");        
+          }
+          elseif ($this->session->userdata('tipo')==0) {
+            redirect(base_url()."index.php/vendedor/");
+          }
+          else{
+            redirect(base_url().'index.php/main');
+          }
+      }
+      else{    
+        $this->load->view('main/entrada');
+      }
+   	 
+  } 
 
 
  //callback form_validation
@@ -55,6 +55,7 @@ public function validar()
   {
     $data      =  $this->usuario_model->val_usuario();
     $pass      =  $this->input->post('pass');
+
     if(!empty($data)){
       if($pass == $this->encrypt->decode($data['password'])){
         $data=array(
@@ -74,5 +75,5 @@ public function validar()
   }
 
 
-
+  
 }
