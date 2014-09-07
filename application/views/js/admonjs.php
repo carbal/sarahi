@@ -28,7 +28,7 @@
         var valor;
         
         //aplicamos datepicker al input correspondiente 
-     function loading(estado){
+    function loading(estado){
         if(estado){
             $('#wait').fadeIn('slow');
             $('#fondo').fadeIn('slow');
@@ -468,10 +468,39 @@
                 .fail(function() {
                     console.log("error fatal: controller:almacen, action:updateProducto");
                 });
-                
             }//termina evento updateProducto
         }
+        var bitacora = function(){
+            this.getBitacora = function(){
 
+                $('#getBitacora').on('click',function(){
+
+                    if($('[name="fecha"]').prop('value') == '')
+                        return;
+
+                    $.ajax({
+                        url: '<?=base_url()?>index.php/bitacora/getBitacora',
+                        type: 'POST',
+                        dataType: 'json',
+                        beforeSend:function(){
+                            loading(true);
+                        }
+                        data: $('form#bitacora').serialize()
+                    })
+                    .done(function(data) {
+                        if(data.success){
+                            $('div#container').html(data.html);
+                        }
+                        loading(false);
+                    })
+                    .fail(function(data) {
+                        console.log(data)
+                        loading(false);
+                    });
+                    
+                });
+            }
+        }
 
     $(document).on('ready',function(){
 
@@ -483,13 +512,8 @@
     /*
     *OBJETO CONTROLADOR:VALIDACIONES
     */
-        //método para subir a la db un nuevo usuario
-        //método para subir a la db un nuevo producto
-        //método para subir una nueva cadena
         //método para agregar existencias por zona en cada almacen
         validaciones.agregarExistencia();
-        
-        
    /*
     * OBJETO CONTROLADOR : BUSCARVENTA
    */
@@ -501,7 +525,6 @@
         buscarventa.generales();
         //ventas detalladas
         buscarventa.detallados();
-
 
     /*
     *   OBJETO PANEL CONTROLADOR:PANEL
@@ -536,10 +559,16 @@
         abono.validarAbono();
         //insertar abono
         abono.insertAbono();
-      
+    /*
+    *   controller : bitacora
+    *   método para el controlador bitacora
+    */
+    var Bitacora = new bitacora();
+    //buscar ventas y abonos
+    Bitacora.getBitacora();
    //evitar que seleccionen mas de 1 checkbox
        $("#centro").on('click',"input[type=checkbox]" ,function() {
-          var id=$(this).attr('id');     
+          var id = $(this).attr('id');     
           $("input[id!="+id+"]").removeAttr('checked');
        });
 

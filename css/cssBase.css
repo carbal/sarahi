@@ -1,0 +1,136 @@
+
+
+.pointer{
+    cursor: pointer;
+}
+
+div#piepagina{
+    background: rgba(0,0,0,0.90);
+    color:white;
+
+}
+div#centro{                
+    margin-top: 2%;
+    min-height: 450px;
+}
+a{
+    cursor: pointer;        
+}
+div.row{
+    margin: 0;
+    padding: 0;
+} 
+div.modal-header{
+    background: #428bca;
+}
+
+div#sugerencias{
+    z-index: 9000;
+    position: absolute;        
+    max-height: 120px;
+    overflow: auto;
+    font-size: 12px;    
+    padding: 5px;
+    color: black;
+    border: 1px solid #333;    
+    -webkit-box-shadow: #222 5px 5px 5px;
+    -moz-box-shadow: #222 5px 5px 5px;
+    box-shadow: #222 5px 5px 5px;
+    background: #F2F2F2;  
+    display:none;  
+    cursor: pointer;
+}
+div#sugerencias_venta{
+    z-index: 9000;
+    position: absolute;        
+    max-height: 120px;
+    overflow: auto;
+    font-size: 12px;    
+    padding: 5px;
+    color: black;
+    border: 1px solid #333;    
+    -webkit-box-shadow: #222 5px 5px 5px;
+    -moz-box-shadow: #222 5px 5px 5px;
+    box-shadow: #222 5px 5px 5px;
+    background: #F2F2F2;  
+    display:none;  
+    cursor: pointer;
+}
+div#sugerencias_venta a{
+    color: black;
+    text-decoration: none; 
+}
+div#sugerencias_venta a:hover{
+    text-decoration: underline;
+    background: #BAD3D9;
+}
+div#sugerencias div.opcion_cliente{
+    color: black;
+    text-decoration: none;
+}
+div#sugerencias div.opcion_cliente:hover{
+    text-decoration: underline;
+    background: #BAD3D9;
+}
+div#sugerencias div.opciones{
+    color: black;
+    padding: 5px;
+    text-decoration: none;
+}
+div#sugerencias div.opciones:hover{
+    text-decoration: underline;
+    background: #BAD3D9;
+}
+div#caja{
+    z-index: 9000;
+    position: absolute;        
+    max-height: 120px;
+    min-width: 150px;
+    overflow: auto;
+    font-size: 12px;    
+    padding: 0px;
+    margin: 0px;
+    color:black;
+    border: 1px solid #333;        
+    -webkit-box-shadow: #222 5px 5px 5px;
+    -moz-box-shadow: #222 5px 5px 5px;
+    box-shadow: #222 5px 5px 5px;
+    background: white;   
+    display:none;  
+    cursor: pointer;
+}
+
+div#caja > div{
+    color:black;        
+    padding: 5px;
+    text-transform: uppercase;
+}
+div#caja div:hover{
+    text-decoration: underline;
+    background: #3276b1;
+}
+img{
+    cursor: pointer;
+}
+
+.table{
+    text-transform: uppercase;
+}
+.glyphicon{
+    cursor: pointer !important;
+}
+
+.suggestions{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: white;
+    text-transform: uppercase;
+    position: absolute;
+    z-index: 900;
+    display: none;
+}
+.suggestions  .suggestion:hover{
+    background: #3276b1;
+    cursor: pointer;
+}

@@ -72,9 +72,9 @@ class Usuario_model extends CI_Model {
 	//obtener datos de usuario especifico
 	public function get_usuario(){
 		$data=array(
-				'nombres'=>$this->input->post('user',TRUE),
-				'password'=>$this->input->post('pass',TRUE)
-			);
+			'nombres'=>$this->input->post('user',TRUE),
+			'password'=>$this->input->post('pass',TRUE)
+		);
 		$query=$this->db->get_where('usuario',$data);
 		return $query->row_array();
 	}

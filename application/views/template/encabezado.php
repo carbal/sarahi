@@ -6,147 +6,22 @@
     <title>Galletas Sarahi</title>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/jquery.ui.datepicker.css">
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/cssBase.css">
     <script type="text/javascript" src="<?=base_url()?>js/jquery-2.0.2.js"></script>
     <script type="text/javascript" src="<?=base_url()?>js/bootstrap.js"></script>    
     <script src="<?=base_url()?>js/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/bootstrap.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-    <?if($this->session->userdata('tipo')==1):?>  
-    <?=$this->load->view('js/admonjs',TRUE)?>
-    <?else:?>
-    <?=$this->load->view('js/usuariojs',TRUE)?>
-    <?endif;?>      
     <style type="text/css">
-    body{        
-        margin:0;
-        padding:0;
-        font-size: 13px;                         
-    }  
-
-    .pointer{
-        cursor: pointer;
-    }
-
-    div#piepagina{
-        background: rgba(0,0,0,0.90);
-        color:white;
-
-    }
-    div#centro{                
-        font-family: 'Raleway', sans-serif;
-        margin-top: 2%;
-        min-height: 450px;
-    }
-    a{
-        cursor: pointer;        
-    }
-    div.row{
-        margin: 0;
-        padding: 0;
-    } 
-    div.modal-header{
-        background: #428bca;
-    }
-    
-    div#sugerencias{
-        z-index: 9000;
-        position: absolute;        
-        max-height: 120px;
-        overflow: auto;
-        font-size: 12px;    
-        padding: 5px;
-        color: black;
-        border: 1px solid #333;    
-        -webkit-box-shadow: #222 5px 5px 5px;
-        -moz-box-shadow: #222 5px 5px 5px;
-        box-shadow: #222 5px 5px 5px;
-        background: #F2F2F2;  
-        display:none;  
-        cursor: pointer;
-    }
-    div#sugerencias_venta{
-        z-index: 9000;
-        position: absolute;        
-        max-height: 120px;
-        overflow: auto;
-        font-size: 12px;    
-        padding: 5px;
-        color: black;
-        border: 1px solid #333;    
-        -webkit-box-shadow: #222 5px 5px 5px;
-        -moz-box-shadow: #222 5px 5px 5px;
-        box-shadow: #222 5px 5px 5px;
-        background: #F2F2F2;  
-        display:none;  
-        cursor: pointer;
-    }
-    div#sugerencias_venta a{
-        color: black;
-        text-decoration: none; 
-    }
-    div#sugerencias_venta a:hover{
-        text-decoration: underline;
-        background: #BAD3D9;
-    }
-    div#sugerencias div.opcion_cliente{
-        color: black;
-        text-decoration: none;
-    }
-    div#sugerencias div.opcion_cliente:hover{
-        text-decoration: underline;
-        background: #BAD3D9;
-    }
-    div#sugerencias div.opciones{
-        color: black;
-        padding: 5px;
-        text-decoration: none;
-    }
-    div#sugerencias div.opciones:hover{
-        text-decoration: underline;
-        background: #BAD3D9;
-    }
-    div#caja{
-        z-index: 9000;
-        position: absolute;        
-        max-height: 120px;
-        min-width: 150px;
-        overflow: auto;
-        font-size: 12px;    
-        padding: 0px;
-        margin: 0px;
-        color:black;
-        border: 1px solid #333;        
-        -webkit-box-shadow: #222 5px 5px 5px;
-        -moz-box-shadow: #222 5px 5px 5px;
-        box-shadow: #222 5px 5px 5px;
-        background: white;   
-        display:none;  
-        cursor: pointer;
-    }
-
-    div#caja > div{
-        color:black;        
-        padding: 5px;
-        text-transform: uppercase;
-    }
-    div#caja div:hover{
-        text-decoration: underline;
-        background: #3276b1;
-    }
-    img{
-        cursor: pointer;
-    }
-    
-    .table{
-        text-transform: uppercase;
-    }
-    .glyphicon{
-        cursor: pointer !important;
-    }
-
-
+        body{        
+            margin:0;
+            padding:0;
+            font-family: 'Raleway', sans-serif;
+            font-size: 13px;                         
+        }  
     </style>
+     
 </head>
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
@@ -174,6 +49,7 @@
                 <ul class="dropdown-menu">
                 <li><a href="<?=base_url()?>index.php/buscarventa/general/">General</a></li>
                 <li><a href="<?=base_url()?>index.php/buscarventa/detallada/">Detallado</a></li>
+                <li><a href="<?=base_url()?>index.php/bitacora">Bitácora</a></li>
                 <li class="divider"></li>
                 <li><a href="<?=base_url()?>index.php/abono">Cuentas Por Pagar</a></li>
                 </ul>
